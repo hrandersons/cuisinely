@@ -1,0 +1,9 @@
+## Mac OSX ##
+.DS_Store
+
+## NPM ##
+node_modules
+
+## Webpack files ##
+src/public/dist
+src/public/dist/bundle.js
