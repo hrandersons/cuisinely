@@ -5,9 +5,9 @@
   "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node server/server.js",
     "build": "webpack",
-    "dev": "webpack && nodemon server.js",
+    "dev": "webpack && nodemon server/server.js",
     "lint": "eslint --ignore-path .gitignore --ext .js --ext .jsx",
     "lint": "eslint server --ignore-path .gitignore --ext .js --ext .jsx",
     "precommit": "lint-staged"
