@@ -1,16 +1,19 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const BUILD_DIR = path.resolve(__dirname, 'client/public/dist');
+const APP_DIR = path.resolve(__dirname, 'client');
+
 module.exports = {
-  entry: './client/index.js',
+  entry: APP_DIR + '/index.js',
   devtool: 'inline-source-map',
   watch: true,
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './client/public/dist')
+    path: BUILD_DIR
   },
   module: {
-    rule: [
+    rules: [
       {
         test: /\.js$/,
         exclude: [/node_modules/],
@@ -35,7 +38,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react',
-      ReactDOM: 'react-dom';
+      ReactDOM: 'react-dom'
     })
   ],
   devServer: {
