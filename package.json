@@ -8,8 +8,16 @@
     "start": "nodemon server.js",
     "build": "webpack",
     "dev": "webpack && nodemon server.js",
-    "lint": "eslint --ignore-path .gitignore --ext .js --ext .jsx"
+    "lint": "eslint --ignore-path .gitignore --ext .js --ext .jsx",
+    "lint": "eslint server --ignore-path .gitignore --ext .js --ext .jsx",
+    "precommit": "lint-staged"
   },
+  "lint-staged": {
+  "*.{js,jsx}": [
+    "eslint --fix",
+    "git add"
+  ]
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrandersons/cuisinely.git"
