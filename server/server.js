@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('client/public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World!');
 });
 
 app.listen(PORT, () => {
-  console.log('Listening on Port', PORT)
+  console.log('Listening on Port', PORT);
 });
