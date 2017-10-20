@@ -23,7 +23,7 @@ module.exports = {
   watch: true,
   output: {
     filename: 'bundle.js',
-    path: BUILD_DIR,
+    path: BUILD_DIR + '/dist/',
     publicPath: '/dist/'
   },
   module: {
