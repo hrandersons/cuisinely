@@ -2,15 +2,17 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 
+import UserProfile from './user-profile.js';
+
 class SideDrawer extends React.Component {
   render() {
     return(
       <Drawer
         openSecondary={true}
-        open={true}
+        open={this.props.drawerOpen}
       >
-        <AppBar title="User Profile" />
-        This is a drawer.
+        <AppBar onLeftIconButtonTouchTap={this.props.toggleDrawer}/>
+        <UserProfile/>
       </Drawer>
     )
   }
