@@ -25,8 +25,8 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <a href="#">Explore Recipe</a>
-              <a href="#">Add to Meals</a>
+              <a href="#">Explore</a>
+              <a href="#">Bookmark</a>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ class SearchBar extends React.Component {
       <div className="row">
         <div className="input-field col s8">
           <input type="text" id="icon_prefix" className="validate"/>
-          <label for="icon_prefix">Search Recipes</label>
+          <label htmlFor="icon_prefix">Search Recipes</label>
           <a onClick={this.handleSearchSubmit}><i className="material-icons prefix">search</i></a>
         </div>
       </div>
