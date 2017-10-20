@@ -9,7 +9,7 @@
     "build": "webpack",
     "dev-client": "webpack-dev-server --color",
     "dev": "nodemon server/server.js --ignore client/*/**",
-    "lint": "eslint server --ignore-path .gitignore --ext .js --ext .jsx",
+    "lint": "eslint server client --ignore-path .gitignore --ext .js --ext .jsx",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -54,11 +54,16 @@
     "webpack-dev-server": "^2.9.2"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "css-loader": "^0.28.7",
+    "eslint": "^4.8.0",
     "eslint-config-hackreactor": "github:hackreactor-labs/eslint-config-hackreactor",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^7.4.0",
     "file-loader": "^1.1.5",
+    "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
     "style-loader": "^0.19.0"
   }
