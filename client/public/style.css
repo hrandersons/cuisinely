@@ -5,10 +5,22 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.app-bar-title {
+a {
+  cursor: pointer;
+}
+
+.component-title {
+  font-weight: 400;
+}
+
+.nav-bar-title {
   vertical-align: middle;
-  font-size: 30px;
+  font-size: 1em;
   font-family: 'Lobster', cursive;
+}
+
+.nav-bar-logo {
+  vertical-align: middle;
 }
 
 .user-profile {
