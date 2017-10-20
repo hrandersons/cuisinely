@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('client/public/index.html'));
+});
+
 app.listen(PORT, () => {
   console.log('Listening on Port', PORT);
 });
