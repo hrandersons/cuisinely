@@ -10,12 +10,14 @@ import SideDrawer from './side-drawer.js';
 import Dashboard from './dashboard.js';
 import Recipes from './recipes.js';
 import Meals from './meals.js';
+import Login from './login.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      isLoggedIn: true
     };
     this.muiTheme = getMuiTheme({
       palette: {
@@ -33,13 +35,28 @@ class App extends React.Component {
     });
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.renderApp = this.renderApp.bind(this);
+    this.renderLogin = this.renderLogin.bind(this);
   }
 
   toggleDrawer() {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
 
-  render() {
+  renderLogin() {
+    return (
+      <MuiThemeProvider>
+        <Switch>
+          <Route path='/login' render={props => (<Login {...props} />)} />)} />
+          
+          <Redirect to='/login' />
+        </Switch>
+      </MuiThemeProvider>
+    );
+  }
+
+  renderApp() {
+    console.log('RenderAPp invoked --> ', this);
     return (
       <MuiThemeProvider muiTheme={this.muiTheme}>
         <div>
@@ -55,6 +72,17 @@ class App extends React.Component {
       </MuiThemeProvider>
     );
   }
+
+
+  render() {
+    return ( this.state.isLoggedIn ) ? (
+      this.renderApp()
+    ) : (
+      this.renderLogin()
+    );
+  }
+
+
 }
 
 export default App;
