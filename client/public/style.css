@@ -1,0 +1,12 @@
+body {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-bar-title {
+  vertical-align: middle;
+  font-size: 30px;
+  font-family: 'Lobster', cursive;
+}
