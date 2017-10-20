@@ -2,11 +2,11 @@ import React from 'react';
 
 class Meals extends React.Component {
   render() {
-    return(
+    return (
       <div>
         Hello Meals!
       </div>
-    )
+    );
   }
 }
 

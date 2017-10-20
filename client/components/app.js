@@ -53,7 +53,7 @@ class App extends React.Component {
           <SideDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer}/>
         </div>
       </MuiThemeProvider>
-    )
+    );
   }
 }
 

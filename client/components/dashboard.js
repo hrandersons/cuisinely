@@ -2,11 +2,11 @@ import React from 'react';
 
 class Dashboard extends React.Component {
   render() {
-    return(
+    return (
       <div>
         Hello Dashboard!
       </div>
-    )
+    );
   }
 }
 

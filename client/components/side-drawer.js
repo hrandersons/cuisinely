@@ -6,7 +6,7 @@ import UserProfile from './user-profile.js';
 
 class SideDrawer extends React.Component {
   render() {
-    return(
+    return (
       <Drawer
         openSecondary={true}
         open={this.props.drawerOpen}
@@ -14,7 +14,7 @@ class SideDrawer extends React.Component {
         <AppBar onLeftIconButtonTouchTap={this.props.toggleDrawer}/>
         <UserProfile/>
       </Drawer>
-    )
+    );
   }
 }
 

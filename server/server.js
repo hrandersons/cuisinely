@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('client/public'));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/api/hello', (req, res) => {
+  res.send({message: 'Hello World!'});
 });
 
 app.get('*', (req, res) => {
