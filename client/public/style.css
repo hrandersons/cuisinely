@@ -10,3 +10,7 @@ body {
   font-size: 30px;
   font-family: 'Lobster', cursive;
 }
+
+.user-profile {
+  text-align: center;
+}
