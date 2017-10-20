@@ -45,31 +45,26 @@ class App extends React.Component {
 
   renderLogin() {
     return (
-      <MuiThemeProvider>
-        <Switch>
-          <Route path='/login' render={props => (<Login {...props} />)} />)} />
-          
-          <Redirect to='/login' />
-        </Switch>
-      </MuiThemeProvider>
+      <Switch>
+        <Route path='/login' render={props => (<Login {...props} />)} />)} />
+
+        <Redirect to='/login' />
+      </Switch>
     );
   }
 
   renderApp() {
     console.log('RenderAPp invoked --> ', this);
     return (
-      <MuiThemeProvider muiTheme={this.muiTheme}>
-        <div>
-          <NavBar toggleDrawer={this.toggleDrawer}/>
-          <Switch>
-            <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
-            <Route path='/recipes' render={props => (<Recipes {...props} />)} />
-            <Route path='/meals' render={props => (<Meals {...props} />)} />
-            <Redirect to='/dashboard' />
-          </Switch>
-          <SideDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer}/>
-        </div>
-      </MuiThemeProvider>
+      <div>
+        <NavBar toggleDrawer={this.toggleDrawer}/>
+        <Switch>
+          <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
+          <Route path='/recipes' render={props => (<Recipes {...props} />)} />
+          <Route path='/meals' render={props => (<Meals {...props} />)} />
+          <Redirect to='/dashboard' />
+        </Switch>
+      </div>
     );
   }
 
