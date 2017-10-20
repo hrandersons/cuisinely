@@ -7,17 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "build": "webpack",
-    "dev": "webpack && nodemon server/server.js",
-    "lint": "eslint --ignore-path .gitignore --ext .js --ext .jsx",
+    "dev-client": "webpack-dev-server --color",
+    "dev": "nodemon server/server.js --ignore client/*/**",
     "lint": "eslint server --ignore-path .gitignore --ext .js --ext .jsx",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-  "*.{js,jsx}": [
-    "eslint --fix",
-    "git add"
-  ]
-},
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrandersons/cuisinely.git"
@@ -35,13 +35,16 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
+    "clean-webpack-plugin": "^0.1.17",
     "express": "^4.16.2",
+    "html-webpack-plugin": "^2.30.1",
     "material-ui": "^0.19.4",
     "mongodb": "^2.2.33",
     "mongoose": "^4.12.3",
     "react": "^16.0.0",
     "react-redux": "^5.0.4",
     "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.1.1",
     "react-router-dom": "^4.2.2",
     "redux": "^3.6.0",
     "redux-promise-middleware": "^3.2.0",
@@ -54,7 +57,9 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "css-loader": "^0.28.7",
+    "eslint-config-hackreactor": "github:hackreactor-labs/eslint-config-hackreactor",
     "file-loader": "^1.1.5",
+    "lint-staged": "^4.3.0",
     "style-loader": "^0.19.0"
   }
 }
