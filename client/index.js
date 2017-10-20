@@ -5,7 +5,7 @@ import App from './components/app.js';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppContainer } from 'react-hot-loader';
-
+n;
 const render = Component => {
   ReactDOM.render((
     <AppContainer>

@@ -14,3 +14,50 @@ body {
 .user-profile {
   text-align: center;
 }
+
+.login-page:before {
+  content: "";
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  top: 0;
+  left: 0;
+  background: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
+  -webkit-filter: blur(13px);
+  -moz-filter: blur(13px);
+  -o-filter: blur(13px);
+  -ms-filter: blur(13px);
+  filter: blur(13px);
+  position: fixed;
+  align-items: center;
+}
+
+.login-page {
+   position: fixed;
+  top: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+.login-container {
+  background-color: #B2EBF2;
+  text-align: center;
+  position: relative;
+  margin:auto;
+   padding: 80px 50px;
+}
+
+.login-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  font-size: 40px;
+  font-weight: 300;
+}
+.login-text {
+  color: white;
+}
