@@ -15,7 +15,7 @@ class NavBar extends React.Component {
       <div className="nav-bar">
         <nav>
           <div className="nav-wrapper teal lighten-2">
-            <span className="brand-logo"><span className="nav-bar-logo"><i className="large material-icons">local_dining</i></span><span className="nav-bar-title">ifeedme</span></span>
+            <span className="brand-logo center nav-bar-title">ifeedme</span>
             <a href="#" data-activates="mobile" className="button-collapse"><i className="material-icons">menu</i></a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link to="dashboard">Dashboard</Link></li>
