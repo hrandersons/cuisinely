@@ -3,6 +3,7 @@
 
 ## NPM ##
 node_modules
+npm-debug.log
 
 ## Webpack files ##
 client/public/dist

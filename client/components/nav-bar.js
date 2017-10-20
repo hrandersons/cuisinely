@@ -7,7 +7,7 @@ import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 
 class NavBar extends React.Component {
   render() {
-    return(
+    return (
       <AppBar
         title={<Toolbar>
           <ToolbarGroup>
@@ -22,7 +22,7 @@ class NavBar extends React.Component {
       >
 
       </AppBar>
-    )
+    );
   }
 }
 
