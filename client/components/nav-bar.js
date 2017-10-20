@@ -6,22 +6,31 @@ import FlatButton from 'material-ui/FlatButton';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 
 class NavBar extends React.Component {
+
+  componentDidMount() {
+    $('.button-collapse').sideNav();
+  }
   render() {
     return (
-      <AppBar
-        title={<Toolbar>
-          <ToolbarGroup>
-            <FlatButton label="Dashboard" containerElement={<Link to="dashboard" />}/>
-            <FlatButton label="Recipes" containerElement={<Link to="recipes" />}/>
-            <FlatButton label="My Meals" containerElement={<Link to="meals" />}/>
-          </ToolbarGroup>
-        </Toolbar>}
-        iconElementLeft={<span className="app-bar-title"><IconButton><i className="material-icons">local_dining</i></IconButton>ifeedme</span>}
-        iconElementRight={<IconButton><i className="material-icons">menu</i></IconButton>}
-        onRightIconButtonTouchTap={this.props.toggleDrawer}
-      >
-
-      </AppBar>
+      <div className="nav-bar">
+        <nav>
+          <div className="nav-wrapper teal lighten-2">
+            <span className="brand-logo"><span className="nav-bar-logo"><i className="large material-icons">local_dining</i></span><span className="nav-bar-title">ifeedme</span></span>
+            <a href="#" data-activates="mobile" className="button-collapse"><i className="material-icons">menu</i></a>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><Link to="dashboard">Dashboard</Link></li>
+              <li><Link to="recipes">Recipes</Link></li>
+              <li><Link to="meals">Meals</Link></li>
+              <li><a onClick={this.props.toggleDrawer}><i className="material-icons">menu</i></a></li>
+            </ul>
+            <ul className="side-nav" id="mobile">
+              <li><Link to="dashboard">Dashboard</Link></li>
+              <li><Link to="recipes">Recipes</Link></li>
+              <li><Link to="meals">Meals</Link></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     );
   }
 }
