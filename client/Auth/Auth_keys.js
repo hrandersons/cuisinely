@@ -1,1 +1,2 @@
-
+exports.clientId = '';
+exports.domain = '';
