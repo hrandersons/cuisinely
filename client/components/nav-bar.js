@@ -38,15 +38,9 @@ class NavBar extends React.Component {
               </ul>
             </SideNav>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li>
-                <Link to="dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="recipes">Recipes</Link>
-              </li>
-              <li>
-                <Link to="meals">Meals</Link>
-              </li>
+              <li><Link to="dashboard">Dashboard</Link></li>
+              <li><Link to="recipes">Recipes</Link></li>
+              <li><Link to="meals">Meals</Link></li>
               <li>
                 <SideNav
                   trigger={<a className="button-profile">
@@ -60,10 +54,6 @@ class NavBar extends React.Component {
                 </SideNav>
               </li>
             </ul>
-
-
-
-
           </div>
         </nav>
       </div>
