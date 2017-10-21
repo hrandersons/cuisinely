@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import SearchBar from './search-bar.js';
 import RecipeEntry from './recipe-entry.js';
@@ -17,7 +18,7 @@ class Recipes extends React.Component {
           <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
         </div>
         <div align="right">
-          <a className="waves-effect waves-light btn"><i className="material-icons left">local_dining</i>Add Your Own!</a>
+          <Link to="submit" className="waves-effect waves-light btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>
         <div className="recipe-entries">
           <RecipeEntry />
