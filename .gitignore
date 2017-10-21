@@ -8,3 +8,6 @@ npm-debug.log
 ## Webpack files ##
 client/public/dist
 client/public/dist/bundle.js
+
+## Cloudinary ##
+cloudinary
