@@ -52,7 +52,7 @@ const formatRaw = (data) => {
     });
     recipe.difficulty = calcDifficulty(recipe);
     recipe.rating = 0;
-    recipe.imageUrl = value.imageUrl;
+    recipe.imageUrl = value.imageURL;
     if (value.originalURL) {
       recipe.source = value.originalURL;
     } else {

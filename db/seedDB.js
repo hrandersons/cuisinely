@@ -1,9 +1,9 @@
 let recipeData = require('./recipes.json');
 const Recipe = require('./models/recipe.js');
-const seedData = JSON.parse(recipeData);
+//const seedData = JSON.parse(recipeData);
 
 let seedDB = () => {
-  seedData.forEach((recipe) => {
+  recipeData.forEach((recipe) => {
     Recipe.findOne({ name: recipe.name }, (err, entry) => {
       if (err) {
         console.log(err);
@@ -33,3 +33,5 @@ let seedDB = () => {
   });
   console.log('Database seeded!');
 };
+
+seedDB();
