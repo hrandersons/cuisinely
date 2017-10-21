@@ -12,5 +12,10 @@ client/public/dist/bundle.js
 ## Cloudinary ##
 cloudinary
 
+<<<<<<< HEAD
 #Keys
 client/Auth/Auth_keys.js
+=======
+## Auth Keys ##
+client/Auth/Auth_keys.js
+>>>>>>> first steps to dashboard
