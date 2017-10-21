@@ -11,6 +11,7 @@ import Dashboard from './dashboard.js';
 import Recipes from './recipes.js';
 import Meals from './meals.js';
 import Login from './login.js';
+import RecipeDetails from './recipe-details.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class App extends React.Component {
       <MuiThemeProvider>
         <Switch>
           <Route path='/login' render={props => (<Login {...props} />)} />)} />
-          
+
           <Redirect to='/login' />
         </Switch>
       </MuiThemeProvider>
@@ -56,7 +57,7 @@ class App extends React.Component {
   }
 
   renderApp() {
-    console.log('RenderAPp invoked --> ', this);
+    console.log('RenderApp invoked --> ', this);
     return (
       <MuiThemeProvider muiTheme={this.muiTheme}>
         <div>
@@ -65,6 +66,8 @@ class App extends React.Component {
             <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
             <Route path='/recipes' render={props => (<Recipes {...props} />)} />
             <Route path='/meals' render={props => (<Meals {...props} />)} />
+            <Route path='/id' render={props => (<RecipeDetails {...props} />)} />
+
             <Redirect to='/dashboard' />
           </Switch>
           <SideDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer}/>
