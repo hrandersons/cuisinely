@@ -61,3 +61,6 @@ body {
 .login-text {
   color: white;
 }
+.btn-margin {
+  margin: 7px 3px;
+}

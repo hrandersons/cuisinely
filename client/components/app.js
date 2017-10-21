@@ -4,6 +4,17 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal300, grey900} from 'material-ui/styles/colors';
+import Auth from '../Auth/Auth';
+import history from '../history';
+import Callback from '../Callback/Callback';
+import Home from '../Home/Home';
+const auth = new Auth();
+
+const handleAuthentication = (nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication();
+  }
+}
 
 import NavBar from './nav-bar.js';
 import SideDrawer from './side-drawer.js';
@@ -12,12 +23,14 @@ import Recipes from './recipes.js';
 import Meals from './meals.js';
 import Login from './login.js';
 
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       drawerOpen: false,
-      isLoggedIn: true
+      isLoggedIn: false
     };
     this.muiTheme = getMuiTheme({
       palette: {
@@ -37,18 +50,29 @@ class App extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
+    this.userLogging = this.userLogging.bind(this);
   }
 
   toggleDrawer() {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
+  userLogging() {
+    this.setState({
+      isLoggedIn: true
+    })
+  }
 
   renderLogin() {
+
     return (
       <MuiThemeProvider>
         <Switch>
-          <Route path='/login' render={props => (<Login {...props} />)} />)} />
-          
+          <Route path='/login' render={props => (<Login auth={auth} logging={this.userLogging} {...props} />)} />)} />
+           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
+           <Route path="/callback" render={(props) => {
+          handleAuthentication(props);
+          return <Callback {...props} /> 
+          }}/>
           <Redirect to='/login' />
         </Switch>
       </MuiThemeProvider>
@@ -56,7 +80,6 @@ class App extends React.Component {
   }
 
   renderApp() {
-    console.log('RenderAPp invoked --> ', this);
     return (
       <MuiThemeProvider muiTheme={this.muiTheme}>
         <div>
@@ -75,6 +98,7 @@ class App extends React.Component {
 
 
   render() {
+
     return ( this.state.isLoggedIn ) ? (
       this.renderApp()
     ) : (
