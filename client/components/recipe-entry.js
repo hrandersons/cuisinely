@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class RecipeEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <a href="#">Explore</a>
+              <Link to="details/id">Explore</Link>
               <a href="#">Bookmark</a>
             </div>
           </div>

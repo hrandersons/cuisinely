@@ -7,6 +7,7 @@ import Dashboard from './dashboard.js';
 import Recipes from './recipes.js';
 import Meals from './meals.js';
 import Login from './login.js';
+import RecipeDetails from './recipe-details.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class App extends React.Component {
           <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
           <Route path='/recipes' render={props => (<Recipes {...props} />)} />
           <Route path='/meals' render={props => (<Meals {...props} />)} />
+          <Route path='/details/id' render={props => (<RecipeDetails {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>
       </div>
