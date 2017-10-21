@@ -44,7 +44,7 @@ class App extends React.Component {
           <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
           <Route path='/recipes' render={props => (<Recipes {...props} />)} />
           <Route path='/meals' render={props => (<Meals {...props} />)} />
-          <Route path='/details/id' render={props => (<RecipeDetails {...props} />)} />
+          <Route path='/details' render={props => (<RecipeDetails {...props} />)} />
           <Route path='/submit' render={props => (<SubmitRecipe {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>

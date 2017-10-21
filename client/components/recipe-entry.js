@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class RecipeEntry extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <Link to="details/id">Explore</Link>
+              <Link to="details">Explore</Link>
               <a href="#">Bookmark</a>
             </div>
           </div>
