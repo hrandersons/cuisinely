@@ -42,7 +42,7 @@ class App extends React.Component {
     });
     this.state = {
       drawerOpen: false,
-      isLoggedIn: this.auth.loggedIn()
+      isLoggedIn: false
     };
   }
 
@@ -52,15 +52,15 @@ class App extends React.Component {
 
   renderLogin() {
     return (
-        <Switch>
-          <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
-          <Route path="/home" render={(props) => <Home auth={this.auth} {...props} />} />
-          <Route path="/callback" render={(props) => {
-            handleAuthentication(props);
-            return <Callback {...props} />; 
-          }}/>
-          <Redirect to='/login' />
-        </Switch>
+      <Switch>
+        <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
+        <Route path="/home" render={(props) => <Home auth={this.auth} {...props} />} />
+        <Route path="/callback" render={(props) => {
+          handleAuthentication(props);
+          return <Callback {...props} />; 
+        }}/>
+        <Redirect to='/login' />
+      </Switch>
     );
   }
 
