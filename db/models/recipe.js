@@ -15,7 +15,7 @@ const recipeSchema = new mongoose.Schema({
   //instructions, collected in order
   instructions: { type: [], required: true },
   //difficulty rating, will have to calculate on recipe save
-  difficulty: { type: String, required: true },
+  difficulty: { type: Number, required: true },
   //user rating, can have this default to 0 or 10 until we implement rating changes
   rating: { type: Number, required: true },
   //image source

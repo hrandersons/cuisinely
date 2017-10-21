@@ -14,9 +14,6 @@ app.get('/api/hello', (req, res) => {
   res.send({message: 'Hello World!'});
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve('client/public/index.html'));
-});
 
 app.listen(PORT, () => {
   console.log('Listening on Port', PORT);
@@ -27,3 +24,7 @@ app.get('/api/recipes', handler.sendRecipes);
 app.post('/api/recipes', handler.newRecipe);
 
 app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('client/public/index.html'));
+});
