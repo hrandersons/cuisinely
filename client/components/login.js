@@ -1,7 +1,4 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class Login extends React.Component {
   constructor(props) {
@@ -16,15 +13,25 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-page">
-        <div className="login-container"> 
-          <MuiThemeProvider>
-            <div className="login-title"> Welcome to IfeedMe</div>
-            <TextField hintText="Enter your Username" floatingLabelText="Username" />
-            <br/>
-            <TextField type="password" hintText="Enter your password" floatingLabelText="Password" />
-            <br/>
-            <RaisedButton label="Log In" primary={true} onClick={this.handleLogin} />
-          </MuiThemeProvider>
+        <div className="login-container">
+          <div className="login-title"> Welcome to ifeedme!</div>
+          <form onSubmit={this.handleLogin}>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="email" type="email" className="validate" />
+                <label htmlFor="email">Email</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="password" type="password" className="validate" />
+                <label htmlFor="password">Password</label>
+              </div>
+            </div>
+            <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleLogin}>
+              Log In
+            </button>
+          </form>
         </div>
       </div>
     );
