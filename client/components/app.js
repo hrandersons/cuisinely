@@ -8,13 +8,14 @@ import Auth from '../Auth/Auth';
 import history from '../history';
 import Callback from '../Callback/Callback';
 import Home from '../Home/Home';
-const auth = new Auth();
+
 
 const handleAuthentication = (nextState, replace) => {
+  console.log('It is inside of handleAuthentication');
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
-}
+};
 
 import NavBar from './nav-bar.js';
 import SideDrawer from './side-drawer.js';
@@ -28,10 +29,6 @@ import Login from './login.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      drawerOpen: false,
-      isLoggedIn: false
-    };
     this.muiTheme = getMuiTheme({
       palette: {
         primaryColor: teal300,
@@ -50,28 +47,31 @@ class App extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
-    this.userLogging = this.userLogging.bind(this);
+    this.auth = new Auth('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.com', () => {
+      console.log('It worked, AUthonticated');
+      this.setState({
+        isLoggedIn: true
+      });
+    });
+    this.state = {
+      drawerOpen: false,
+      isLoggedIn: this.auth.loggedIn()
+    };
   }
 
   toggleDrawer() {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
-  userLogging() {
-    this.setState({
-      isLoggedIn: true
-    })
-  }
 
   renderLogin() {
-
     return (
       <MuiThemeProvider>
         <Switch>
-          <Route path='/login' render={props => (<Login auth={auth} logging={this.userLogging} {...props} />)} />)} />
-           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-           <Route path="/callback" render={(props) => {
-          handleAuthentication(props);
-          return <Callback {...props} /> 
+          <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
+          <Route path="/home" render={(props) => <Home auth={this.auth} {...props} />} />
+          <Route path="/callback" render={(props) => {
+            handleAuthentication(props);
+            return <Callback {...props} />; 
           }}/>
           <Redirect to='/login' />
         </Switch>

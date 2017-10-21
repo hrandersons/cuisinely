@@ -1,63 +1,45 @@
-import auth0 from 'auth0-js';
-import history from '../history';
-export default class Auth {
-  auth0 = new auth0.WebAuth({
-    domain: 'ifeedme.auth0.com',
-    clientID: 'sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4',
-    redirectUri: 'http://localhost:8080',
-    audience: 'https://ifeedme.auth0.com/userinfo',
-    responseType: 'token id_token',
-    scope: 'openid'
-  });
-
-   constructor() {
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
-  }
-
-  login() {
-    this.auth0.authorize();
-  }
-
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/home');
-      } else if (err) {
-        history.replace('/home');
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
+import Auth0Lock from 'auth0-lock';
+import keys from './Auth_keys';
+export default class Auth {  
+  constructor (clientId, domain, callback) {    
+    // Configure Auth0    
+    this.lock = new Auth0Lock(keys.clientId, keys.domain, { redirect: true, allowSignUp: true,
+      auth: {
+        params: {param1: 'value1'},
+        responseType: 'token',
+        redirect: true,
+        sso: true
       }
-    });
-  }
+    });    
+    // Add callback for lock `authenticated` event    
+    this.lock.on('authenticated', this._doAuthentication.bind(this, callback));    
+    // binds login functions to keep this context    
+    this.login = this.login.bind(this);  
+  }  
+  _doAuthentication (callback, authResult) {    
+    this.setToken(authResult.idToken);    
+    callback();  
+  }  
+  login () {    
+    // Call the show method to display the widget.
+    this.lock.show();  
+  } 
 
-  setSession(authResult) {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    history.replace('/home');
+  loggedIn () {    
+    // Checks if there is a saved token and it’s still valid   
+    console.log(localStorage.getItem('id_token')); 
+    return !!this.getToken();  
+  }  
+  setToken (idToken) {    
+    // Saves user token to localStorage    
+    localStorage.setItem('id_token', idToken);  
   }
-
-  logout() {
-    // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    // navigate to the home route
-    history.replace('/home');
+  getToken () {    
+    // Retrieves the user token from localStorage    
+    return localStorage.getItem('id_token');  
+  }  
+  logout () {    
+    // Clear user token and profile data from localStorage    
+    localStorage.removeItem('id_token');  
   }
-
-  isAuthenticated() {
-    // Check whether the current time is past the 
-    // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
-  }
-
 }
