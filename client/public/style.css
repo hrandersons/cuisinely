@@ -70,6 +70,11 @@ a {
   font-size: 40px;
   font-weight: 300;
 }
+
 .login-text {
+  color: #212121;
+}
+
+.user-profile {
   color: #212121;
 }
