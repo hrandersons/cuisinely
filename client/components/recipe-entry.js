@@ -24,7 +24,7 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <a href="/id">Explore</a>
+              <Link to="/details/id">Explore</Link>
               <a href="#">Bookmark</a>
             </div>
           </div>
