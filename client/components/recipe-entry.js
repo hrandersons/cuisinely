@@ -9,16 +9,16 @@ class RecipeEntry extends React.Component {
   render() {
     return (
       <div className="col s12 m7">
-        <div className="card horizontal">
+        <div className="card horizontal hoverable">
           <div className="card-image">
             <img src="http://lorempixel.com/200/200/food/" />
           </div>
           <div className="card-stacked">
             <div className="card-content">
               <span className="card-title">Name of Recipe</span>
-              <div>
+              <blockquote>
                 A short description of this delicious yet easy to prepare food...
-              </div>
+              </blockquote>
               <ul>
                 <li><strong>Difficulty:</strong> Very Easy</li>
                 <li><strong>Estimated Time:</strong> 25 Minutes</li>
