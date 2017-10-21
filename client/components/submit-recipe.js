@@ -44,8 +44,11 @@ class SubmitRecipe extends React.Component {
     recipe.description = this.state.description;
     recipe.ingredients = this.state.ingredients;
     recipe.equipment = this.state.equipment;
-    recipe.instructions = this.state.instructions;
     recipe.photoUrl = this.state.photoUrl;
+
+    let instructions = this.state.instructions;
+
+    recipe.instructions = instructions.split('\n');
 
     console.log(recipe);
   }
@@ -150,8 +153,10 @@ class SubmitRecipe extends React.Component {
     });
   }
 
-  handleInstructions() {
-
+  handleInstructions(e) {
+    this.setState({
+      instructions: e.target.value
+    });
   }
 
   render() {
