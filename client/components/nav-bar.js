@@ -1,32 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+
+import { SideNav, SideNavItem, Button } from 'react-materialize';
+
+import SideDrawer from './side-drawer.js';
 
 class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    $('.button-collapse').sideNav();
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
+
+  handleLogOut() {
+    console.log('logging out');
+  }
+
   render() {
     return (
       <div className="nav-bar">
         <nav>
           <div className="nav-wrapper teal lighten-2">
-            <span className="brand-logo"><span className="nav-bar-logo"><i className="large material-icons">local_dining</i></span><span className="nav-bar-title">ifeedme</span></span>
-            <a href="#" data-activates="mobile" className="button-collapse"><i className="material-icons">menu</i></a>
+            <span className="brand-logo center nav-bar-title">ifeedme</span>
+            <SideNav
+              trigger={<a className="button-collapse">
+                <i className="material-icons">menu</i>
+              </a>}
+              options={{ closeOnClick: true }}
+            >
+              <div align="center">
+                <Button className="waves-effect waves-light btn red lighten-1" onClick={this.handleLogOut}>Log Out</Button>
+              </div>
+              <ul>
+                <li><Link to="dashboard">Dashboard</Link></li>
+                <li><Link to="recipes">Recipes</Link></li>
+                <li><Link to="meals">Meals</Link></li>
+              </ul>
+            </SideNav>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link to="dashboard">Dashboard</Link></li>
               <li><Link to="recipes">Recipes</Link></li>
               <li><Link to="meals">Meals</Link></li>
-              <li><a onClick={this.props.toggleDrawer}><i className="material-icons">menu</i></a></li>
-            </ul>
-            <ul className="side-nav" id="mobile">
-              <li><Link to="dashboard">Dashboard</Link></li>
-              <li><Link to="recipes">Recipes</Link></li>
-              <li><Link to="meals">Meals</Link></li>
+              <li>
+                <SideNav
+                  trigger={<a className="button-profile">
+                    <i className="material-icons">person</i>
+                  </a>}
+                  options={{ closeOnClick: true, edge: 'right' }}
+                >
+                  <div>
+                    <SideDrawer />
+                  </div>
+                </SideNav>
+              </li>
             </ul>
           </div>
         </nav>

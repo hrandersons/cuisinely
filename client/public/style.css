@@ -57,7 +57,7 @@ a {
 
 
 .login-container {
-  background-color: #B2EBF2;
+  background-color: #b2dfdb;
   text-align: center;
   position: relative;
   margin:auto;
@@ -65,11 +65,20 @@ a {
 }
 
 .login-title {
-  font-family: 'Source Sans Pro', sans-serif;
-  color: white;
+  font-family: 'Lobster', cursive;
+  color: #212121;
   font-size: 40px;
   font-weight: 300;
 }
+
 .login-text {
-  color: white;
+  color: #212121;
+}
+
+.user-profile {
+  color: #212121;
+}
+
+.heart-icon {
+  color: #d32f2f;
 }
