@@ -6,20 +6,24 @@ class SubmitRecipe extends React.Component {
     super(props);
 
     this.state = {
-      name: null,
-      time: null,
-      difficulty: null,
+      name: '',
+      time: '',
+      description: '',
+      difficulty: '',
       ingredients: [],
       ingName: '',
       ingAmount: '',
       equipment: [],
       equipName: '',
       equipAmount: '',
-      directions: [],
-      photo: null
+      instructions: [],
+      photoUrl: ''
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
+    this.handleRecipeName = this.handleRecipeName.bind(this);
+    this.handleRecipeTime = this.handleRecipeTime.bind(this);
+    this.handleDescription = this.handleDescription.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.handleIngName = this.handleIngName.bind(this);
     this.handleIngAmount = this.handleIngAmount.bind(this);
@@ -28,11 +32,40 @@ class SubmitRecipe extends React.Component {
     this.handleEquipName = this.handleEquipName.bind(this);
     this.handleEquipAmount = this.handleEquipAmount.bind(this);
     this.removeEquipment = this.removeEquipment.bind(this);
+    this.handleInstructions = this.handleInstructions.bind(this);
   }
 
   handleSubmitRecipe(e) {
     e.preventDefault();
     console.log('submit recipe!');
+    let recipe = {};
+    recipe.name = this.state.name;
+    recipe.time = this.state.time;
+    recipe.description = this.state.description;
+    recipe.ingredients = this.state.ingredients;
+    recipe.equipment = this.state.equipment;
+    recipe.instructions = this.state.instructions;
+    recipe.photoUrl = this.state.photoUrl;
+
+    console.log(recipe);
+  }
+
+  handleRecipeName(e) {
+    this.setState({
+      name: e.target.value
+    });
+  }
+
+  handleRecipeTime(e) {
+    this.setState({
+      time: e.target.value
+    });
+  }
+
+  handleDescription(e) {
+    this.setState({
+      description: e.target.value
+    });
   }
 
   addIngredient(e) {
@@ -117,6 +150,10 @@ class SubmitRecipe extends React.Component {
     });
   }
 
+  handleInstructions() {
+
+  }
+
   render() {
     return (
       <div className="container">
@@ -125,9 +162,9 @@ class SubmitRecipe extends React.Component {
           <form s={12}>
             <div className="col s12">
               <h5><strong>Recipe Information:</strong></h5>
-              <Input s={7} label="Name" type="text" />
-              <Input s={3} label="Minutes" type="number" />
-              <Input s={10} label="Short Description" type="text" />
+              <Input s={7} label="Name" type="text" onChange={this.handleRecipeName}/>
+              <Input s={3} label="Minutes" type="number" onChange={this.handleRecipeTime}/>
+              <Input s={10} label="Short Description" type="text" onChange={this.handleDescription}/>
             </div>
             <div className="col s12 m6">
               <h5><strong>Ingredients:</strong></h5>
@@ -194,8 +231,8 @@ class SubmitRecipe extends React.Component {
               </div>
             </div>
             <div className="col s12">
-              <h5><strong>Directions:</strong></h5>
-              <Input s={12} type="textarea" label="Put each step on its own line"/>
+              <h5><strong>Instructions:</strong></h5>
+              <Input s={12} type="textarea" label="Put each step on its own line" onChange={this.handleInstructions}/>
             </div>
             <div className="col s12">
               <h5><strong>Add a Photo:</strong></h5>
