@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 
 import Auth from '../Auth/Auth';
+import AuthKeys from '../Auth/Auth_keys';
 import history from '../history';
 import Callback from '../Callback/Callback';
 import Home from '../Home/Home';
@@ -33,7 +34,7 @@ class App extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
-    this.auth = new Auth('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.com', () => {
+    this.auth = new Auth(AuthKeys.clientId, AuthKeys.domain, () => {
       console.log('It worked, AUthonticated');
       this.setState({
         isLoggedIn: true
