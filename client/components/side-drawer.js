@@ -1,19 +1,22 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
 
 import UserProfile from './user-profile.js';
 
 class SideDrawer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogOut = this.handleLogOut.bind(this);
+  }
+
+  handleLogOut() {
+    console.log('logging out');
+  }
   render() {
     return (
-      <Drawer
-        openSecondary={true}
-        open={this.props.drawerOpen}
-      >
-        <AppBar onLeftIconButtonTouchTap={this.props.toggleDrawer}/>
-        <UserProfile/>
-      </Drawer>
+      <div className="side-drawer" align="center">
+        <a className="waves-effect waves-light btn red lighten-1" onClick={this.handleLogOut}>Log Out</a>
+        <UserProfile />
+      </div>
     );
   }
 }

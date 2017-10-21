@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {teal300, grey900} from 'material-ui/styles/colors';
+
 import Auth from '../Auth/Auth';
 import history from '../history';
 import Callback from '../Callback/Callback';
@@ -21,28 +19,16 @@ import NavBar from './nav-bar.js';
 import SideDrawer from './side-drawer.js';
 import Dashboard from './dashboard.js';
 import Recipes from './recipes.js';
+import SubmitRecipe from './submit-recipe.js';
 import Meals from './meals.js';
 import Login from './login.js';
+import RecipeDetails from './recipe-details.js';
 
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.muiTheme = getMuiTheme({
-      palette: {
-        primaryColor: teal300,
-        textColor: grey900,
-      },
-      appBar: {
-        height: 50,
-        textColor: grey900,
-        color: teal300
-      },
-      toolbar: {
-        backgroundColor: teal300,
-      }
-    });
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
@@ -65,7 +51,6 @@ class App extends React.Component {
 
   renderLogin() {
     return (
-      <MuiThemeProvider>
         <Switch>
           <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
           <Route path="/home" render={(props) => <Home auth={this.auth} {...props} />} />
@@ -75,24 +60,22 @@ class App extends React.Component {
           }}/>
           <Redirect to='/login' />
         </Switch>
-      </MuiThemeProvider>
     );
   }
 
   renderApp() {
     return (
-      <MuiThemeProvider muiTheme={this.muiTheme}>
-        <div>
-          <NavBar toggleDrawer={this.toggleDrawer}/>
-          <Switch>
-            <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
-            <Route path='/recipes' render={props => (<Recipes {...props} />)} />
-            <Route path='/meals' render={props => (<Meals {...props} />)} />
-            <Redirect to='/dashboard' />
-          </Switch>
-          <SideDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer}/>
-        </div>
-      </MuiThemeProvider>
+      <div>
+        <NavBar toggleDrawer={this.toggleDrawer}/>
+        <Switch>
+          <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
+          <Route path='/recipes' render={props => (<Recipes {...props} />)} />
+          <Route path='/meals' render={props => (<Meals {...props} />)} />
+          <Route path='/details' render={props => (<RecipeDetails {...props} />)} />
+          <Route path='/submit' render={props => (<SubmitRecipe {...props} />)} />
+          <Redirect to='/dashboard' />
+        </Switch>
+      </div>
     );
   }
 
