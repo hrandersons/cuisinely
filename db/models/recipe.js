@@ -8,6 +8,7 @@ const recipeSchema = new mongoose.Schema({
   //keywords: { type: ?, required: true }
   //need to decide whether to store ingredient quantities
   //in the same string as the ingredient or separately
+  //something like {name: 'tomato puree', quantity: 2, units: 'cups'}
   ingredients: { type: [], required: true },
   //total prep & cook time
   time: { type: Number, required: true },

@@ -8,6 +8,7 @@ userSchema = new mongoose.Schema(
     userid: { type: String },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    bookmarks: { type: [], required: true }
   }
 );
 

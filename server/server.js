@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const handler = require('./request-handler.js');
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
@@ -20,3 +21,9 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log('Listening on Port', PORT);
 });
+
+app.get('/api/recipes', handler.sendRecipes);
+
+app.post('/api/recipes', handler.newRecipe);
+
+app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
