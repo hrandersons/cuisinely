@@ -42,7 +42,7 @@ class App extends React.Component {
     });
     this.state = {
       drawerOpen: false,
-      isLoggedIn: false
+      isLoggedIn: this.auth.loggedIn()
     };
   }
 
