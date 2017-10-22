@@ -3,10 +3,10 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 
 import Auth from '../Auth/Auth';
-import AuthKeys from '../Auth/Auth_keys';
-import history from '../history';
-import Callback from '../Callback/Callback';
-import Home from '../Home/Home';
+// import AuthKeys from '../Auth/Auth_keys';
+// import history from '../history';
+// import Callback from '../Callback/Callback';
+// import Home from '../Home/Home';
 
 
 const handleAuthentication = (nextState, replace) => {
@@ -34,15 +34,21 @@ class App extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
-    this.auth = new Auth(AuthKeys.clientId, AuthKeys.domain, () => {
+
+
+    this.auth = new Auth(() => {
       console.log('It worked, AUthonticated');
       this.setState({
         isLoggedIn: true
       });
     });
+    // this.props.auth.callback = this.handleLoggedIn;
+    // console.log('This.props auth --> ',this.props.auth.callback);
+  
+
     this.state = {
       drawerOpen: false,
-      isLoggedIn: this.auth.loggedIn()
+      isLoggedIn: false
     };
   }
 
@@ -54,11 +60,6 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
-        <Route path="/home" render={(props) => <Home auth={this.auth} {...props} />} />
-        <Route path="/callback" render={(props) => {
-          handleAuthentication(props);
-          return <Callback {...props} />; 
-        }}/>
         <Redirect to='/login' />
       </Switch>
     );
