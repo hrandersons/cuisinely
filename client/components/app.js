@@ -3,11 +3,6 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 
 import Auth from '../Auth/Auth';
-// import AuthKeys from '../Auth/Auth_keys';
-// import history from '../history';
-// import Callback from '../Callback/Callback';
-// import Home from '../Home/Home';
-
 
 const handleAuthentication = (nextState, replace) => {
   console.log('It is inside of handleAuthentication');
@@ -34,6 +29,7 @@ class App extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
 
 
     this.auth = new Auth(() => {
@@ -53,6 +49,12 @@ class App extends React.Component {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
 
+  handleLogOut() {
+    this.setState({
+      isLoggedIn: this.auth.loggedIn()
+    });
+  }
+
   renderLogin() {
     return (
       <Switch>
@@ -65,7 +67,7 @@ class App extends React.Component {
   renderApp() {
     return (
       <div>
-        <NavBar toggleDrawer={this.toggleDrawer}/>
+        <NavBar toggleDrawer={this.toggleDrawer} auth={this.auth} logOut={this.handleLogOut}/>
         <Switch>
           <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
           <Route path='/recipes' render={props => (<Recipes {...props} />)} />

@@ -13,7 +13,10 @@ class NavBar extends React.Component {
   }
 
   handleLogOut() {
+
     console.log('logging out');
+    this.props.auth.logout();
+    this.props.logOut();
   }
 
   render() {
