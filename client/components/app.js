@@ -42,13 +42,10 @@ class App extends React.Component {
         isLoggedIn: true
       });
     });
-    // this.props.auth.callback = this.handleLoggedIn;
-    // console.log('This.props auth --> ',this.props.auth.callback);
   
-
     this.state = {
       drawerOpen: false,
-      isLoggedIn: false
+      isLoggedIn: this.auth.loggedIn()
     };
   }
 
