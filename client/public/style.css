@@ -82,3 +82,16 @@ a {
 .heart-icon {
   color: #d32f2f;
 }
+
+.table {
+  width: 50%
+}
+
+.title {
+  font-size: 30px;
+}
+
+.row {
+  margin-left: 20px;
+  margin-right: 20px;
+}

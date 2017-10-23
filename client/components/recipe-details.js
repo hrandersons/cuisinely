@@ -85,7 +85,7 @@ class RecipeDetails extends React.Component {
                   </div>
                 </div>
                 <br />
-                <p>Directions:</p>
+                <p>Instructions:</p>
                 <br />
                 <p>
                   1. Put a large sauté pan or the flameproof insert of a slow cooker on the stove top over medium-high heat, then add the oil and warm until hot. Working in batches if necessary to avoid crowding, add the pork pieces and sear them on the first side without moving them until well browned, 3 to 4 minutes. Turn the pieces and sear on the second side until well browned, 3 to 4 minutes longer. Transfer to a plate and set aside.
