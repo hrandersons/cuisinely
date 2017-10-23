@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var url = 'mongodb://127.0.0.1/ifeedme';
-mongoose.connect(url);
+mongoose.connect(url, { useMongoClient: true });
 
 var ifeedme = mongoose.connection;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Input, Row, Button, Icon, Card } from 'react-materialize';
 
 class SubmitRecipe extends React.Component {
@@ -17,7 +18,7 @@ class SubmitRecipe extends React.Component {
       equipName: '',
       equipAmount: '',
       instructions: [],
-      photoUrl: ''
+      imageUrl: ''
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
@@ -44,13 +45,22 @@ class SubmitRecipe extends React.Component {
     recipe.description = this.state.description;
     recipe.ingredients = this.state.ingredients;
     recipe.equipment = this.state.equipment;
-    recipe.photoUrl = this.state.photoUrl;
+    recipe.imageUrl = this.state.imageUrl;
+    recipe.userId = '12345';
+    recipe.difficulty = 'Easy';
+    recipe.rating = 9;
 
     let instructions = this.state.instructions;
 
     recipe.instructions = instructions.split('\n');
 
-    console.log(recipe);
+    axios.post('/api/recipes', recipe)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log('error: ', err);
+      });
   }
 
   handleRecipeName(e) {
@@ -76,7 +86,7 @@ class SubmitRecipe extends React.Component {
     let currIngredients = this.state.ingredients;
     currIngredients.push({
       name: this.state.ingName || 'N/A',
-      amount: this.state.ingAmount || 'N/A'
+      quantity: this.state.ingAmount || 'N/A'
     });
     this.setState({
       ingredients: currIngredients,
@@ -117,7 +127,7 @@ class SubmitRecipe extends React.Component {
     let currEquipment = this.state.equipment;
     currEquipment.push({
       name: this.state.equipName || 'N/A',
-      amount: this.state.equipAmount || 'N/A'
+      quantity: this.state.equipAmount || 'N/A'
     });
     this.setState({
       equipment: currEquipment,

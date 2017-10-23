@@ -74,7 +74,9 @@ module.exports = {
     hot: true,
     // enable HMR on the server
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:3000',
+      'secure': false,
+      'changeOrigin': true
     }
   }
 };
