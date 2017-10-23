@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ifeedme = require('../config');
-const Promise = require('bluebird');
+mongoose.Promise = require('bluebird');
 
 userSchema = new mongoose.Schema(
   {

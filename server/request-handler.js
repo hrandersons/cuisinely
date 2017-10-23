@@ -25,9 +25,12 @@ exports.sendRecipes = (req, res) => {
 
 exports.newRecipe = (req, res) => {
   //function to calculate recipe difficulty? Or should we let users select their own?
+  console.log(req);
   let newRecipe = new Recipe({
     name: req.body.name,
     ingredients: req.body.ingredients,
+    equipment: req.body.equipment,
+    description: req.body.description,
     time: req.body.time,
     instructions: req.body.instructions,
     //hard-coded for now
@@ -37,14 +40,14 @@ exports.newRecipe = (req, res) => {
     //Allow users to upload pictures with the recipe;
     //upload to hosting service may take a while,
     //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
-    imageUrl: 'Waiting for image upload...',
+    imageUrl: req.body.imageUrl || 'Waiting for image upload...',
     //save a reference to the original submitter
     source: req.body.userId
   });
   newRecipe.save((err, recipe) => {
     if (err) {
       console.log(err);
-      res.status(500).send('Recipe submission failed');
+      res.status(500).send(err);
     } else {
       res.status(201).send('Recipe saved!');
     }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const ifeedme = require('../config');
+mongoose.Promise = require('bluebird');
 
 const recipeSchema = new mongoose.Schema({
   //Full recipe title
@@ -10,8 +11,12 @@ const recipeSchema = new mongoose.Schema({
   //in the same string as the ingredient or separately
   //something like {name: 'tomato puree', quantity: 2, units: 'cups'}
   ingredients: { type: [], required: true },
+  //equipments, if needed
+  equipment: { type: [] },
   //total prep & cook time
   time: { type: Number, required: true },
+  //short description of recipes
+  description: { type: String },
   //instructions, collected in order
   instructions: { type: [], required: true },
   //difficulty rating, will have to calculate on recipe save
