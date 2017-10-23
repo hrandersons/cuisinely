@@ -23,7 +23,7 @@ export default class Auth {
     this.login = this.login.bind(this);  
   }  
   _doAuthentication (callback, authResult) {    
-    this.setToken(authResult.idToken);  
+    this.setToken(authResult.idToken); 
     this.lock.hide();  
     callback();  
   }  
@@ -36,6 +36,7 @@ export default class Auth {
   } 
 
   loggedIn () {    
+
     // Checks if there is a saved token and it’s still valid   
     return !!this.getToken();  
   }  
@@ -50,6 +51,5 @@ export default class Auth {
   logout () {    
     // Clear user token and profile data from localStorage    
     localStorage.removeItem('id_token');  
-    console.log('It logs out from Auth0' );
   }
 }

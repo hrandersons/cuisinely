@@ -8,13 +8,10 @@ import SideDrawer from './side-drawer.js';
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLogOut() {
-
-    console.log('logging out');
     this.props.auth.logout();
     this.props.logOut();
   }
@@ -52,7 +49,7 @@ class NavBar extends React.Component {
                   options={{ closeOnClick: true, edge: 'right' }}
                 >
                   <div>
-                    <SideDrawer />
+                    <SideDrawer logout={this.props.logOut} auth={this.props.auth}/>
                   </div>
                 </SideNav>
               </li>

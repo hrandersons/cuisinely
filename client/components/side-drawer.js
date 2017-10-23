@@ -9,7 +9,9 @@ class SideDrawer extends React.Component {
   }
 
   handleLogOut() {
-    console.log('logging out');
+
+    this.props.auth.logout();
+    this.props.logout();
   }
   render() {
     return (
