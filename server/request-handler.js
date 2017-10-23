@@ -1,5 +1,6 @@
 const Recipe = require('../db/models/recipe.js');
 const User = require('../db/models/user.js');
+const recipeHelper = require('../helpers/recipe-helper.js');
 
 //all requests go here
 //export contents to server.js
@@ -25,7 +26,8 @@ exports.sendRecipes = (req, res) => {
 
 exports.newRecipe = (req, res) => {
   //function to calculate recipe difficulty? Or should we let users select their own?
-  console.log(req);
+  let difficulty = recipeHelper.calcDifficulty(req.body);
+
   let newRecipe = new Recipe({
     name: req.body.name,
     ingredients: req.body.ingredients,
@@ -34,13 +36,13 @@ exports.newRecipe = (req, res) => {
     time: req.body.time,
     instructions: req.body.instructions,
     //hard-coded for now
-    difficulty: 0,
+    difficulty: difficulty,
     //also hard-coded for now
-    rating: 10,
+    rating: 0,
     //Allow users to upload pictures with the recipe;
     //upload to hosting service may take a while,
     //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
-    imageUrl: req.body.imageUrl || 'Waiting for image upload...',
+    imageUrl: req.body.imageUrl || 'none',
     //save a reference to the original submitter
     source: req.body.userId
   });

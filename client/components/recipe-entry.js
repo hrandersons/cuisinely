@@ -12,7 +12,7 @@ class RecipeEntry extends React.Component {
       <div className="col s12 m7">
         <div className="card horizontal hoverable">
           <div className="card-image thumbnail">
-            <img src={recipe.imageUrl} />
+            <img src={(recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (recipe.imageUrl)} />
           </div>
           <div className="card-stacked">
             <div className="card-content">
@@ -26,7 +26,7 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <Link to="details">Explore</Link>
+              <Link to={`details/${recipe._id}`}>Explore</Link>
               <a href="#">Bookmark</a>
             </div>
           </div>
