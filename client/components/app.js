@@ -33,7 +33,7 @@ class App extends React.Component {
 
 
     this.auth = new Auth(() => {
-      console.log('It worked, AUthonticated');
+      console.log('It worked, AUthenticated');
       this.setState({
         isLoggedIn: true
       });
