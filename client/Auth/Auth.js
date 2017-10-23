@@ -4,13 +4,14 @@ export default class Auth {
   constructor (callback) {    
     // Configure Auth0    
     let options = {
-      redirect: false, 
+      redirect: true, 
       autoclose: true,
       allowSignUp: true,
+      closable: false,
       auth: {
+        //redirectUrl: 'http://localhost:8080/callback',
         params: {param1: 'value1'},
         responseType: 'token',
-        redirect: true,
         sso: true
       }
     };
@@ -26,8 +27,12 @@ export default class Auth {
     this.lock.hide();  
     callback();  
   }  
-  login () {    
+  login () { 
+    if (this.loggedIn()) {
+      localStorage.removeItem('id_token');
+    }
     this.lock.show();  
+    
   } 
 
   loggedIn () {    
@@ -45,5 +50,6 @@ export default class Auth {
   logout () {    
     // Clear user token and profile data from localStorage    
     localStorage.removeItem('id_token');  
+    console.log('It logs out from Auth0' );
   }
 }
