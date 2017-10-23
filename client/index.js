@@ -5,6 +5,8 @@ import App from './components/app.js';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppContainer } from 'react-hot-loader';
+// import Auth from './Auth/Auth';
+// import AuthKeys from './Auth/Auth_keys';
 
 const render = Component => {
   ReactDOM.render((
@@ -25,3 +27,6 @@ render(App);
 if (module.hot) {
   module.hot.accept();
 }
+
+
+//http://localhost:8080/login#access_token=vX8UQgk7XnIyNHeHeqCTE9fKIy61Ecj8&expires_in=7200&token_type=Bearer&state=ECHlZvGc_Z6.ZP2IzIMjcSY.qS35YhYh
