@@ -5,36 +5,31 @@ class UserProfile extends React.Component {
     super(props);
 
     this.state = {
-      name: null,
-      picture: null,
+      profile: {},
     };
-    console.log(localStorage.profile);
-    // this.getProfile = this.getProfile.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
 
   componentWillMount() {
-    this.setState({
-      name: localStorage.profile.name,
-      picture: localStorage.profile.picture,
-    });
+    this.getProfile();
   }
 
-  // getProfile() {
-  //   this.setState({
-  //     name: localStorage.profile.name,
-  //     picture: localStorage.profile.picture,
-  //
-  //   })
-  // }
+  getProfile() {
+    this.profile = localStorage.getItem('profile');
+    this.setState({
+      profile: this.profile,
+    });
+    console.log(this.profile);
+  }
 
   render() {
     return (
       <div className="user-profile container">
         <div>
-          <strong>Name: {this.state.name}</strong>
+          <strong> {localStorage.profile.name} </strong>
         </div>
         <div>
-          <img className="responsive-img circle" src="http://lorempixel.com/150/150/people/"/>
+          <img className="responsive-img circle" src={localStorage.profile.picture} />
         </div>
         <div>
           <span>Level 6 | Awesome Chef</span>

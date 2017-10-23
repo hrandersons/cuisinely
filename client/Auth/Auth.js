@@ -41,6 +41,7 @@ export default class Auth {
       localStorage.removeItem('id_token');
     }
     this.lock.show();
+  }
 
   loggedIn () {
 
