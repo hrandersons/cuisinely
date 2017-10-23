@@ -11,7 +11,7 @@ exports.sendRecipes = (req, res) => {
   //we'll use this to find recipes with a high correllation to our search terms
   //but for now we can just send 5 random recipes from the db
   Recipe.find({})
-    .limit(5)
+    .limit(10)
     .exec( (err, recipes) => {
       if (err) {
         console.log(err);

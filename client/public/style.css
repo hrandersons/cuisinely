@@ -91,7 +91,20 @@ a {
   font-size: 30px;
 }
 
-.row {
+/*.row {
   margin-left: 20px;
   margin-right: 20px;
+}*/
+
+.thumbnail {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  position: absolute;
+  display: block;
+  height: 200px;
 }
