@@ -46,7 +46,7 @@ a {
 }
 
 .login-page {
-   position: fixed;
+  position: fixed;
   top: 0;
   z-index: 0;
   height: 100%;
@@ -113,4 +113,13 @@ a {
   width: 1280px;
   height: 800px;
   overflow: hidden;
+}
+
+.card-content {
+  font-family: Roboto;
+  color: black;
+}
+
+.profname {
+  font-size: 30px;
 }
