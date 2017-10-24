@@ -1,22 +1,24 @@
 import React from 'react';
 import axios from 'axios';
 import { Input, Row, Button, Icon, Card } from 'react-materialize';
+import { Redirect } from 'react-router-dom';
 
 class SubmitRecipe extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      redirect: false,
       name: '',
       time: '',
       description: '',
       difficulty: '',
       ingredients: [],
       ingName: '',
-      ingAmount: '',
+      ingQuantity: '',
       equipment: [],
       equipName: '',
-      equipAmount: '',
+      equipQuantity: '',
       instructions: [],
       imageUrl: ''
     };
@@ -27,11 +29,11 @@ class SubmitRecipe extends React.Component {
     this.handleDescription = this.handleDescription.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.handleIngName = this.handleIngName.bind(this);
-    this.handleIngAmount = this.handleIngAmount.bind(this);
+    this.handleIngQuantity = this.handleIngQuantity.bind(this);
     this.removeIngredient = this.removeIngredient.bind(this);
     this.addEquipment = this.addEquipment.bind(this);
     this.handleEquipName = this.handleEquipName.bind(this);
-    this.handleEquipAmount = this.handleEquipAmount.bind(this);
+    this.handleEquipQuantity = this.handleEquipQuantity.bind(this);
     this.removeEquipment = this.removeEquipment.bind(this);
     this.handleInstructions = this.handleInstructions.bind(this);
   }
@@ -48,7 +50,7 @@ class SubmitRecipe extends React.Component {
     recipe.imageUrl = this.state.imageUrl;
     recipe.userId = '12345';
     recipe.difficulty = 'Easy';
-    recipe.rating = 9;
+    recipe.rating = 0;
 
     let instructions = this.state.instructions;
 
@@ -56,7 +58,7 @@ class SubmitRecipe extends React.Component {
 
     axios.post('/api/recipes', recipe)
       .then((res) => {
-        console.log(res);
+        this.setState({ redirect: true });
       })
       .catch((err) => {
         console.log('error: ', err);
@@ -86,12 +88,12 @@ class SubmitRecipe extends React.Component {
     let currIngredients = this.state.ingredients;
     currIngredients.push({
       name: this.state.ingName || 'N/A',
-      quantity: this.state.ingAmount || 'N/A'
+      quantity: this.state.ingQuantity || 'N/A'
     });
     this.setState({
       ingredients: currIngredients,
       ingName: '',
-      ingAmount: ''
+      ingQuantity: ''
     });
 
   }
@@ -116,9 +118,9 @@ class SubmitRecipe extends React.Component {
     });
   }
 
-  handleIngAmount(e) {
+  handleIngQuantity(e) {
     this.setState({
-      ingAmount: e.target.value
+      ingQuantity: e.target.value
     });
   }
 
@@ -127,12 +129,12 @@ class SubmitRecipe extends React.Component {
     let currEquipment = this.state.equipment;
     currEquipment.push({
       name: this.state.equipName || 'N/A',
-      quantity: this.state.equipAmount || 'N/A'
+      quantity: this.state.equipQuantity || 'N/A'
     });
     this.setState({
       equipment: currEquipment,
       equipName: '',
-      equipAmount: ''
+      equipQuantity: ''
     });
 
   }
@@ -143,9 +145,9 @@ class SubmitRecipe extends React.Component {
     });
   }
 
-  handleEquipAmount(e) {
+  handleEquipQuantity(e) {
     this.setState({
-      equipAmount: e.target.value
+      equipQuantity: e.target.value
     });
   }
 
@@ -170,6 +172,12 @@ class SubmitRecipe extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/recipes" />;
+    }
+
     return (
       <div className="container">
         <h4 className="component-title">Submit a Recipe!</h4>
@@ -188,7 +196,7 @@ class SubmitRecipe extends React.Component {
                   <thead>
                     <tr>
                       <th>Item Name</th>
-                      <th>Item Amount</th>
+                      <th>Item Quantity</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -199,7 +207,7 @@ class SubmitRecipe extends React.Component {
                           <tr className="ingredients"
                             key={item.name}>
                             <td>{item.name}</td>
-                            <td>{item.amount}</td>
+                            <td>{item.quantity}</td>
                             <td><a id={item.name} onClick={this.removeIngredient}>Remove</a></td>
                           </tr> )))
                         : (null)
@@ -209,7 +217,7 @@ class SubmitRecipe extends React.Component {
               </div>
               <div className="valign-wrapper col s12" align="center">
                 <Input s={5} label="Name" type="text" onChange={this.handleIngName} value={this.state.ingName}/>
-                <Input s={5} label="Number/Unit" type="text" onChange={this.handleIngAmount} value={this.state.ingAmount}/>
+                <Input s={5} label="Number/Unit" type="text" onChange={this.handleIngQuantity} value={this.state.ingQuantity}/>
                 <a className="waves-effect waves-light btn" onClick={this.addIngredient}>Add</a>
               </div>
             </div>
@@ -220,7 +228,7 @@ class SubmitRecipe extends React.Component {
                   <thead>
                     <tr>
                       <th>Item Name</th>
-                      <th>Item Amount</th>
+                      <th>Item Quantity</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -231,7 +239,7 @@ class SubmitRecipe extends React.Component {
                           <tr className="equipment"
                             key={equip.name}>
                             <td>{equip.name}</td>
-                            <td>{equip.amount}</td>
+                            <td>{equip.quantity}</td>
                             <td><a id={equip.name} onClick={this.removeEquipment}>Remove</a></td>
                           </tr> )))
                         : (null)
@@ -241,7 +249,7 @@ class SubmitRecipe extends React.Component {
               </div>
               <div className="valign-wrapper col s12" align="center">
                 <Input s={5} label="Name" type="text" onChange={this.handleEquipName} value={this.state.equipName}/>
-                <Input s={5} label="Number" type="text" onChange={this.handleEquipAmount} value={this.state.equipAmount}/>
+                <Input s={5} label="Number" type="text" onChange={this.handleEquipQuantity} value={this.state.equipQuantity}/>
                 <a className="waves-effect waves-light btn" onClick={this.addEquipment}>Add</a>
               </div>
             </div>

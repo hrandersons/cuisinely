@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import SearchBar from './search-bar.js';
 import RecipeEntry from './recipe-entry.js';
@@ -7,6 +8,27 @@ import RecipeEntry from './recipe-entry.js';
 class Recipes extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      recipes: []
+    };
+
+  }
+
+  componentDidMount() {
+    this.getAllRecipes();
+  }
+
+  getAllRecipes() {
+    axios.get('/api/recipes')
+      .then((res) => {
+        this.setState({
+          recipes: res.data
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -21,11 +43,11 @@ class Recipes extends React.Component {
           <Link to="submit" className="waves-effect waves-light btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>
         <div className="recipe-entries">
-          <RecipeEntry />
-          <RecipeEntry />
-          <RecipeEntry />
-          <RecipeEntry />
-          <RecipeEntry />
+          {
+            (!this.state.recipes.length)
+              ? <span> Loading Recipes... </span>
+              : this.state.recipes.map(recipe => <RecipeEntry recipe={recipe} key={recipe._id} />)
+          }
         </div>
       </div>
     );

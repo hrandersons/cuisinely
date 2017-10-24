@@ -7,25 +7,26 @@ class RecipeEntry extends React.Component {
   }
 
   render() {
+    const { recipe } = this.props;
     return (
       <div className="col s12 m7">
         <div className="card horizontal hoverable">
-          <div className="card-image">
-            <img src="http://lorempixel.com/200/200/food/" />
+          <div className="card-image thumbnail">
+            <img src={(recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (recipe.imageUrl)} />
           </div>
           <div className="card-stacked">
             <div className="card-content">
-              <span className="card-title">Name of Recipe</span>
+              <span className="card-title"><strong>{recipe.name}</strong> ({recipe.rating})</span>
               <blockquote>
-                A short description of this delicious yet easy to prepare food...
+                {recipe.description}
               </blockquote>
               <ul>
-                <li><strong>Difficulty:</strong> Very Easy</li>
-                <li><strong>Estimated Time:</strong> 25 Minutes</li>
+                <li><strong>Difficulty:</strong> {recipe.difficulty}</li>
+                <li><strong>Estimated Time:</strong> {recipe.time} Minutes</li>
               </ul>
             </div>
             <div className="card-action">
-              <Link to="details">Explore</Link>
+              <Link to={`details/${recipe._id}`}>Explore</Link>
               <a href="#">Bookmark</a>
             </div>
           </div>
