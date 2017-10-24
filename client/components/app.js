@@ -1,15 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-
 import Auth from '../Auth/Auth';
+import history from './history.js';
 
-const handleAuthentication = (nextState, replace) => {
-  console.log('It is inside of handleAuthentication');
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    auth.handleAuthentication();
-  }
-};
+const auth = new Auth();
 
 import NavBar from './nav-bar.js';
 import SideDrawer from './side-drawer.js';
@@ -31,18 +26,13 @@ class App extends React.Component {
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
 
-
-    this.auth = new Auth(() => {
-      console.log('It worked, AUthenticated');
-      this.setState({
-        isLoggedIn: true
-      });
-    });
-
     this.state = {
-      drawerOpen: false,
-      isLoggedIn: this.auth.loggedIn()
+      drawerOpen: false
     };
+  }
+
+  componentDidMount() {
+    console.log('authenticated?', auth.isAuthenticated());
   }
 
   toggleDrawer() {
@@ -50,15 +40,13 @@ class App extends React.Component {
   }
 
   handleLogOut() {
-    this.setState({
-      isLoggedIn: this.auth.loggedIn()
-    });
+    auth.logout();
   }
 
   renderLogin() {
     return (
       <Switch>
-        <Route path='/login' render={props => (<Login auth={this.auth} {...props} />)} />)} />
+        <Route path='/login' render={props => (<Login auth={auth} {...props} />)} />)} />
         <Redirect to='/login' />
       </Switch>
     );
@@ -67,7 +55,7 @@ class App extends React.Component {
   renderApp() {
     return (
       <div>
-        <NavBar toggleDrawer={this.toggleDrawer} auth={this.auth} logOut={this.handleLogOut}/>
+        <NavBar toggleDrawer={this.toggleDrawer} auth={auth} logOut={this.handleLogOut}/>
         <Switch>
           <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
           <Route exact path='/recipes' render={props => (<Recipes {...props} />)} />
@@ -82,8 +70,9 @@ class App extends React.Component {
 
 
   render() {
+    const { isAuthenticated } = auth;
 
-    return ( this.state.isLoggedIn ) ? (
+    return ( isAuthenticated() ) ? (
       this.renderApp()
     ) : (
       this.renderLogin()

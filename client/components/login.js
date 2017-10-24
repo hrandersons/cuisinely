@@ -5,14 +5,39 @@ class Login extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    console.log('logged in?', this.props.auth.isAuthenticated());
+  }
 
+  login() {
+    this.props.auth.login();
+  }
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
-      <div className="login-page">
-        <div>
-          {this.props.auth.login()}
+      <div className="container">
+        {
+          isAuthenticated() && (
+            <h4>
+              Welcome to ifeedme!
+            </h4>
+          )
+        }
+        {
+          !isAuthenticated() && (
+            <h4>
+              Welcome to ifeedme! Please{' '}
+              <a
+                style={{ cursor: 'pointer' }}
+                onClick={this.login.bind(this)}
+              >
+                Log In
+              </a>
+              {' '}to continue.
+            </h4>
+          )
+        }
       </div>
-    </div>
     );
   }
 }
