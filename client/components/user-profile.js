@@ -23,17 +23,18 @@ class UserProfile extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col s12">
-            <div className="card">
-              <div className="card-image">
-                <img src={this.state.profile.picture} />
-              </div>
-              <div className="card-content">
-                <strong className="profname"> {this.state.profile.name} </strong>
-                <div> Level 6 | Awesome Chef </div>
-                <div> Points Until Next Level: 18pts </div>
+      <div className="row">
+        <div className="col s12">
+          <div className="card">
+            <div className="card-image">
+              <img src={this.state.profile.picture} />
+            </div>
+            <div className="card-content">
+              <strong className="profname"> {this.state.profile.name} </strong>
+              <div> Level 6 | Awesome Chef </div>
+              <div> Points Until Next Level: 18pts </div>
+              <div className="progress">
+                <div className="determinate" style={{'width': '70%'}}></div>
               </div>
             </div>
           </div>
@@ -42,5 +43,7 @@ class UserProfile extends React.Component {
     );
   }
 }
+
+
 
 export default UserProfile;
