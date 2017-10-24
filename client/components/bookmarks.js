@@ -11,7 +11,7 @@ export default class Bookmarks extends React.Component {
         <h2>Favorites</h2>
         <div>
           {this.props.bookmarks
-            ? this.props.bookmarks.map((bookmark) => <RecipeEntry/>)
+            ? this.props.bookmarks.map((bookmark) => <RecipeEntry recipe={recipe} key={recipe._id} />)
             : 'You don\'t have any bookmarked recipes!'}
         </div>
       </div>

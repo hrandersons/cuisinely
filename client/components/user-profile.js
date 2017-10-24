@@ -15,10 +15,12 @@ class UserProfile extends React.Component {
   }
 
   getProfile() {
-    this.profile = JSON.parse(localStorage.profile);
-    this.setState({
-      profile: this.profile,
-    });
+    if (localStorage.profile) {
+      this.profile = JSON.parse(localStorage.profile);
+      this.setState({
+        profile: this.profile,
+      });
+    }
   }
 
   render() {
