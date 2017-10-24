@@ -30,7 +30,7 @@ export default class Auth {
         if (err) {
           return;
         }
-        localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem('profile', JSON.parse(profile));
       });
     this.lock.hide();
     callback();

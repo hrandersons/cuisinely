@@ -15,27 +15,28 @@ class UserProfile extends React.Component {
   }
 
   getProfile() {
-    this.profile = localStorage.getItem('profile');
+    this.profile = JSON.parse(localStorage.profile);
     this.setState({
       profile: this.profile,
     });
-    console.log(this.profile);
   }
 
   render() {
     return (
-      <div className="user-profile container">
-        <div>
-          <strong> {localStorage.profile.name} </strong>
-        </div>
-        <div>
-          <img className="responsive-img circle" src={localStorage.profile.picture} />
-        </div>
-        <div>
-          <span>Level 6 | Awesome Chef</span>
-        </div>
-        <div>
-          and then some user info...
+      <div>
+        <div className="row">
+          <div className="col s12">
+            <div className="card">
+              <div className="card-image">
+                <img src={this.state.profile.picture} />
+              </div>
+              <div className="card-content">
+                <strong className="profname"> {this.state.profile.name} </strong>
+                <div> Level 6 | Awesome Chef </div>
+                <div> Points Until Next Level: 18pts </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
