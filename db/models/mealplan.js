@@ -19,4 +19,9 @@ const MealPlan = mongoose.model('MealPlan', mealPlanSchema);
 module.exports = MealPlan;
 
 
-/* In this schema, each item in the recipes array would need to be an object that stores the actual recipe object as well as the status of the recipe. Rescheduling would be accomplished by rearranging items inside the array, which would be a linear operation but the array will always have a length of 5. Each recipe would not be assigned to a specific date, since we will just count from the startDate using the array index. Manipulating individual recipes may be slightly more difficult. */
+/* In this schema, each item in the recipes array would need to be an object that stores the actual recipe object as well as the status of the recipe.
+Rescheduling would be accomplished by rearranging items inside the array,
+which would be a linear operation but the array will always have a length of 5.
+Each recipe would not be assigned to a specific date,
+since we will just count from the startDate using the array index. 
+Manipulating individual recipes may be slightly more difficult. */

@@ -17,4 +17,9 @@ const plannedMealSchema = new mongoose.Schema({
 const PlannedMeal = mongoose.model('PlannedMeal', plannedMealSchema);
 module.exports = PlannedMeal;
 
-/* This schema may seem like we would be scattering data, but it will allow for a better control over adjusting individual meals in a weekly plan. Since each planned meal would be its own entity with a specific date, we can even allow for multiple meals for one day, and adjusting the date would also be easier under the hood. making db queries for meals a user has scheduled within a certain time frame should be pretty simple, too. */
+/* This schema may seem like we would be scattering data, 
+but it will allow for a better control over adjusting individual meals in a weekly plan.
+Since each planned meal would be its own entity with a specific date,
+we can even allow for multiple meals for one day,
+and adjusting the date would also be easier under the hood.
+making db queries for meals a user has scheduled within a certain time frame should be pretty simple, too. */
