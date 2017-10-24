@@ -46,6 +46,11 @@ class RecipeDetails extends React.Component {
     console.log('recipe complete!');
   }
 
+  //handle Adding to bookmarks
+  // handleAddToBookmarks() {
+  //
+  // }
+
   render() {
     let stepCount = 1;
     return (
@@ -142,7 +147,6 @@ class RecipeDetails extends React.Component {
                   <ul>
                     <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
-                    <li><a className="btn-floating pink"><i className="material-icons">favorite</i></a></li>
                     <li><a className="btn-floating cyan"><i className="material-icons">add</i></a></li>
                   </ul>
                 </div>

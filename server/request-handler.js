@@ -26,7 +26,6 @@ exports.sendRecipes = (req, res) => {
 
 };
 
-
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
 
@@ -105,3 +104,7 @@ exports.sendBookmarkedRecipes = (req, res) => {
       }
     });
 };
+
+// exports.addToBookmarks = (req, res) => {
+//
+// }
