@@ -13,8 +13,12 @@ class RecipeDetails extends React.Component {
       rating: 0,
       ingredients: [],
       equipment: [],
-      instructions: []
+      instructions: [],
+      id: ''
     };
+
+    this.handleAddBookmark = this.handleAddBookmark.bind(this);
+
   }
 
   componentDidMount() {
@@ -33,8 +37,19 @@ class RecipeDetails extends React.Component {
           rating: recipe.rating,
           ingredients: recipe.ingredients,
           equipment: recipe.equipment,
-          instructions: recipe.instructions
+          instructions: recipe.instructions,
+          id: recipe._id,
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleAddBookmark(id) {
+    axios.post('/api/bookmarks/:userId', {id: this.state.id})
+      .then((res) => {
+        console.log('bookmark added');
       })
       .catch((err) => {
         console.log(err);
@@ -45,11 +60,6 @@ class RecipeDetails extends React.Component {
     // TODO: Award points
     console.log('recipe complete!');
   }
-
-  //handle Adding to bookmarks
-  // handleAddToBookmarks() {
-  //
-  // }
 
   render() {
     let stepCount = 1;
@@ -147,7 +157,7 @@ class RecipeDetails extends React.Component {
                   <ul>
                     <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
-                    <li><a className="btn-floating cyan"><i className="material-icons">add</i></a></li>
+                    <li><a onClick={() => this.handleAddBookmark()} className="btn-floating cyan"><i className="material-icons">add</i></a></li>
                   </ul>
                 </div>
               </div>

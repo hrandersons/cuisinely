@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import axios from 'axios';
 
 class RecipeEntry extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleAddBookmark = this.handleAddBookmark.bind(this);
   }
 
-  handleAddBookmark() {
-    console.log('bookmark this recipe');
+  handleAddBookmark(id) {
+    const { recipe } = this.props;
+    axios.post('/api/bookmarks', {id: recipe._id})
+      .then((res) => {
+        console.log('bookmark added');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
