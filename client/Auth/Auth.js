@@ -9,10 +9,11 @@ export default class Auth {
       allowSignUp: true,
       closable: false,
       auth: {
-        //redirectUrl: 'http://localhost:8080/callback',
-        params: {param1: 'value1'},
-        responseType: 'token',
-        sso: true
+        domain: keys.domain,
+        clientID: keys.clientId,
+        redirectUri: 'http://localhost:8080/callback',
+        responseType: 'token id_token',
+        scope: 'openid'
       }
     };
     this.lock = new Auth0Lock(keys.clientId, keys.domain, options);
@@ -30,7 +31,7 @@ export default class Auth {
         if (err) {
           return;
         }
-        localStorage.setItem('profile', JSON.parse(profile));
+        localStorage.setItem('profile', JSON.stringify(profile));
       });
     this.lock.hide();
     callback();
