@@ -25,6 +25,8 @@ app.get('/api/recipes', handler.sendRecipes);
 
 app.post('/api/recipes', handler.newRecipe);
 
+app.get('/api/calendarRecipes', handler.getCalendarRecipes);
+
 app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
 
 app.get('*', (req, res) => {

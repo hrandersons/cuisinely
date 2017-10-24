@@ -1,6 +1,8 @@
 const Recipe = require('../db/models/recipe.js');
 const User = require('../db/models/user.js');
 const recipeHelper = require('../helpers/recipe-helper.js');
+const randomizer = require ('../helpers/dbEntryRandomizer.js');
+const mongoose = require ('mongoose');
 
 //all requests go here
 //export contents to server.js
@@ -24,6 +26,7 @@ exports.sendRecipes = (req, res) => {
 
 };
 
+
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
 
@@ -33,6 +36,23 @@ exports.getRecipeDetail = (req, res) => {
     }).catch((err) =>{
       res.status(500).send('error: ', err);
     });
+};
+
+exports.getCalendarRecipes = (req, res) => {
+  Recipe.count({}, (err, count) => {
+    let skipRecords = randomizer(1, count - 5);
+    Recipe.find({})
+      .skip(skipRecords)
+      .exec((err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(404).send('Failed to find recipes');
+        } else {
+          res.status(200).send(result);
+        }
+      });
+  });
+
 };
 
 exports.newRecipe = (req, res) => {

@@ -10,7 +10,9 @@ export default class Bookmarks extends React.Component {
       <div>
         <h2>Favorites</h2>
         <div>
-          {this.props.bookmarks.map((bookmark) => <RecipeEntry bookmarked={true}/>)}
+          {this.props.bookmarks
+            ? this.props.bookmarks.map((bookmark) => <RecipeEntry/>)
+            : 'You don\'t have any bookmarked recipes!'}
         </div>
       </div>
     );
