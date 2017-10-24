@@ -38,7 +38,7 @@ class App extends React.Component {
         isLoggedIn: true
       });
     });
-  
+
     this.state = {
       drawerOpen: false,
       isLoggedIn: this.auth.loggedIn()
@@ -70,9 +70,9 @@ class App extends React.Component {
         <NavBar toggleDrawer={this.toggleDrawer} auth={this.auth} logOut={this.handleLogOut}/>
         <Switch>
           <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
-          <Route path='/recipes' render={props => (<Recipes {...props} />)} />
+          <Route exact path='/recipes' render={props => (<Recipes {...props} />)} />
+          <Route path='/recipes/:recipeId' render={props => (<RecipeDetails {...props} />)} />
           <Route path='/meals' render={props => (<Meals {...props} />)} />
-          <Route path='/details' render={props => (<RecipeDetails {...props} />)} />
           <Route path='/submit' render={props => (<SubmitRecipe {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>

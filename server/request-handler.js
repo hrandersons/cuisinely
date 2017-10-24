@@ -24,6 +24,17 @@ exports.sendRecipes = (req, res) => {
 
 };
 
+exports.getRecipeDetail = (req, res) => {
+  const { recipeId } = req.params;
+
+  Recipe.find({'_id': recipeId}).exec()
+    .then((recipe) => {
+      res.status(200).send(recipe);
+    }).catch((err) =>{
+      res.status(500).send('error: ', err);
+    });
+};
+
 exports.newRecipe = (req, res) => {
   //function to calculate recipe difficulty? Or should we let users select their own?
   let difficulty = recipeHelper.calcDifficulty(req.body);
