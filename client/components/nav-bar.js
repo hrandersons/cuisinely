@@ -32,15 +32,15 @@ class NavBar extends React.Component {
                 <Button className="waves-effect waves-light btn red lighten-1" onClick={this.handleLogOut}>Log Out</Button>
               </div>
               <ul>
-                <li><Link to="dashboard">Dashboard</Link></li>
-                <li><Link to="recipes">Recipes</Link></li>
-                <li><Link to="meals">Meals</Link></li>
+                <li><Link to="../dashboard">Dashboard</Link></li>
+                <li><Link to="../recipes">Recipes</Link></li>
+                <li><Link to="../meals">Meals</Link></li>
               </ul>
             </SideNav>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><Link to="dashboard">Dashboard</Link></li>
-              <li><Link to="recipes">Recipes</Link></li>
-              <li><Link to="meals">Meals</Link></li>
+              <li><Link to="../dashboard">Dashboard</Link></li>
+              <li><Link to="../recipes">Recipes</Link></li>
+              <li><Link to="../meals">Meals</Link></li>
               <li>
                 <SideNav
                   trigger={<a className="button-profile">

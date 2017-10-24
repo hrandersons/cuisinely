@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 class RecipeEntry extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  handleAddBookmark() {
+    console.log('bookmark this recipe');
   }
 
   render() {
@@ -26,8 +30,8 @@ class RecipeEntry extends React.Component {
               </ul>
             </div>
             <div className="card-action">
-              <Link to={`details/${recipe._id}`}>Explore</Link>
-              <a href="#">Bookmark</a>
+              <Link to={`recipes/${recipe._id}`}>Explore</Link>
+              <a onClick={this.handleAddBookmark}>Bookmark</a>
             </div>
           </div>
         </div>

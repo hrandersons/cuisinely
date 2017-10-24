@@ -19,6 +19,8 @@ app.listen(PORT, () => {
   console.log('Listening on Port', PORT);
 });
 
+app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
+
 app.get('/api/recipes', handler.sendRecipes);
 
 app.post('/api/recipes', handler.newRecipe);
