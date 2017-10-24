@@ -1,20 +1,42 @@
 import React from 'react';
 
 class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      profile: {},
+    };
+    this.getProfile = this.getProfile.bind(this);
+  }
+
+  componentWillMount() {
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.profile = JSON.parse(localStorage.profile);
+    this.setState({
+      profile: this.profile,
+    });
+  }
+
   render() {
     return (
-      <div className="user-profile container">
-        <div>
-          <strong>User Name</strong>
-        </div>
-        <div>
-          <img className="responsive-img circle" src="http://lorempixel.com/150/150/people/"/>
-        </div>
-        <div>
-          <span>Level 6 | Awesome Chef</span>
-        </div>
-        <div>
-          and then some user info...
+      <div>
+        <div className="row">
+          <div className="col s12">
+            <div className="card">
+              <div className="card-image">
+                <img src={this.state.profile.picture} />
+              </div>
+              <div className="card-content">
+                <strong className="profname"> {this.state.profile.name} </strong>
+                <div> Level 6 | Awesome Chef </div>
+                <div> Points Until Next Level: 18pts </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
