@@ -24,6 +24,7 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    const name = this.state.profile.name.split('@')[0];
     return (
       <div className="row">
         <div className="col s12">
@@ -32,7 +33,7 @@ class UserProfile extends React.Component {
               <img src={this.state.profile.picture} />
             </div>
             <div className="card-content">
-              <strong className="profname"> {this.state.profile.name} </strong>
+              <strong className="profname"> {name} </strong>
               <div> Level 6 | Awesome Chef </div>
               <div> Points Until Next Level: 18pts </div>
               <div className="progress">
