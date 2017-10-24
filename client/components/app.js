@@ -46,8 +46,8 @@ class App extends React.Component {
   renderLogin() {
     return (
       <Switch>
+        <Route exact path='/' render={props => (<Login auth={auth} {...props} />)} />)} />
         <Route path='/login' render={props => (<Login auth={auth} {...props} />)} />)} />
-        <Redirect to='/login' />
       </Switch>
     );
   }
