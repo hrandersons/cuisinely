@@ -218,7 +218,7 @@ class SubmitRecipe extends React.Component {
               <div className="valign-wrapper col s12" align="center">
                 <Input s={5} label="Name" type="text" onChange={this.handleIngName} value={this.state.ingName}/>
                 <Input s={5} label="Number/Unit" type="text" onChange={this.handleIngQuantity} value={this.state.ingQuantity}/>
-                <a className="waves-effect waves-light btn" onClick={this.addIngredient}>Add</a>
+                <a className="waves-effect red lighten-3 btn" onClick={this.addIngredient}>Add</a>
               </div>
             </div>
             <div className="col s12 m6">
@@ -250,7 +250,7 @@ class SubmitRecipe extends React.Component {
               <div className="valign-wrapper col s12" align="center">
                 <Input s={5} label="Name" type="text" onChange={this.handleEquipName} value={this.state.equipName}/>
                 <Input s={5} label="Number" type="text" onChange={this.handleEquipQuantity} value={this.state.equipQuantity}/>
-                <a className="waves-effect waves-light btn" onClick={this.addEquipment}>Add</a>
+                <a className="waves-effect red lighten-3 btn" onClick={this.addEquipment}>Add</a>
               </div>
             </div>
             <div className="col s12">
@@ -261,7 +261,7 @@ class SubmitRecipe extends React.Component {
               <h5><strong>Add a Photo:</strong></h5>
             </div>
             <div className="file-field input-field col s10">
-              <div className="btn">
+              <div className="red lighten-3 btn">
                 <span>File</span>
                 <input type="file" />
               </div>
@@ -270,7 +270,7 @@ class SubmitRecipe extends React.Component {
               </div>
             </div>
             <div className="col s12" align="center">
-              <a className="waves-effect waves-light btn" onClick={this.handleSubmitRecipe}>Submit Recipe!</a>
+              <a className="waves-effect red lighten-3 btn" onClick={this.handleSubmitRecipe}>Submit Recipe!</a>
             </div>
           </form>
         </Row>
