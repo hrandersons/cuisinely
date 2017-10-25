@@ -4,12 +4,29 @@ import Chart from 'chart.js';
 import Bookmarks from './bookmarks.js';
 
 class Dashboard extends React.Component {
-  render() {
-    return (
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      profile: {},
+    };
+  }
+
+  componentWillMount() {
+    if (localStorage.profile) {
+      this.profile = JSON.parse(localStorage.profile);
+      this.setState({
+        profile: this.profile,
+      });
+    }
+  }
+
+  render() {
+    const name = this.state.profile.given_name || this.state.profile.name.split('@')[0];
+    return (
       <div className="row">
         <p className="title">
-          Welcome User! Ready to cook?
+          Welcome {name}! Ready to cook?
         </p>
         <div className="col s12 m6">
           <div className="card grey lighten-2">
