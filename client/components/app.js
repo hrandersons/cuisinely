@@ -31,10 +31,6 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log('auth', auth.isAuthenticated());
-  }
-
   toggleDrawer() {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   }
