@@ -123,3 +123,7 @@ a {
 .profname {
   font-size: 30px;
 }
+
+.progress {
+  color: red;
+}

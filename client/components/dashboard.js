@@ -20,7 +20,7 @@ class Dashboard extends React.Component {
               <a href="#">Explore</a>
             </div>
           </div>
-          
+
           <Bookmarks />
         </div>
         <div className="col s12 m6">
