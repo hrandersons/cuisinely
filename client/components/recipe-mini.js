@@ -4,6 +4,18 @@ import { Link, Route } from 'react-router-dom';
 export default class MiniRecipe extends React.Component {
   constructor(props) {
     super(props);
+    this.handleAddBookmark = this.handleAddBookmark.bind(this);
+  }
+
+  handleAddBookmark(id) {
+    const { recipe } = this.props;
+    axios.post('/api/bookmarks', {id: recipe._id})
+      .then((res) => {
+        console.log('bookmark added');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
