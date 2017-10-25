@@ -23,7 +23,6 @@ class Dashboard extends React.Component {
 
   render() {
     const name = this.state.profile.given_name || this.state.profile.name.split('@')[0];
-
     return (
       <div className="row">
         <p className="title">
