@@ -11,6 +11,7 @@ class RecipeEntry extends React.Component {
     };
 
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class RecipeEntry extends React.Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
-          bookmarked: res.data.exists
+          bookmarked: res.data
         });
       })
       .catch((err) => {
@@ -50,7 +51,7 @@ class RecipeEntry extends React.Component {
     };
     axios.put('/api/bookmarks', params)
       .then((res) => {
-        console.log('bookmarked', res);
+        console.log('bookmarked');
         this.setState({
           bookmarked: true
         });
@@ -58,6 +59,28 @@ class RecipeEntry extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  handleRemoveBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const { recipe } = this.props;
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+    axios.delete('/api/bookmarks', { params: params })
+      .then((res) => {
+        console.log('removed');
+        this.setState({
+          bookmarked: false
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }
 
   render() {
@@ -81,7 +104,12 @@ class RecipeEntry extends React.Component {
             </div>
             <div className="card-action">
               <Link to={`recipes/${recipe._id}`}>Explore</Link>
-              <a onClick={this.handleAddBookmark}>Bookmark</a>
+              {
+                (this.state.bookmarked)
+                  ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
+                  : <a onClick={this.handleAddBookmark}>Bookmark</a>
+              }
+
             </div>
           </div>
         </div>

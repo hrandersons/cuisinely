@@ -127,7 +127,7 @@ exports.sendBookmarkedRecipes = (req, res) => {
     });
 };
 
-exports.addToBookmarks = (req, res) => {
+exports.addBookmark = (req, res) => {
   //id of recipe to bookmark
   const { recipeId, userId } = req.body;
   //locate user schema
@@ -150,6 +150,28 @@ exports.addToBookmarks = (req, res) => {
     });
 };
 
+exports.removeBookmark = (req, res) => {
+  //id of recipe to bookmark
+  const { recipeId, userId } = req.query;
+  // locate user schema
+  User.findOne({ userId: userId })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send('user not found');
+      } else {
+        const bookmarkIndex = user.bookmarks.indexOf(recipeId);
+        if (bookmarkIndex !== -1) {
+          user.bookmarks.splice(bookmarkIndex, 1);
+          user.save();
+        }
+      }
+    })
+    .then(() => { res.status(200).send('removed!'); })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 exports.checkBookmarks = (req, res) => {
   const { recipeId, userId } = req.query;
 
@@ -162,6 +184,9 @@ exports.checkBookmarks = (req, res) => {
         res.status(200).send(exists);
       }
 
+    })
+    .catch((err) => {
+      res.status(400).send(err);
     });
 };
 
