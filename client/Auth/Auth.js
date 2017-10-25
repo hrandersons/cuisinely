@@ -3,7 +3,7 @@ import keys from './Auth_keys';
 import history from '../components/history';
 
 const lock = new Auth0Lock(keys.clientId, keys.domain, {
-  oidcConformant: true,
+  oidcConformant: false,
   autoclose: true,
   redirect: true,
   closable: false,
@@ -51,10 +51,7 @@ export default class Auth {
         }
         localStorage.setItem('accessToken', authResult.accessToken);
         localStorage.setItem('profile', JSON.stringify(profile));
-        // Set the time that the access token will expire at
-        let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-        localStorage.setItem('id_token', authResult.idToken);
-        localStorage.setItem('expires_at', expiresAt);
+        localStorage.setItem('idToken', authResult.idToken);
         // navigate to the home route
         history.replace('/dashboard');
       });
@@ -64,9 +61,8 @@ export default class Auth {
 
   logout() {
     // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('idToken');
     localStorage.removeItem('profile');
     // navigate to the home route
     history.replace('/login');
@@ -75,7 +71,6 @@ export default class Auth {
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    return (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken'));
   }
 }
