@@ -161,3 +161,16 @@ exports.saveMealPlan = (req, res) => {
     }
   });
 };
+
+exports.sendMealPlan = (req, res) => {
+  const id = req.query.userId;
+  MealPlan.findOne({ userId: id})
+    .exec((err, plan) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Something went wrong!');
+      } else {
+        res.status(200).send(plan);
+      }
+    });
+};
