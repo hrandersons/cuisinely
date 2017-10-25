@@ -9,6 +9,29 @@ const mongoose = require ('mongoose');
 //TODO: write function that sends some or all of a user's info to client on Login
 //TODO: write backend auth functions
 
+exports.getUserInfo = (req, res) => {
+  console.log('geting user info');
+  const { userId } = req.params;
+  console.log(userId);
+  User.findOne({ userId: userId })
+    .exec((err, found) => {
+      if (found) {
+        console.log('user found!');
+        res.status(200).json(found);
+      } else {
+        User.create({
+          userId: userId,
+          bookmarks: [],
+          points: 0
+        })
+          .then((newUser) => {
+            console.log('user created!');
+            res.status(200).json(newUser);
+          });
+      }
+    });
+};
+
 exports.sendRecipes = (req, res) => {
   let query = req.query;
   //we'll use this to find recipes with a high correllation to our search terms
