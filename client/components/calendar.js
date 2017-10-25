@@ -9,11 +9,39 @@ export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: []
+      recipes: [],
+      userId: ''
     };
 
     this.getRandomRecipes = this.getRandomRecipes.bind(this);
+    this.getPlannedRecipes = this.getPlannedRecipes.bind(this);
     this.saveMealPlan = this.saveMealPlan.bind(this);
+  }
+
+  componentWillMount() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+    this.setState({
+      userId: userId
+    });
+  }
+
+  componentDidMount() {
+    this.getPlannedRecipes();
+  }
+
+  getPlannedRecipes() {
+    let userId = this.state.userId;
+    axios.get('/api/mealPlan', {
+      params: {userId: userId}
+    })
+      .then((response) => {
+        if (response.data.recipes) {
+          this.setState({
+            recipes: response.data.recipes
+          });
+        }
+      });
   }
 
   getRandomRecipes() {
@@ -27,26 +55,20 @@ export default class Calendar extends React.Component {
   }
 
   saveMealPlan() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
     let mealPlan = {};
     mealPlan.recipes = this.state.recipes;
     mealPlan.startDate = moment().format('dddd L');
     mealPlan.endDate = moment().add(4, 'days').format('dddd L');
-    mealPlan.userId = userId;
+    mealPlan.userId = this.state.userId;
 
-    // console.log(mealPlan)
+
     axios.post('/api/mealPlan', mealPlan)
       .then((res) => {
-        console.log(res);
+        console.log('Meals saved!');
       })
       .catch((err) => {
         console.error(err);
       });
-  }
-
-  componentDidMount() {
-    this.getRandomRecipes();
   }
 
   render() {
@@ -66,7 +88,8 @@ export default class Calendar extends React.Component {
           })) : 'No Meals Planned!'}
           <Col m={1}></Col>
         </Row>
-        <Button waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>cloud</Icon></Button>
+        <Button waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
+        <Button waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>New Meal Plan<Icon left>cloud</Icon></Button>
       </div>
     );
   }
