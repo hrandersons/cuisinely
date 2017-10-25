@@ -6,18 +6,81 @@ class RecipeEntry extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      bookmarked: false
+    };
+
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
-  handleAddBookmark(id) {
+  componentDidMount() {
+    this.checkBookmarks();
+  }
+
+  checkBookmarks() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
     const { recipe } = this.props;
-    axios.post('/api/bookmarks', {id: recipe._id})
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+
+    axios.get('/api/bookmarks', { params: params })
       .then((res) => {
-        console.log('bookmark added');
+        console.log(res.data);
+        this.setState({
+          bookmarked: res.data
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  handleAddBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const { recipe } = this.props;
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+    axios.put('/api/bookmarks', params)
+      .then((res) => {
+        console.log('bookmarked');
+        this.setState({
+          bookmarked: true
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleRemoveBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const { recipe } = this.props;
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+    axios.delete('/api/bookmarks', { params: params })
+      .then((res) => {
+        console.log('removed');
+        this.setState({
+          bookmarked: false
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }
 
   render() {
@@ -41,7 +104,12 @@ class RecipeEntry extends React.Component {
             </div>
             <div className="card-action">
               <Link to={`recipes/${recipe._id}`}>Explore</Link>
-              <a onClick={this.handleAddBookmark}>Bookmark</a>
+              {
+                (this.state.bookmarked)
+                  ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
+                  : <a onClick={this.handleAddBookmark}>Bookmark</a>
+              }
+
             </div>
           </div>
         </div>
