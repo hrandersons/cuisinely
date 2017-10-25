@@ -29,6 +29,8 @@ app.post('/api/recipes', handler.newRecipe);
 
 app.get('/api/calendarRecipes', handler.getCalendarRecipes);
 
+app.post('/api/mealPlan', handler.saveMealPlan);
+
 app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
 
 app.post('/api/bookmarks/:userId', handler.addToBookmarks);

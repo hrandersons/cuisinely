@@ -1,5 +1,6 @@
 const Recipe = require('../db/models/recipe.js');
 const User = require('../db/models/user.js');
+const MealPlan = require('../db/models/mealplan.js');
 const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
@@ -134,5 +135,29 @@ exports.addToBookmarks = (req, res) => {
     //push id of recipe to bookmarks array
     user.bookmarks.push(newBookmark);
     user.save(done);
+  });
+};
+
+exports.saveMealPlan = (req, res) => {
+  let plan = {
+    userId: req.body.userId,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    recipes: req.body.recipes
+  };
+
+  MealPlan.findOneAndUpdate({ userId: req.body.userId}, plan, (err, found) => {
+    if (found) {
+      res.status(200).json(found);
+    } else {
+      MealPlan.create(plan)
+        .then((newPlan) => {
+          res.status(201).json(newPlan);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send('Something went wrong!');
+        });
+    }
   });
 };
