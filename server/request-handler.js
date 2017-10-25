@@ -1,5 +1,6 @@
 const Recipe = require('../db/models/recipe.js');
 const User = require('../db/models/user.js');
+const MealPlan = require('../db/models/mealplan.js');
 const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
@@ -135,4 +136,23 @@ exports.addToBookmarks = (req, res) => {
     user.bookmarks.push(newBookmark);
     user.save(done);
   });
+};
+
+exports.saveMealPlan = (req, res) => {
+  console.log('USER:', req.user.userId);
+  // let newMealPlan = new MealPlan({
+  //   userId: req.body.userId,
+  //   startDate: req.body.startDate,
+  //   endDate: req.body.endDate,
+  //   recipes: req.body.recipes
+  // });
+  //
+  // newMealPlan.save((err, plan) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.status(500).send('Error saving meal plan!');
+  //   } else {
+  //     res.status(201).send('Meal plan saved!');
+  //   }
+  // });
 };
