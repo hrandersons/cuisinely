@@ -6,14 +6,38 @@ class RecipeEntry extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      bookmarked: false
+    };
+
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
   }
 
-  handleAddBookmark(id) {
+  componentDidMount() {
+
+  }
+
+  checkBookmarks() {
+    //TODO: check if recipe is bookmarked
+  }
+
+  handleAddBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
     const { recipe } = this.props;
-    axios.post('/api/bookmarks', {id: recipe._id})
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+
+    console.log(params);
+    axios.put('/api/bookmarks', params)
       .then((res) => {
-        console.log('bookmark added');
+        console.log('bookmark added', res);
+        this.setState({
+          bookmarked: true
+        });
       })
       .catch((err) => {
         console.log(err);

@@ -129,13 +129,23 @@ exports.sendBookmarkedRecipes = (req, res) => {
 
 exports.addToBookmarks = (req, res) => {
   //id of recipe to bookmark
-  var newBookmark = req.body.recipe;
+  const { recipeId, userId } = req.body;
   //locate user schema
-  User.findOneAndUpdate({ userId: req.user.userId }, function(err, user) {
-    //push id of recipe to bookmarks array
-    user.bookmarks.push(newBookmark);
-    user.save(done);
-  });
+  User.findOne({ userId: userId })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send('user not found');
+      } else {
+        if (user.bookmarks.indexOf(recipeId) === -1) {
+          user.bookmarks.push(recipeId);
+          user.save();
+        } 
+      }
+    })
+    .then(() => { res.status(200).send('bookmarked!'); })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.saveMealPlan = (req, res) => {

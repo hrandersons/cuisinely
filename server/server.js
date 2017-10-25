@@ -33,7 +33,7 @@ app.post('/api/mealPlan', handler.saveMealPlan);
 
 app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
 
-app.post('/api/bookmarks/:userId', handler.addToBookmarks);
+app.put('/api/bookmarks', handler.addToBookmarks);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));
