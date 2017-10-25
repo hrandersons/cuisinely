@@ -5,10 +5,6 @@ class Login extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    console.log('logged in?', this.props.auth.isAuthenticated());
-  }
-
   login() {
     this.props.auth.login();
   }

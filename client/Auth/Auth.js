@@ -5,13 +5,13 @@ import history from '../components/history';
 const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: true,
   autoclose: true,
+  redirect: true,
+  closable: false,
+  allowSignUp: true,
   auth: {
     redirectUrl: keys.callbackUrl,
     responseType: 'token id_token',
-    audience: `https://${keys.domain}/userinfo`,
-    params: {
-      scope: 'openid'
-    }
+    scope: 'openid profile'
   }
 });
 
@@ -23,6 +23,7 @@ export default class Auth {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.setSession = this.setSession.bind(this);
 
   }
 
@@ -33,7 +34,7 @@ export default class Auth {
 
   handleAuthentication() {
     // Add a callback for Lock's `authenticated` event
-    lock.on('authenticated', this.setSession.bind(this));
+    lock.on('authenticated', this.setSession);
     // Add a callback for Lock's `authorization_error` event
     lock.on('authorization_error', (err) => {
       console.log(err);
@@ -44,13 +45,20 @@ export default class Auth {
 
   setSession(authResult) {
     if (authResult && authResult.accessToken && authResult.idToken) {
-      // Set the time that the access token will expire at
-      let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-      localStorage.setItem('access_token', authResult.accessToken);
-      localStorage.setItem('id_token', authResult.idToken);
-      localStorage.setItem('expires_at', expiresAt);
-      // navigate to the home route
-      history.replace('/dashboard');
+      lock.getUserInfo(authResult.accessToken, function(err, profile) {
+        if (err) {
+          console.log(err);
+        }
+        localStorage.setItem('accessToken', authResult.accessToken);
+        localStorage.setItem('profile', JSON.stringify(profile));
+        // Set the time that the access token will expire at
+        let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem('expires_at', expiresAt);
+        // navigate to the home route
+        history.replace('/dashboard');
+      });
+
     }
   }
 
@@ -59,6 +67,7 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('profile');
     // navigate to the home route
     history.replace('/login');
   }
