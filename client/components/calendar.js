@@ -39,7 +39,7 @@ export default class Calendar extends React.Component {
           {this.state.recipes.length ? this.state.recipes.map(((recipe, index) => {
             return (
               <Col m={2}>
-                <Card className='large hoverable' header={<CardTitle className='teal lighten-2'>{moment.format('dddd')}</CardTitle>} >
+                <Card className='large hoverable' header={<CardTitle className='red lighten-3'>{moment().format('dddd L')}</CardTitle>} >
                   <MiniRecipe recipe={recipe} key={recipe._id} />
                 </Card>
               </Col>
