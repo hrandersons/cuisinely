@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import Auth from '../Auth/Auth';
@@ -27,8 +28,30 @@ class App extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
 
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      bookmarks: [],
+      points: 0
     };
+  }
+
+  componentDidMount() {
+    if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
+  }
+
+  getUserInfoFromDb() {
+    console.log('get user info!');
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+    axios.get('/api/user/' + userId)
+      .then((res) => {
+        this.setState({
+          bookmarks: res.data.bookmarks,
+          points: 0
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   toggleDrawer() {

@@ -4,11 +4,9 @@ mongoose.Promise = require('bluebird');
 
 userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    userid: { type: String },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    bookmarks: { type: [], required: true }
+    userId: { type: String, required: true, index: { unique: true }},
+    bookmarks: { type: [] },
+    points: {type: Number }
   }
 );
 
