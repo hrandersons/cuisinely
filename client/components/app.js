@@ -45,7 +45,7 @@ class App extends React.Component {
       .then((res) => {
         this.setState({
           bookmarks: res.data.bookmarks,
-          points: 0
+          points: res.data.points
         });
       })
       .catch((err) => {
