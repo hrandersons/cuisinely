@@ -39,7 +39,6 @@ class App extends React.Component {
   }
 
   getUserInfoFromDb() {
-    console.log('get user info!');
     const user = JSON.parse(localStorage.profile);
     const userId = user.user_id;
     axios.get('/api/user/' + userId)
