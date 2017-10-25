@@ -1,7 +1,7 @@
 import React from 'react';
 import RecipeEntry from './recipe-entry.js';
 import Chart from 'chart.js';
-
+import Bookmarks from './bookmarks.js';
 
 class Dashboard extends React.Component {
   render() {
@@ -20,6 +20,8 @@ class Dashboard extends React.Component {
               <a href="#">Explore</a>
             </div>
           </div>
+
+          <Bookmarks />
         </div>
         <div className="col s12 m6">
           <div className="card white">

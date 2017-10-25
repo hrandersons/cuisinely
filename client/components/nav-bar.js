@@ -20,7 +20,7 @@ class NavBar extends React.Component {
     return (
       <div className="nav-bar">
         <nav>
-          <div className="nav-wrapper teal lighten-2">
+          <div className="nav-wrapper red lighten-1">
             <span className="brand-logo center nav-bar-title">ifeedme</span>
             <SideNav
               trigger={<a className="button-collapse">
@@ -29,7 +29,7 @@ class NavBar extends React.Component {
               options={{ closeOnClick: true }}
             >
               <div align="center">
-                <Button className="waves-effect waves-light btn red lighten-1" onClick={this.handleLogOut}>Log Out</Button>
+                <Button className="waves-effect waves-light btn red accent-2" onClick={this.handleLogOut}>Log Out</Button>
               </div>
               <ul>
                 <li><Link to="../dashboard">Dashboard</Link></li>

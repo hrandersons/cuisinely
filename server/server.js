@@ -29,6 +29,8 @@ app.get('/api/calendarRecipes', handler.getCalendarRecipes);
 
 app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
 
+app.post('/api/bookmarks/:userId', handler.addToBookmarks);
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));
 });

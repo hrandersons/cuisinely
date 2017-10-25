@@ -23,9 +23,7 @@ exports.sendRecipes = (req, res) => {
         res.status(200).send(recipes);
       }
     });
-
 };
-
 
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
@@ -52,7 +50,6 @@ exports.getCalendarRecipes = (req, res) => {
         }
       });
   });
-
 };
 
 exports.newRecipe = (req, res) => {
@@ -104,4 +101,15 @@ exports.sendBookmarkedRecipes = (req, res) => {
         res.status(200).send(recipes);
       }
     });
+};
+
+exports.addToBookmarks = (req, res) => {
+  //id of recipe to bookmark
+  var newBookmark = req.body.recipe;
+  //locate user schema
+  User.findOneAndUpdate({ userId: req.user.userId }, function(err, user) {
+    //push id of recipe to bookmarks array
+    user.bookmarks.push(newBookmark);
+    user.save(done);
+  });
 };
