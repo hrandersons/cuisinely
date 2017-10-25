@@ -139,12 +139,29 @@ exports.addToBookmarks = (req, res) => {
         if (user.bookmarks.indexOf(recipeId) === -1) {
           user.bookmarks.push(recipeId);
           user.save();
-        } 
+        } else {
+          res.status(200).send('already bookmarked!');
+        }
       }
     })
     .then(() => { res.status(200).send('bookmarked!'); })
     .catch((err) => {
       console.log(err);
+    });
+};
+
+exports.checkBookmarks = (req, res) => {
+  const { recipeId, userId } = req.query;
+
+  User.findOne({ userId: userId })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send('user not found');
+      } else {
+        const exists = !!(user.bookmarks.indexOf(recipeId) !== -1);
+        res.status(200).send(exists);
+      }
+
     });
 };
 

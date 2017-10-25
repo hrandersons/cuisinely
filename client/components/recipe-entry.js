@@ -14,11 +14,29 @@ class RecipeEntry extends React.Component {
   }
 
   componentDidMount() {
-
+    this.checkBookmarks();
   }
 
   checkBookmarks() {
-    //TODO: check if recipe is bookmarked
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const { recipe } = this.props;
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
+
+    axios.get('/api/bookmarks', { params: params })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          bookmarked: res.data.exists
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleAddBookmark() {
@@ -30,11 +48,9 @@ class RecipeEntry extends React.Component {
       recipeId: recipe._id,
       userId: userId
     };
-
-    console.log(params);
     axios.put('/api/bookmarks', params)
       .then((res) => {
-        console.log('bookmark added', res);
+        console.log('bookmarked', res);
         this.setState({
           bookmarked: true
         });
