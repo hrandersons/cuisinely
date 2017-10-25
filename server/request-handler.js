@@ -139,20 +139,25 @@ exports.addToBookmarks = (req, res) => {
 };
 
 exports.saveMealPlan = (req, res) => {
-  console.log('USER:', req.user.userId);
-  // let newMealPlan = new MealPlan({
-  //   userId: req.body.userId,
-  //   startDate: req.body.startDate,
-  //   endDate: req.body.endDate,
-  //   recipes: req.body.recipes
-  // });
-  //
-  // newMealPlan.save((err, plan) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(500).send('Error saving meal plan!');
-  //   } else {
-  //     res.status(201).send('Meal plan saved!');
-  //   }
-  // });
+  let plan = {
+    userId: req.body.userId,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    recipes: req.body.recipes
+  };
+
+  MealPlan.findOneAndUpdate({ userId: req.body.userId}, plan, (err, found) => {
+    if (found) {
+      res.status(200).json(found);
+    } else {
+      MealPlan.create(plan)
+        .then((newPlan) => {
+          res.status(201).json(newPlan);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send('Something went wrong!');
+        });
+    }
+  });
 };

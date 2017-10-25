@@ -27,11 +27,13 @@ export default class Calendar extends React.Component {
   }
 
   saveMealPlan() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
     let mealPlan = {};
     mealPlan.recipes = this.state.recipes;
     mealPlan.startDate = moment().format('dddd L');
     mealPlan.endDate = moment().add(4, 'days').format('dddd L');
-    mealPlan.userId = 'placeholder';
+    mealPlan.userId = userId;
 
     // console.log(mealPlan)
     axios.post('/api/mealPlan', mealPlan)
@@ -65,9 +67,6 @@ export default class Calendar extends React.Component {
           <Col m={1}></Col>
         </Row>
         <Button waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>cloud</Icon></Button>
-        <Row>
-
-        </Row>
       </div>
     );
   }
