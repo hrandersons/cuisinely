@@ -40,7 +40,7 @@ class Recipes extends React.Component {
           <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
         </div>
         <div align="right">
-          <Link to="submit" className="waves-effect waves-light btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
+          <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>
         <div className="recipe-entries">
           {
