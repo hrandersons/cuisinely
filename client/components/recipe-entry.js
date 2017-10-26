@@ -9,7 +9,6 @@ class RecipeEntry extends React.Component {
     this.state = {
       bookmarked: false
     };
-
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
