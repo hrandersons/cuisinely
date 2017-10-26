@@ -174,22 +174,27 @@ exports.checkBookmarks = (req, res) => {
 };
 
 exports.getBookmarks = (req, res) => {
-  const { recipeId, userId } = req.query;
+  const { userId } = req.query;
 
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
         return res.status(400).send('user not found');
       } else {
-        let recipes = [];
-        user.bookmarks.forEach((bookmark) => {
-          Recipe.findById(bookmark).exec()
-            .then((recipe) => {
-              recipes.push(recipe);
-            });
-        });
-        return recipes;
+        return user.bookmarks;
       }
+    })
+    .then((bookmarks) => {
+      let recipes = [];
+      bookmarks.forEach((bookmark) => {
+        recipes.push(
+          Recipe.findById(bookmark)
+            .then((recipe) => {
+              return recipe;
+            })
+        );
+      });
+      return Promise.all(recipes).then(recipes);
     })
     .then((recipes) => {
       res.status(200).send(recipes);
