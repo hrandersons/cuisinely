@@ -107,7 +107,6 @@ class Calendar extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <div align="center">
         <h5 className="component-title">My Calendar</h5>
         <Row>
@@ -127,7 +126,7 @@ class Calendar extends React.Component {
         <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>New Meal Plan<Icon left>cloud</Icon></Button>
         <div style={{'marginTop': '10px'}}>
           <Link to='/shoppinglist'>
-            <Button waves='light' className='red lighten-3' onClick={this.makeShoppingList}>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
+            <Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
           </Link>
         </div>
         {/* {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null } */}
