@@ -62,12 +62,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
       ReactDOM: 'react-dom'
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'CLIENT_ID': process.env.CLIENT_ID,
-        'DOMAIN': process.env.DOMAIN
-      }
     })
   ],
   devServer: {
