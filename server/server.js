@@ -6,7 +6,9 @@ const handler = require('./request-handler.js');
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+console.log('CLient ID --> ', process.env.CLIENT_ID);
+console.log('Type --> ', typeof process.env.CLIENT_ID);
+console.log( 'domain --> ', process.env.DOMAIN);
 app.use(express.static('client/public'));
 
 app.get('/api/hello', (req, res) => {
