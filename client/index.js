@@ -10,13 +10,13 @@ import { AppContainer } from 'react-hot-loader';
 
 const render = Component => {
   ReactDOM.render((
-    <AppContainer>
-      <Provider store={store}>
+    <Provider store={store}>
+      <AppContainer>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
-      </Provider>
-    </AppContainer>
+      </AppContainer>
+    </Provider>
   ), document.getElementById('app'));
 };
 
