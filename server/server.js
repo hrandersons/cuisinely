@@ -4,11 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
 const PORT = process.env.PORT || 3000;
+console.log('POrt --> ', process.env.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-console.log('CLient ID --> ', process.env.CLIENT_ID);
-console.log('Type --> ', typeof process.env.CLIENT_ID);
-console.log( 'domain --> ', process.env.DOMAIN);
 
 app.use(express.static('client/public'));
 
