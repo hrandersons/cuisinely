@@ -28,9 +28,8 @@ class RecipeEntry extends React.Component {
       userId: userId
     };
 
-    axios.get('/api/bookmarks', { params: params })
+    axios.get('/api/bookmarks/check', { params: params })
       .then((res) => {
-        console.log(res.data);
         this.setState({
           bookmarked: res.data
         });

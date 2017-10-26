@@ -21,24 +21,21 @@ app.listen(PORT, () => {
 
 app.get('/api/user/:userId', handler.getUserInfo);
 
+// Recipes handlers
 app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
-
 app.get('/api/recipes', handler.sendRecipes);
-
 app.post('/api/recipes', handler.newRecipe);
 
+// meal plan handlers
 app.get('/api/calendarRecipes', handler.getCalendarRecipes);
-
 app.get('/api/mealPlan', handler.sendMealPlan);
-
 app.post('/api/mealPlan', handler.saveMealPlan);
-
-app.get('/api/recipes/:userId', handler.sendBookmarkedRecipes);
 
 // Bookmarks handlers
 app.put('/api/bookmarks', handler.addBookmark);
 app.delete('/api/bookmarks', handler.removeBookmark);
-app.get('/api/bookmarks', handler.checkBookmarks);
+app.get('/api/bookmarks/get', handler.getBookmarks);
+app.get('/api/bookmarks/check', handler.checkBookmarks);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));

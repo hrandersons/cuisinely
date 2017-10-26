@@ -110,23 +110,6 @@ exports.newRecipe = (req, res) => {
   //TODO: write image processing & imageUrl update function
 };
 
-exports.sendBookmarkedRecipes = (req, res) => {
-  let bookmarks = req.body.bookmarks; //should be an array of recipe IDs
-  Recipe.find({
-    //selects all documents where the array specified by $in contains the value recorded in the field
-    name: { $in: bookmarks }
-    //maybe we'll use ID instead of name?
-  })
-    .exec((err, recipes) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Error retrieving your recipies');
-      } else {
-        res.status(200).send(recipes);
-      }
-    });
-};
-
 exports.addBookmark = (req, res) => {
   //id of recipe to bookmark
   const { recipeId, userId } = req.body;
@@ -184,6 +167,32 @@ exports.checkBookmarks = (req, res) => {
         res.status(200).send(exists);
       }
 
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+};
+
+exports.getBookmarks = (req, res) => {
+  const { recipeId, userId } = req.query;
+
+  User.findOne({ userId: userId })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send('user not found');
+      } else {
+        let recipes = [];
+        user.bookmarks.forEach((bookmark) => {
+          Recipe.findById(bookmark).exec()
+            .then((recipe) => {
+              recipes.push(recipe);
+            });
+        });
+        return recipes;
+      }
+    })
+    .then((recipes) => {
+      res.status(200).send(recipes);
     })
     .catch((err) => {
       res.status(400).send(err);
