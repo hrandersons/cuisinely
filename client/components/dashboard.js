@@ -1,6 +1,5 @@
 import React from 'react';
 import RecipeEntry from './recipe-entry.js';
-import Chart from 'chart.js';
 import Bookmarks from './bookmarks.js';
 
 class Dashboard extends React.Component {
