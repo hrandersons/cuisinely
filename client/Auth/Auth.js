@@ -6,7 +6,9 @@ import history from '../components/history';
 // } : require('./Auth_keys');
 // 
 // console.log('Keys --> ', keys);
-
+console.log('CLient ID --> ', process.env.CLIENT_ID);
+console.log('Type --> ', typeof process.env.CLIENT_ID);
+console.log( 'domain --> ', process.env.DOMAIN);
 
 const lock = new Auth0Lock(process.env.CLIENT_ID, process.env.DOMAIN, {
   oidcConformant: false,
