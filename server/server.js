@@ -14,7 +14,7 @@ let keys = (process.env.CLIENT_ID && process.env.DOMAIN) ? {
   clientId: process.env.CLIENT_ID,
   domain: process.env.DOMAIN
 } : require('../Auth/Auth_keys');
-console.log('Keys --> ', key);
+console.log('Keys --> ', keys);
 
 app.use(express.static('client/public'));
 
