@@ -11,10 +11,10 @@ console.log('Type --> ', typeof process.env.CLIENT_ID);
 console.log( 'domain --> ', process.env.DOMAIN);
 
 let keys = (process.env.CLIENT_ID && process.env.DOMAIN) ? {
-  clientId: process.env.CLIENT_ID,
-  domain: process.env.DOMAIN
+  clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN
 } : require('../Auth/Auth_keys');
 console.log('Keys --> ', keys);
+console.log('CLientid -->', keys.clientId);
 
 app.use(express.static('client/public'));
 
