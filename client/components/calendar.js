@@ -4,9 +4,13 @@ import RecipeEntry from './recipe-entry.js';
 import MiniRecipe from './recipe-mini.js';
 import ShoppingList from './shopping-list.js';
 import { Card, CardTitle, Row, Col, Button, Icon } from 'react-materialize';
+import { Link, Route } from 'react-router-dom';
 import moment from 'moment';
+import { setList } from '../actions/actions.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +39,7 @@ export default class Calendar extends React.Component {
 
   getPlannedRecipes() {
     let userId = this.state.userId;
-    axios.get('/api/mealPlan', {
+    return axios.get('/api/mealPlan', {
       params: {userId: userId}
     })
       .then((response) => {
@@ -43,6 +47,7 @@ export default class Calendar extends React.Component {
           this.setState({
             recipes: response.data.recipes
           });
+          this.makeShoppingList(response.data.recipes);
         }
       });
   }
@@ -74,10 +79,10 @@ export default class Calendar extends React.Component {
       });
   }
 
-  makeShoppingList() {
+  makeShoppingList(recipes) {
     let list = {};
     let formattedList = [];
-    this.state.recipes.forEach((recipe) => {
+    recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
         if (list[ingredient.name]) {
           list[ingredient.name] += ', ' + ingredient.quantity;
@@ -94,13 +99,15 @@ export default class Calendar extends React.Component {
       formattedList.push(entry);
     }
     //console.log(formattedList)
-    this.setState({
-      list: formattedList
-    });
+    // this.setState({
+    //   list: formattedList
+    // });
+    this.props.setList(formattedList);
   }
 
   render() {
     return (
+<<<<<<< HEAD
       <div align="center">
         <h5 className="component-title">My Calendar</h5>
         <Row>
@@ -119,10 +126,25 @@ export default class Calendar extends React.Component {
         <Button style={{'marginRight': '5px'}} waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
         <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>New Meal Plan<Icon left>cloud</Icon></Button>
         <div style={{'marginTop': '10px'}}>
-          <Button waves='light' className='red lighten-3' onClick={this.makeShoppingList}>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
+          <Link to='/shoppinglist'>
+            <Button waves='light' className='red lighten-3' onClick={this.makeShoppingList}>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
+          </Link>
         </div>
-        {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null }
+        {/* {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null } */}
+
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.shoppingList
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setList }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

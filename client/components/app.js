@@ -16,6 +16,7 @@ import Meals from './meals.js';
 import Login from './login.js';
 import Callback from './callback.js';
 import RecipeDetails from './recipe-details.js';
+import ShoppingList from './shopping-list.js';
 
 
 
@@ -82,6 +83,7 @@ class App extends React.Component {
           <Route path='/recipes/:recipeId' render={props => (<RecipeDetails {...props} />)} />
           <Route path='/meals' render={props => (<Meals {...props} />)} />
           <Route path='/submit' render={props => (<SubmitRecipe {...props} />)} />
+          <Route path='/shoppinglist' render={props => (<ShoppingList {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>
       </div>
