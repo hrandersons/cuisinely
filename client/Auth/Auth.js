@@ -1,7 +1,7 @@
 import Auth0Lock from 'auth0-lock';
-//import keys from './Auth_keys';
+import keys from './Auth_keys';
 import history from '../components/history';
-
+console.log('Keys --> callback --> ', keys.callbackUrl);
 const lock = new Auth0Lock('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.com', {
   oidcConformant: false,
   autoclose: true,
@@ -9,7 +9,7 @@ const lock = new Auth0Lock('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.co
   closable: true,
   allowSignUp: true,
   auth: {
-    redirectUrl: keys.callbackUrl,
+    //redirectUrl: keys.callbackUrl,
     responseType: 'token id_token',
     scope: 'openid profile'
   }
