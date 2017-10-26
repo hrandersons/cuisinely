@@ -1,10 +1,6 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-let keys = (process.env.CLIENT_ID && process.env.DOMAIN) ? {
-  clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN
-} : require('./../Auth/Auth_keys');
-console.log('Keys --> ', keys);
-console.log('process.env.CLIENT_ID _---> ', process.env.CLIENT_ID);
+import keys from './Auth_keys';
 
 
 
