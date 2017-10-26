@@ -6,7 +6,7 @@ const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
-  closable: false,
+  closable: true,
   allowSignUp: true,
   auth: {
     redirectUrl: keys.callbackUrl,

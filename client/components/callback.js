@@ -6,6 +6,7 @@ class Callback extends Component {
       position: 'absolute',
       display: 'flex',
       justifyContent: 'center',
+      verticalAlign: 'center',
       height: '100vh',
       width: '100vw',
       top: 0,
@@ -16,8 +17,18 @@ class Callback extends Component {
     };
 
     return (
-      <div style={style}>
-        Loading
+      <div className="loading-page">
+        <div className="preloader-wrapper big active">
+          <div className="spinner-layer spinner-red-only">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div><div className="gap-patch">
+              <div className="circle"></div>
+            </div><div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

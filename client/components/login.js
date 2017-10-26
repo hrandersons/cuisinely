@@ -11,7 +11,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-container">
+      <div className="login-page">
         <div className="row">
           <div className="col s12">
             <div className="card white">
@@ -21,9 +21,10 @@ class Login extends React.Component {
               <div className="card-action landing">
                 <strong><a
                   style={{ cursor: 'pointer' }}
+                  className="waves-effect red lighten-1 btn"
                   onClick={this.login.bind(this)}
                 >
-                  Log In or Sign Up
+                  Log In/Sign Up
                 </a></strong>
               </div>
             </div>
