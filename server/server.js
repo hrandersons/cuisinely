@@ -4,7 +4,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
 const PORT = process.env.PORT || 3000;
-
+console.log('ENV VAirable  --> ', process.env.VAR1);
+console.log('USerrr -> ', process.env.USER);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
