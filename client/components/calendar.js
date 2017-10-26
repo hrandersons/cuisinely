@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import RecipeEntry from './recipe-entry.js';
 import MiniRecipe from './recipe-mini.js';
+import ShoppingList from './shopping-list.js';
 import { Card, CardTitle, Row, Col, Button, Icon } from 'react-materialize';
 import moment from 'moment';
 
@@ -10,12 +11,14 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       recipes: [],
-      userId: ''
+      userId: '',
+      list: []
     };
 
     this.getRandomRecipes = this.getRandomRecipes.bind(this);
     this.getPlannedRecipes = this.getPlannedRecipes.bind(this);
     this.saveMealPlan = this.saveMealPlan.bind(this);
+    this.makeShoppingList = this.makeShoppingList.bind(this);
   }
 
   componentWillMount() {
@@ -71,6 +74,31 @@ export default class Calendar extends React.Component {
       });
   }
 
+  makeShoppingList() {
+    let list = {};
+    let formattedList = [];
+    this.state.recipes.forEach((recipe) => {
+      recipe.ingredients.forEach((ingredient) => {
+        if (list[ingredient.name]) {
+          list[ingredient.name] += ', ' + ingredient.quantity;
+        } else {
+          list[ingredient.name] = ingredient.quantity;
+        }
+      });
+    });
+
+    for (var key in list) {
+      let entry = {};
+      entry.name = key;
+      entry.quantity = list[key];
+      formattedList.push(entry);
+    }
+    //console.log(formattedList)
+    this.setState({
+      list: formattedList
+    });
+  }
+
   render() {
     return (
       <div>
@@ -90,6 +118,8 @@ export default class Calendar extends React.Component {
         </Row>
         <Button waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
         <Button waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>New Meal Plan<Icon left>cloud</Icon></Button>
+        <Button waves='light' className='red lighten-3' onClick={this.makeShoppingList}>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
+        {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null }
       </div>
     );
   }
