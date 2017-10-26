@@ -14,6 +14,7 @@ import Recipes from './recipes.js';
 import SubmitRecipe from './submit-recipe.js';
 import Meals from './meals.js';
 import Login from './login.js';
+import Callback from './callback.js';
 import RecipeDetails from './recipe-details.js';
 
 
@@ -66,6 +67,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path='/' render={props => (<Login auth={auth} {...props} />)} />)} />
         <Route path='/login' render={props => (<Login auth={auth} {...props} />)} />)} />
+        <Route path='/callback' render={props => (<Callback {...props} />)} />)} />
       </Switch>
     );
   }

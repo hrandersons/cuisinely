@@ -27,7 +27,7 @@ a {
   text-align: center;
 }
 
-/*.login-page:before {
+.login-page:before {
   content: "";
   z-index: -1;
   width: 100%;
@@ -35,7 +35,8 @@ a {
   display: flex;
   top: 0;
   left: 0;
-  background: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
+  background: url('../assets/splash.jpg');
+  background-size: cover;
   -webkit-filter: blur(13px);
   -moz-filter: blur(13px);
   -o-filter: blur(13px);
@@ -43,7 +44,7 @@ a {
   filter: blur(13px);
   position: fixed;
   align-items: center;
-}*/
+}
 
 .login-page {
   position: fixed;
@@ -54,8 +55,6 @@ a {
   display: flex;
   align-items: center;
 }
-
-
 
 .login-title {
   font-family: 'Lobster', cursive;
@@ -83,11 +82,6 @@ a {
 .title {
   font-size: 30px;
 }
-
-/*.row {
-  margin-left: 20px;
-  margin-right: 20px;
-}*/
 
 .thumbnail {
   position: relative;
@@ -133,17 +127,22 @@ a {
   color: #e57373;
 }
 
-.login-container {
+.loading-page {
   position: fixed;
+  display: flex;
   align-items: center;
   position: absolute;
-  top: 200px;
+  justify-content: center;
+  vertical-align: center;
+  top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
-  background: #ef9a9a;
+  background: #FFFFFF;
   text-align: center;
-  position: relative;
+  position: absolute;
   margin: auto;
   padding: 100px 100px;
 }
