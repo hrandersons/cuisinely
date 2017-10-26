@@ -80,13 +80,13 @@ export default class MiniRecipe extends React.Component {
   render() {
     return (
       <div>
-        <h5>{this.props.recipe.name}</h5>
+        <span className="recipe-mini-title">{this.props.recipe.name}</span>
         <ul>
           <li>Time: {this.props.recipe.time} min</li>
           <li>Difficulty: {this.props.recipe.difficulty}</li>
         </ul>
         <div>
-          <img src={this.props.recipe.imageUrl} width="150" height="150" />
+          <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
         <div className="card-action">
           <Link to={`recipes/${this.props.recipe._id}`}>Details</Link>
