@@ -1,8 +1,8 @@
 import React from 'react';
 import RecipeEntry from './recipe-entry.js';
 import Bookmarks from './bookmarks.js';
-//import UserStat from './user-stat.js';
-//import FeedMeter from './feed-meter.js';
+import UserStat from './user-stat.js';
+import FeedMeter from './feed-meter.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -31,12 +31,11 @@ class Dashboard extends React.Component {
         </div>
         <div className="row" align="center">
           <span><strong>Feed Meter!</strong></span>
-          {/* <FeedMeter /> */}
+          <FeedMeter />
         </div>
         <div className="row">
           <div className="col s12 m12 l6">
-            User Stats Here
-            {/* <UserStat /> */}
+            <UserStat />
           </div>
           <div className="col s12 m12 l6">
             <Bookmarks userId={this.state.profile.user_id} />
