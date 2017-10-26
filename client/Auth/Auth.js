@@ -1,11 +1,11 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-let keys = require('../server/server');
+let keys = (process.env.CLIENT_ID && process.env.DOMAIN) ? {
+  clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN
+} : require('./../Auth/Auth_keys');
 console.log('Keys --> ', keys);
-// let keys = (process.env.CLIENT_ID && process.env.DOMAIN) ? {
-//   clientId: process.env.CLIENT_ID,
-//   domain: process.env.DOMAIN
-// } : require('./Auth_keys');
+console.log('process.env.CLIENT_ID _---> ', process.env.CLIENT_ID);
+
 
 
 const lock = new Auth0Lock(keys.clientId, keys.domain, {
