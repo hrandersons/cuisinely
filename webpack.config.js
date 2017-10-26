@@ -64,6 +64,9 @@ module.exports = {
       ReactDOM: 'react-dom'
     })
   ],
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     host: 'localhost',
     port: 8080,
