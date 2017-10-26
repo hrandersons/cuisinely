@@ -14,15 +14,38 @@ class RecipeDetails extends React.Component {
       ingredients: [],
       equipment: [],
       instructions: [],
-      id: ''
+      id: '',
+      bookmarked: false
     };
 
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
 
   }
 
   componentDidMount() {
     this.getRecipeDetail();
+  }
+
+  checkBookmarks(id) {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const params = {
+      recipeId: id,
+      userId: userId
+    };
+
+    axios.get('/api/bookmarks', { params: params })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          bookmarked: res.data
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   getRecipeDetail() {
@@ -40,16 +63,47 @@ class RecipeDetails extends React.Component {
           instructions: recipe.instructions,
           id: recipe._id,
         });
+        this.checkBookmarks(recipe._id);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  handleAddBookmark(id) {
-    axios.post('/api/bookmarks/:userId', {id: this.state.id})
+  handleAddBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+    const params = {
+      recipeId: this.state.id,
+      userId: userId
+    };
+
+    axios.put('/api/bookmarks', params)
       .then((res) => {
-        console.log('bookmark added');
+        console.log('bookmarked');
+        this.setState({
+          bookmarked: true
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleRemoveBookmark() {
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+
+    const params = {
+      recipeId: this.state.id,
+      userId: userId
+    };
+    axios.delete('/api/bookmarks', { params: params })
+      .then((res) => {
+        console.log('removed');
+        this.setState({
+          bookmarked: false
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +117,7 @@ class RecipeDetails extends React.Component {
 
   render() {
     let stepCount = 1;
+
     return (
       <div className="container">
         <div className="row">
@@ -157,7 +212,13 @@ class RecipeDetails extends React.Component {
                   <ul>
                     <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
-                    <li><a onClick={() => this.handleAddBookmark()} className="btn-floating cyan"><i className="material-icons">add</i></a></li>
+                    <li>
+                      {
+                        (this.state.bookmarked)
+                          ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
+                          : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
+                      }
+                    </li>
                   </ul>
                 </div>
               </div>
