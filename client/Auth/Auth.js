@@ -1,10 +1,17 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-import key from './Auth_keys';
-let keys = key || {
-  clientId: process.env.CLIENT_ID,
-  domain: process.env.DOMAIN
-};
+let keys; 
+try {
+  let key = require('./Auth_keys');
+  keys = key;
+} catch (ex) {
+  keys = {
+    clientId: process.env.CLIENT_ID,
+    domain: process.env.DOMAIN
+  };
+}
+
+
 
 const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
