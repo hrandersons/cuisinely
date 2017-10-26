@@ -28,6 +28,7 @@
   "bugs": {
     "url": "https://github.com/hrandersons/cuisinely/issues"
   },
+  
   "homepage": "https://github.com/hrandersons/cuisinely#readme",
   "dependencies": {
     "auth0-js": "^8.10.1",
