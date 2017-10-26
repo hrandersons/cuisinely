@@ -1,10 +1,12 @@
-import Auth0Lock from 'auth0-lock';
-// import keys from './Auth_keys';
-var test = process.env.VAR1 || 'BOis';
-console.log('Test --> ', test);
+import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-// console.log('Keys --> callback --> ', keys.callbackUrl);
-const lock = new Auth0Lock('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.com', {
+import key from './Auth_keys';
+let keys = key || {
+  clientId: process.env.CLIENT_ID,
+  domain: process.env.DOMAIN
+};
+
+const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
