@@ -1,6 +1,9 @@
 import React from 'react';
+
 import RecipeEntry from './recipe-entry.js';
 import Bookmarks from './bookmarks.js';
+import UserStat from './user-stat.js';
+import FeedMeter from './feed-meter.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -28,36 +31,12 @@ class Dashboard extends React.Component {
           <h5><strong>Welcome {name}! Ready to cook?</strong></h5>
         </div>
         <div className="row" align="center">
-          Chart
+          <span><strong>Feed Meter!</strong></span>
+          <FeedMeter />
         </div>
         <div className="row">
           <div className="col s12 m12 l6">
-            <div className="card white">
-              <div className="card-content black-text">
-                <span className="card-title">Achievements</span>
-                <table>
-                  <thead>
-                    <tr>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>Achievement 1</td>
-                      <td>Achievement 2</td>
-                    </tr>
-                    <tr>
-                      <td>Achievement 3</td>
-                      <td>Achievement 4</td>
-                    </tr>
-                    <tr>
-                      <td>Achievement 5</td>
-                      <td>Achievement 6</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <UserStat />
           </div>
           <div className="col s12 m12 l6">
             <Bookmarks userId={this.state.profile.user_id} />
