@@ -40,7 +40,6 @@ class SubmitRecipe extends React.Component {
 
   handleSubmitRecipe(e) {
     e.preventDefault();
-    console.log('submit recipe!');
     let recipe = {};
     recipe.name = this.state.name;
     recipe.time = this.state.time;
@@ -180,14 +179,14 @@ class SubmitRecipe extends React.Component {
 
     return (
       <div className="container">
-        <h4 className="component-title">Submit a Recipe!</h4>
+        <h5 className="component-title">Submit a Recipe!</h5>
         <Row>
           <form s={12}>
             <div className="col s12">
               <h5><strong>Recipe Information:</strong></h5>
-              <Input s={7} label="Name" type="text" onChange={this.handleRecipeName}/>
-              <Input s={3} label="Minutes" type="number" onChange={this.handleRecipeTime}/>
-              <Input s={10} label="Short Description" type="text" onChange={this.handleDescription}/>
+              <Input s={9} m={7} label="Name" type="text" onChange={this.handleRecipeName}/>
+              <Input s={3} m={3} label="Minutes" type="number" onChange={this.handleRecipeTime}/>
+              <Input s={12} m={10} label="Short Description" type="text" onChange={this.handleDescription}/>
             </div>
             <div className="col s12 m6">
               <h5><strong>Ingredients:</strong></h5>

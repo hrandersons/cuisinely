@@ -1,7 +1,9 @@
 import React from 'react';
+
 import RecipeEntry from './recipe-entry.js';
-import Chart from 'chart.js';
 import Bookmarks from './bookmarks.js';
+import UserStat from './user-stat.js';
+import FeedMeter from './feed-meter.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -24,49 +26,20 @@ class Dashboard extends React.Component {
   render() {
     const name = this.state.profile.given_name || this.state.profile.name.split('@')[0];
     return (
-      <div className="row">
-        <p className="title">
-          Welcome {name}! Ready to cook?
-        </p>
-        <div className="col s12 m6">
-          <div className="card grey lighten-2">
-            <div className="card-content black-text">
-              <span className="card-title">Recommended Recipes</span>
-            </div>
-            <div className="card-action">
-              <a href="#">Explore</a>
-            </div>
-          </div>
-
-          <Bookmarks />
+      <div className="container">
+        <div className="row" align="center">
+          <h5><strong>Welcome {name}! Ready to cook?</strong></h5>
         </div>
-        <div className="col s12 m6">
-          <div className="card white">
-            <div className="card-content black-text">
-              <span className="card-title">Achievements</span>
-              <table>
-                <thead>
-                  <tr>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr>
-                    <td>Achievement 1</td>
-                    <td>Achievement 2</td>
-                  </tr>
-                  <tr>
-                    <td>Achievement 3</td>
-                    <td>Achievement 4</td>
-                  </tr>
-                  <tr>
-                    <td>Achievement 5</td>
-                    <td>Achievement 6</td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
+        <div className="row" align="center">
+          <span><strong>Feed Meter!</strong></span>
+          <FeedMeter />
+        </div>
+        <div className="row">
+          <div className="col s12 m12 l6">
+            <UserStat />
+          </div>
+          <div className="col s12 m12 l6">
+            <Bookmarks userId={this.state.profile.user_id} />
           </div>
         </div>
       </div>

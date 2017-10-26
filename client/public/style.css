@@ -10,7 +10,8 @@ a {
 }
 
 .component-title {
-  font-weight: 400;
+  font-weight: bold;
+  text-align: center;
 }
 
 .nav-bar-title {
@@ -147,6 +148,26 @@ a {
   padding: 100px 100px;
 }
 
-.container .row {
-  margin: 0 auto;
+.calendar-date {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #000000;
+  background-color: #ef9a9a;
+}
+
+.recipe-mini-title {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.recipe-mini-img {
+  display: block;
+  width: 150px;
+  height: 150px;
+}
+
+.feed-meter-icon {
+  color: #ef5350;
 }

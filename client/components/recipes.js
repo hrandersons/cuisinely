@@ -34,7 +34,7 @@ class Recipes extends React.Component {
   render() {
     return (
       <div className="container">
-        <h4 className="component-title">Recipes</h4>
+        <h5 className="component-title">Recipes</h5>
         <div>
           <SearchBar />
           <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
