@@ -7,11 +7,6 @@ notifications:
         -bois.bb18@gmail.com
      on_success: always
      on_failure: always # default: alwaysbranches:
-branches:
-  only:
-   -master
 after_success:
-        - eval "$(ssh-agent -s)"
-        - chmod 600 deploy && mv deploy ~/.ssh/id_rsa
         - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
         - git push deploy
