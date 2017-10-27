@@ -21,6 +21,9 @@ app.listen(PORT, () => {
 
 app.get('/api/user/:userId', handler.getUserInfo);
 
+// export recipe
+// app.post('/sendlist', handler.sendList);
+
 // Recipes handlers
 app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
 app.get('/api/recipes', handler.sendRecipes);
