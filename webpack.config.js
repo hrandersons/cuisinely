@@ -65,8 +65,10 @@ module.exports = {
     })
   ],
   devServer: {
-    host: 'localhost',
-    port: 8080,
+    host: (process.env.DOMAIN) ? '0.0.0.0' : 'localhost',
+    hot: true,
+    inline: true,
+    port: (process.env.DOMAIN) ? 80 : 8080,
     contentBase: BUILD_DIR,
     historyApiFallback: true,
     // respond to 404s with index.html
