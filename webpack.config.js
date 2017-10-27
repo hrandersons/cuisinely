@@ -74,7 +74,7 @@ module.exports = {
     hot: true,
     // enable HMR on the server
     proxy: {
-      '/api': (process.env.DOMAIN) ? 'http://45.55.247.148' : 'http://localhost:3000',
+      '/api': (process.env.DOMAIN) ? 'http://45.55.247.148:3000' : 'http://localhost:3000',
       'secure': false,
       'changeOrigin': true
     }
