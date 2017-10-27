@@ -1,5 +1,7 @@
 language: node_js
 node_js:
   - "stable"
-  script: npm run dev | npm run dev-client
+  script: 
+    -npm run dev
+    -npm run dev-client
  
