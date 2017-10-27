@@ -6,22 +6,12 @@ node_js:
     on_failure: change
     on_success: change
 
-  addons:
-    ssh_known_hosts:
-      -45.55.247.148
   branches:
     only:
       -master
-    env:
-      global:
-        - REMOTE_APP_DIR=/var/www/cuisinely/
-        - REMOTE_USER=deploy
-        - REMOTE_HOST=45.55.247.148
-        - PORT=8080
-        before_install:
-          -npm install -g npm@^2
-        install:
-        - npm install --only=dev
        after_success:
+        - eval "$(ssh-agent -s)"
         - chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+        - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
+        - git push deploy
 
