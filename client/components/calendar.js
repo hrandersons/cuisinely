@@ -64,11 +64,15 @@ class Calendar extends React.Component {
 
   saveMealPlan() {
     let mealPlan = {};
-    mealPlan.recipes = this.state.recipes;
+    let datedRecipes = this.state.recipes.slice();
+    datedRecipes.forEach((recipe, index) => {
+      recipe.date = moment().add(index, 'days').format('ddd L');
+    });
+    mealPlan.recipes = datedRecipes;
     mealPlan.startDate = moment().format('dddd L');
     mealPlan.endDate = moment().add(4, 'days').format('dddd L');
     mealPlan.userId = this.state.userId;
-
+    console.log(mealPlan);
 
     axios.post('/api/mealPlan', mealPlan)
       .then((res) => {
@@ -98,10 +102,6 @@ class Calendar extends React.Component {
       entry.quantity = list[key];
       formattedList.push(entry);
     }
-    //console.log(formattedList)
-    // this.setState({
-    //   list: formattedList
-    // });
     this.props.setList(formattedList);
   }
 
@@ -114,7 +114,10 @@ class Calendar extends React.Component {
           {this.state.recipes.length ? this.state.recipes.map(((recipe, index) => {
             return (
               <Col s={12} m={5} l={2} key={recipe._id}>
-                <Card style={{minWidth: '200px'}} className='large hoverable' header={<div className="calendar-date">{moment().add(index, 'days').format('ddd L')}</div>} >
+                <Card style={{minWidth: '200px'}}
+                  className='large hoverable'
+                  header={<div className={recipe.date === moment().format('ddd L') ? 'calendar-today' : 'calendar-date'}>
+                    {recipe.date ? recipe.date : moment().add(index, 'days').format('ddd L')}</div>} >
                   <MiniRecipe recipe={recipe} key={recipe._id} />
                 </Card>
               </Col>
