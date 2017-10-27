@@ -5,7 +5,7 @@ const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
 
-//all requests go here
+//all requests go 
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
 //TODO: write backend auth functions
