@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - 6.9.1
-  notifications:
+  notification:
     email:
     on_failure: change
     on_success: change
