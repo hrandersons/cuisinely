@@ -1,6 +1,10 @@
 language: node_js
 node_js:
 - 6.9.1
+notifications:
+  email:
+     on_success: always
+     on_failure: always # default: alwaysbranches:
 branches:
   only:
    -master
