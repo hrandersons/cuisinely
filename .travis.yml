@@ -1,3 +1,17 @@
 language: node_js
 node_js:
 - 6.9.1
+notifications:
+  email:
+     recipients:
+        -bois.bb18@gmail.com
+     on_success: change
+     on_failure: change # default: alwaysbranches:
+addons:
+  ssh_known_hosts:
+    - 45.55.247.148
+after_failure:
+        - eval "$(ssh-agent -s)"
+        - chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+        - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
+        - git push deploy
