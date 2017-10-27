@@ -6,7 +6,7 @@ notifications:
      recipients:
         -bois.bb18@gmail.com
      on_success: change
-     on_failure: change # default: alwaysbranches:
+     on_failure: change 
 addons:
   ssh_known_hosts:
     - 45.55.247.148
