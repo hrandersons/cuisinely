@@ -15,7 +15,6 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       recipes: [],
-      userId: '',
       list: []
     };
 
@@ -25,20 +24,20 @@ class Calendar extends React.Component {
     this.makeShoppingList = this.makeShoppingList.bind(this);
   }
 
-  componentWillMount() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-    this.setState({
-      userId: userId
-    });
-  }
+  // componentWillMount() {
+  //   const user = JSON.parse(localStorage.profile);
+  //   const userId = user.user_id;
+  //   this.setState({
+  //     userId: userId
+  //   });
+  // }
 
   componentDidMount() {
     this.getPlannedRecipes();
   }
 
   getPlannedRecipes() {
-    let userId = this.state.userId;
+    let userId = this.props.user.user_id;
     return axios.get('/api/mealPlan', {
       params: {userId: userId}
     })
@@ -71,8 +70,8 @@ class Calendar extends React.Component {
     mealPlan.recipes = datedRecipes;
     mealPlan.startDate = moment().format('dddd L');
     mealPlan.endDate = moment().add(4, 'days').format('dddd L');
-    mealPlan.userId = this.state.userId;
-    console.log(mealPlan);
+    mealPlan.userId = this.props.user.user_id;
+
 
     axios.post('/api/mealPlan', mealPlan)
       .then((res) => {
@@ -141,7 +140,8 @@ class Calendar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.shoppingList
+    ingredients: state.shoppingList,
+    user: state.user
   };
 };
 
