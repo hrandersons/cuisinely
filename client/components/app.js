@@ -39,7 +39,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 

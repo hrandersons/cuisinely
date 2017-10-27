@@ -3,27 +3,17 @@ import RecipeEntry from './recipe-entry.js';
 import Bookmarks from './bookmarks.js';
 import UserStat from './user-stat.js';
 import FeedMeter from './feed-meter.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { setUserInfo } from '../actions/actions.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      profile: {},
-    };
-  }
-
-  componentWillMount() {
-    if (localStorage.profile) {
-      this.profile = JSON.parse(localStorage.profile);
-      this.setState({
-        profile: this.profile,
-      });
-    }
   }
 
   render() {
-    const name = this.state.profile.given_name || this.state.profile.name.split('@')[0];
+    const name = this.props.user.given_name || this.props.user.name.split('@')[0] || 'User';
     return (
       <div className="container">
         <div className="row" align="center">
@@ -38,7 +28,7 @@ class Dashboard extends React.Component {
             <UserStat />
           </div>
           <div className="col s12 m12 l6">
-            <Bookmarks userId={this.state.profile.user_id} />
+            <Bookmarks userId={this.props.user.user_id} />
           </div>
         </div>
       </div>
@@ -51,5 +41,14 @@ class Dashboard extends React.Component {
 //recommended Recipes
 //meals on calendar
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
 
-export default Dashboard;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setUserInfo }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

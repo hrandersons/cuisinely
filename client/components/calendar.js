@@ -24,14 +24,6 @@ class Calendar extends React.Component {
     this.makeShoppingList = this.makeShoppingList.bind(this);
   }
 
-  // componentWillMount() {
-  //   const user = JSON.parse(localStorage.profile);
-  //   const userId = user.user_id;
-  //   this.setState({
-  //     userId: userId
-  //   });
-  // }
-
   componentDidMount() {
     this.getPlannedRecipes();
   }
