@@ -6,7 +6,3 @@ before_script:
   -npm install -g node
   -npm install
 
-  script: 
-    -npm run dev
-    -npm run dev-client
- 
