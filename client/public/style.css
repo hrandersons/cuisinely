@@ -157,6 +157,24 @@ a {
   background-color: #ef9a9a;
 }
 
+.calendar-today {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #000000;
+  background-color: #fbc727;
+}
+
+.calendar-past {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #000000;
+  background-color: lightgrey;
+}
+
 .recipe-mini-title {
   font-weight: bold;
   font-size: 1.3em;
