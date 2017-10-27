@@ -2,6 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { setUserInfo } from '../actions/actions.js';
+import { bindActionCreators } from 'redux';
+
 import Auth from '../Auth/Auth';
 import history from './history.js';
 
@@ -42,6 +46,7 @@ class App extends React.Component {
 
   getUserInfoFromDb() {
     const user = JSON.parse(localStorage.profile);
+    this.props.setUserInfo(user);
     const userId = user.user_id;
     axios.get('/api/user/' + userId)
       .then((res) => {
@@ -101,7 +106,16 @@ class App extends React.Component {
     );
   }
 
-
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setUserInfo }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
