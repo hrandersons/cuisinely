@@ -65,10 +65,10 @@ module.exports = {
     })
   ],
   devServer: {
-    host: (process.env.DOMAIN) ? '0.0.0.0' : 'localhost',
+    host: (process.env.USER === 'root') ? '0.0.0.0' : 'localhost',
     hot: true,
     inline: true,
-    port: (process.env.DOMAIN) ? 80 : 8080,
+    port: (process.env.USER === 'root') ? 80 : 8080,
     contentBase: BUILD_DIR,
     historyApiFallback: true,
     // respond to 404s with index.html
@@ -76,7 +76,7 @@ module.exports = {
     hot: true,
     // enable HMR on the server
     proxy: {
-      '/api': (process.env.DOMAIN) ? 'http://45.55.247.148:3000' : 'http://localhost:3000',
+      '/api': (process.env.USER === 'root') ? 'http://45.55.247.148:3000' : 'http://localhost:3000',
       'secure': false,
       'changeOrigin': true
     }
