@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class RecipeDetails extends React.Component {
 
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
+    this.checkBookmarks = this.checkBookmarks.bind(this);
+    this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
 
   }
 
@@ -28,8 +31,7 @@ class RecipeDetails extends React.Component {
   }
 
   checkBookmarks(id) {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
+    const userId = this.props.user.user_id;
 
     const params = {
       recipeId: id,
@@ -70,8 +72,7 @@ class RecipeDetails extends React.Component {
   }
 
   handleAddBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
+    const userId = this.props.user.user_id;
     const params = {
       recipeId: this.state.id,
       userId: userId
@@ -90,8 +91,7 @@ class RecipeDetails extends React.Component {
   }
 
   handleRemoveBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
+    const userId = this.props.user.user_id;
 
     const params = {
       recipeId: this.state.id,
@@ -110,8 +110,7 @@ class RecipeDetails extends React.Component {
   }
 
   handleRecipeComplete() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
+    const userId = this.props.user.user_id;
     axios.post('/api/points', {
       userId: userId,
       points: 10
@@ -240,4 +239,10 @@ class RecipeDetails extends React.Component {
   }
 }
 
-export default RecipeDetails;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(RecipeDetails);

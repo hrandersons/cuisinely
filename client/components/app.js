@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-
+import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUserInfo } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
@@ -40,7 +39,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 
@@ -71,9 +70,9 @@ class App extends React.Component {
   renderLogin() {
     return (
       <Switch>
-        <Route exact path='/' render={props => (<Login auth={auth} {...props} />)} />)} />
-        <Route path='/login' render={props => (<Login auth={auth} {...props} />)} />)} />
-        <Route path='/callback' render={props => (<Callback {...props} />)} />)} />
+        <Route exact path='/' render={(props) => (<Login auth={auth} {...props} />)} />)} />
+        <Route path='/login' render={(props) => (<Login auth={auth} {...props} />)} />)} />
+        <Route path='/callback' render={(props) => (<Callback {...props} />)} />)} />
       </Switch>
     );
   }
@@ -83,12 +82,12 @@ class App extends React.Component {
       <div>
         <NavBar toggleDrawer={this.toggleDrawer} auth={auth} logOut={this.handleLogOut}/>
         <Switch>
-          <Route path='/dashboard' render={props => (<Dashboard {...props} />)} />
-          <Route exact path='/recipes' render={props => (<Recipes {...props} />)} />
-          <Route path='/recipes/:recipeId' render={props => (<RecipeDetails {...props} />)} />
-          <Route path='/meals' render={props => (<Meals {...props} />)} />
-          <Route path='/submit' render={props => (<SubmitRecipe {...props} />)} />
-          <Route path='/shoppinglist' render={props => (<ShoppingList {...props} />)} />
+          <Route path='/dashboard' render={(props) => (<Dashboard {...props} />)} />
+          <Route exact path='/recipes' render={(props) => (<Recipes {...props} />)} />
+          <Route path='/recipes/:recipeId' render={(props) => (<RecipeDetails {...props} />)} />
+          <Route path='/meals' render={(props) => (<Meals {...props} />)} />
+          <Route path='/submit' render={(props) => (<SubmitRecipe {...props} />)} />
+          <Route path='/shoppinglist' render={(props) => (<ShoppingList {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>
       </div>
@@ -118,4 +117,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ setUserInfo }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

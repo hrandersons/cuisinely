@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { setUserInfo } from '../actions/actions.js';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 class RecipeEntry extends React.Component {
@@ -11,6 +13,7 @@ class RecipeEntry extends React.Component {
     };
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
+    this.checkBookmarks = this.checkBookmarks.bind(this);
   }
 
   componentDidMount() {
@@ -18,9 +21,7 @@ class RecipeEntry extends React.Component {
   }
 
   checkBookmarks() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -39,9 +40,7 @@ class RecipeEntry extends React.Component {
   }
 
   handleAddBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -60,9 +59,7 @@ class RecipeEntry extends React.Component {
   }
 
   handleRemoveBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -115,4 +112,10 @@ class RecipeEntry extends React.Component {
   }
 }
 
-export default RecipeEntry;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(RecipeEntry);
