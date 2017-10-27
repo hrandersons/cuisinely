@@ -110,7 +110,18 @@ class RecipeDetails extends React.Component {
   }
 
   handleRecipeComplete() {
-    // TODO: Award points
+    const user = JSON.parse(localStorage.profile);
+    const userId = user.user_id;
+    axios.post('/api/points', {
+      userId: userId,
+      points: 10
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     console.log('recipe complete!');
   }
 
