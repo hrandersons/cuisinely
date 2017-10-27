@@ -240,3 +240,17 @@ exports.sendMealPlan = (req, res) => {
       }
     });
 };
+
+exports.awardPoints = (req, res) => {
+  User.findOne({ userId: req.body.userId })
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Failed to update points');
+      } else {
+        user.points += req.body.points;
+        user.save();
+        res.status(200).send('Points updated!');
+      }
+    });
+};

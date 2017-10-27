@@ -37,6 +37,9 @@ app.delete('/api/bookmarks', handler.removeBookmark);
 app.get('/api/bookmarks/get', handler.getBookmarks);
 app.get('/api/bookmarks/check', handler.checkBookmarks);
 
+//Points handlers
+app.post('/api/points', handler.awardPoints);
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));
 });
