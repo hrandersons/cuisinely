@@ -5,8 +5,24 @@ notifications:
   email:
      recipients:
         -bois.bb18@gmail.com
-     on_success: always
-     on_failure: always # default: alwaysbranches:
+     on_success: change
+     on_failure: change # default: alwaysbranches:
+addons:
+  ssh_known_hosts:
+    - 45.55.247.148
+env:
+  global:
+    - REMOTE_APP_DIR=/var/www/cuisinely/
+    - REMOTE_USER=deploy
+    - REMOTE_HOST=45.55.247.148 # your droplet IP goes here
+    - PORT=3000
+before_install:
+  - npm install -g npm@^2
+install:
+  - npm install --only=dev
+before_script:
+- chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+scipt:
+  - npm run dev
 after_success:
-        - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
-        - git push deploy
+  - "./scripts/deploy.sh"

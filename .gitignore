@@ -14,3 +14,4 @@ cloudinary
 
 #Keys
 client/Auth/Auth_keys.js
+deploy
