@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { setUserInfo } from '../actions/actions.js';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class RecipeDetails extends React.Component {
@@ -247,8 +245,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setUserInfo }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
+export default connect(mapStateToProps)(RecipeDetails);

@@ -3,9 +3,8 @@ import RecipeEntry from './recipe-entry.js';
 import Bookmarks from './bookmarks.js';
 import UserStat from './user-stat.js';
 import FeedMeter from './feed-meter.js';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setUserInfo } from '../actions/actions.js';
+
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -47,8 +46,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setUserInfo }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
