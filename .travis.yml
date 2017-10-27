@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - "stable"
+before_script:
+  -npm install -g nodemon
+  -npm install -g node
+  -npm install
+
   script: 
     -npm run dev
     -npm run dev-client
