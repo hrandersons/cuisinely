@@ -23,6 +23,7 @@ app.listen(PORT, () => {
 app.get('/api/user/:userId', handler.getUserInfo);
 
 let foodUpload = upload.single('picture');
+
 // export recipe
 // app.post('/sendlist', handler.sendList);
 
@@ -44,7 +45,6 @@ app.get('/api/bookmarks/check', handler.checkBookmarks);
 
 //Points handlers
 app.post('/api/points', handler.awardPoints);
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));

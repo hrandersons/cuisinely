@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setList } from '../actions/actions.js';
 
 class ShoppingList extends React.Component {
   constructor(props) {
