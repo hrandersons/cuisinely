@@ -11,6 +11,7 @@ client/public/dist/bundle.js
 
 ## Cloudinary ##
 cloudinary
+uploads
 
 #Keys
 client/Auth/Auth_keys.js
