@@ -42,18 +42,6 @@ class SubmitRecipe extends React.Component {
 
   handleSubmitRecipe(e) {
     e.preventDefault();
-    // let recipe = {};
-    // recipe.name = this.state.name;
-    // recipe.time = this.state.time;
-    // recipe.description = this.state.description;
-    // recipe.ingredients = this.state.ingredients;
-    // recipe.equipment = this.state.equipment;
-    // recipe.imageUrl = this.state.imageUrl;
-    // recipe.userId = '12345';
-    // recipe.difficulty = 'Easy';
-    // recipe.pic = this.state.file;
-    // recipe.rating = 0;
-    // console.log('Recipe ---> ',recipe);
     let instructions = this.state.instructions;
 
     let formData = new FormData();
