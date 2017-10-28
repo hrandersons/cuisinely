@@ -19,3 +19,5 @@ deploy_key
 deploy_key.pem
 deploy_key.pub
 server/cloudinary_keys.js
+secrets.tgz
+travis_rsa.pub
