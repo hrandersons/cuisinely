@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
-export default class MiniRecipe extends React.Component {
+class MiniRecipe extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,14 +11,17 @@ export default class MiniRecipe extends React.Component {
       bookmarked: false
     };
 
+    this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
-  checkBookmarks() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
+  componentDidMount() {
+    this.checkBookmarks();
+  }
 
+  checkBookmarks() {
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -36,9 +40,7 @@ export default class MiniRecipe extends React.Component {
   }
 
   handleAddBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -57,9 +59,7 @@ export default class MiniRecipe extends React.Component {
   }
 
   handleRemoveBookmark() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
+    const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
       recipeId: recipe._id,
@@ -100,3 +100,11 @@ export default class MiniRecipe extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(MiniRecipe);
