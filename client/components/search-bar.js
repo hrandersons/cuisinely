@@ -9,17 +9,11 @@ import {
   Highlight,
 } from 'react-instantsearch/dom';
 import algoliasearch from 'algoliasearch';
+import RecipeEntry from './recipe-entry.js';
 
 var client = algoliasearch('KUPHP9V5MI', '8e465f8475198ae5cb2d621323e06fb4');
 var index = client.initIndex('recipes');
 
-//
-// **************
-// search bar is being mapped multiple times in recipes
-//
-// separate search results (hits) to recipe entries
-//
-// **************
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -100,56 +94,49 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <InstantSearch
-        appId="KUPHP9V5MI"
-        apiKey="8e465f8475198ae5cb2d621323e06fb4"
-        indexName="recipes">
-        <header>
-          <SearchBox translation={{placeholder: 'Search for Recipes!'}} />
-        </header>
-        <main>
-          <Sidebar />
-          <Content />
-        </main>
-      </InstantSearch>
+      <div>
+        <SearchBox />
+
+        <Hits hitComponent={RecipeEntry} />
+      </div>
 
     );
   }
 }
 
-const Hit = ({hit}) =>
-  <div className="col s12 m7">
-    <div className="card horizontal hoverable">
-      <div className="card-image thumbnail">
-        <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />
-      </div>
-      <div className="card-stacked">
-        <div className="card-content">
-          <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
-          <blockquote>
-            {hit.description}
-          </blockquote>
-          <ul>
-            <li><strong>Difficulty:</strong> {hit.difficulty}</li>
-            <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
-          </ul>
-        </div>
-        <div className="card-action">
-          <Link to={`recipes/${hit._id}`}>Explore</Link>
-        </div>
-      </div>
-    </div>
-  </div>;
+// const Hit = ({hit}) =>
+//   <div className="col s12 m7">
+//     <div className="card horizontal hoverable">
+//       <div className="card-image thumbnail">
+//         <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />
+//       </div>
+//       <div className="card-stacked">
+//         <div className="card-content">
+//           <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
+//           <blockquote>
+//             {hit.description}
+//           </blockquote>
+//           <ul>
+//             <li><strong>Difficulty:</strong> {hit.difficulty}</li>
+//             <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
+//           </ul>
+//         </div>
+//         <div className="card-action">
+//           <Link to={`recipes/${hit._id}`}>Explore</Link>
+//         </div>
+//       </div>
+//     </div>
+//   </div>;
 
-const Sidebar = () =>
-  <div className="sidebar">
-
-  </div>;
-
-const Content = () =>
-  <div className="content">
-    <Hits hitComponent={Hit} />
-  </div>;
+// const Sidebar = () =>
+//   <div className="sidebar">
+//
+//   </div>;
+//
+// const Content = () =>
+//   <div className="content">
+//     <Hits hitComponent={Hit} />
+//   </div>;
 
 const mapStateToProps = (state) => {
   return {

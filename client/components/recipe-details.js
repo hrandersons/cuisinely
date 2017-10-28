@@ -32,7 +32,6 @@ class RecipeDetails extends React.Component {
 
   checkBookmarks(id) {
     const userId = this.props.user.user_id;
-
     const params = {
       recipeId: id,
       userId: userId

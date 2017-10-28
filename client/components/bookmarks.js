@@ -20,6 +20,7 @@ export default class Bookmarks extends React.Component {
   }
 
   getBookmarks() {
+    console.log(this.props.userId);
     axios.get('/api/bookmarks/get', { params: {userId: this.props.userId} })
       .then((res) => {
         this.setState({
