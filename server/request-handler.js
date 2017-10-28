@@ -4,11 +4,13 @@ const MealPlan = require('../db/models/mealplan.js');
 const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
-
+const cloudinary = require('cloudinary');
+const cloudinaryKeys = require('./cloudinary_keys');
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
 //TODO: write backend auth functions
+cloudinary.config(cloudinaryKeys);
 
 exports.getUserInfo = (req, res) => {
   console.log('geting user info');
@@ -33,12 +35,12 @@ exports.getUserInfo = (req, res) => {
     });
 };
 
+
 exports.sendRecipes = (req, res) => {
   let query = req.query;
   //we'll use this to find recipes with a high correllation to our search terms
   //but for now we can just send 5 random recipes from the db
   Recipe.find({})
-    .limit(10)
     .exec( (err, recipes) => {
       if (err) {
         console.log(err);
@@ -77,35 +79,44 @@ exports.getCalendarRecipes = (req, res) => {
 };
 
 exports.newRecipe = (req, res) => {
-  //function to calculate recipe difficulty? Or should we let users select their own?
+  // function to calculate recipe difficulty? Or should we let users select their own?
   let difficulty = recipeHelper.calcDifficulty(req.body);
-
-  let newRecipe = new Recipe({
-    name: req.body.name,
-    ingredients: req.body.ingredients,
-    equipment: req.body.equipment,
-    description: req.body.description,
-    time: req.body.time,
-    instructions: req.body.instructions,
-    //hard-coded for now
-    difficulty: difficulty,
-    //also hard-coded for now
-    rating: 0,
-    //Allow users to upload pictures with the recipe;
-    //upload to hosting service may take a while,
-    //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
-    imageUrl: req.body.imageUrl || 'none',
-    //save a reference to the original submitter
-    source: req.body.userId
-  });
-  newRecipe.save((err, recipe) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.status(201).send('Recipe saved!');
+  let pic = req.file;
+  let image = '';
+  cloudinary.v2.uploader.upload(pic.path, {public_id: req.body.name}, function(error, result) {
+    if (error) {
+      console.log('Error ---> ', error);
     }
+    image = result.url;
+    let newRecipe = new Recipe({
+      name: req.body.name,
+      ingredients: req.body.ingredients,
+      equipment: req.body.equipment,
+      description: req.body.description,
+      time: req.body.time,
+      instructions: req.body.instructions,
+      //hard-coded for now
+      difficulty: difficulty,
+      //also hard-coded for now
+      rating: 0,
+      //Allow users to upload pictures with the recipe;
+      //upload to hosting service may take a while,
+      //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
+      imageUrl: image || 'none',
+      //save a reference to the original submitter
+      source: req.body.userId
+    });
+    newRecipe.save((err, recipe) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.status(201).send('Recipe saved!');
+      }
+    });
+
   });
+
   //invoke next(); to move onto async image processing function
   //TODO: write image processing & imageUrl update function
 };

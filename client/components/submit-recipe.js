@@ -20,7 +20,8 @@ class SubmitRecipe extends React.Component {
       equipName: '',
       equipQuantity: '',
       instructions: [],
-      imageUrl: ''
+      imageUrl: '',
+      file: '',
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
@@ -36,26 +37,26 @@ class SubmitRecipe extends React.Component {
     this.handleEquipQuantity = this.handleEquipQuantity.bind(this);
     this.removeEquipment = this.removeEquipment.bind(this);
     this.handleInstructions = this.handleInstructions.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
   }
 
   handleSubmitRecipe(e) {
     e.preventDefault();
-    let recipe = {};
-    recipe.name = this.state.name;
-    recipe.time = this.state.time;
-    recipe.description = this.state.description;
-    recipe.ingredients = this.state.ingredients;
-    recipe.equipment = this.state.equipment;
-    recipe.imageUrl = this.state.imageUrl;
-    recipe.userId = '12345';
-    recipe.difficulty = 'Easy';
-    recipe.rating = 0;
-
     let instructions = this.state.instructions;
 
-    recipe.instructions = instructions.split('\n');
+    let formData = new FormData();
+    formData.append('name', this.state.name);
+    formData.append('time', this.state.time);
+    formData.append('description', this.state.description);
+    formData.append('ingredients', this.state.ingredients);
+    formData.append('equipment', this.state.equipment);
+    formData.append('userId', this.state.userId);
+    formData.append('difficulty', 'Easy');
+    formData.append('picture', this.state.file);
+    formData.append('rating', 0);
+    formData.append('instructions', instructions);
 
-    axios.post('/api/recipes', recipe)
+    axios.post('/api/recipes', formData)
       .then((res) => {
         this.setState({ redirect: true });
       })
@@ -95,6 +96,21 @@ class SubmitRecipe extends React.Component {
       ingQuantity: ''
     });
 
+  }
+
+  handleImageUpload(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   removeIngredient(e) {
@@ -262,7 +278,7 @@ class SubmitRecipe extends React.Component {
             <div className="file-field input-field col s10">
               <div className="red lighten-3 btn">
                 <span>File</span>
-                <input type="file" />
+                <input type="file" onChange={(e)=>this.handleImageUpload(e)}/>
               </div>
               <div className="file-path-wrapper">
                 <input className="file-path validate" type="text" placeholder="Add a photo"/>

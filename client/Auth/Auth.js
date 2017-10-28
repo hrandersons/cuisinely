@@ -1,6 +1,8 @@
-import Auth0Lock from 'auth0-lock';
-import keys from './Auth_keys';
+import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
+import keys from './Auth_keys';
+
+
 
 const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
@@ -9,7 +11,7 @@ const lock = new Auth0Lock(keys.clientId, keys.domain, {
   closable: true,
   allowSignUp: true,
   auth: {
-    redirectUrl: keys.callbackUrl,
+    //redirectUrl: keys.callbackUrl,
     responseType: 'token id_token',
     scope: 'openid profile'
   }
