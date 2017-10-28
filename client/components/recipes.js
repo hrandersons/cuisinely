@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import SearchBar from './search-bar.js';
 import RecipeEntry from './recipe-entry.js';
+import Hit from './search-bar.js';
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -36,17 +37,17 @@ class Recipes extends React.Component {
       <div className="container">
         <h5 className="component-title">Recipes</h5>
         <div>
-          <SearchBar />
           <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
-        </div>
-        <div align="right">
-          <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
+          <div align="right">
+            <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
+          </div>
+          <SearchBar />
         </div>
         <div className="recipe-entries">
           {
             (!this.state.recipes.length)
               ? <span> Loading Recipes... </span>
-              : this.state.recipes.map(recipe => <RecipeEntry recipe={recipe} key={recipe._id} />)
+              : this.state.recipes.map(recipe => <SearchBar recipe={Hit} key={recipe._id} />)
           }
         </div>
       </div>

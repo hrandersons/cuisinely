@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import { setUserInfo } from '../actions/actions.js';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 import axios from 'axios';
 import {
   InstantSearch,
@@ -16,11 +13,18 @@ import algoliasearch from 'algoliasearch';
 var client = algoliasearch('KUPHP9V5MI', '8e465f8475198ae5cb2d621323e06fb4');
 var index = client.initIndex('recipes');
 
+//
+// **************
+// search bar is being mapped multiple times in recipes
+//
+// separate search results (hits) to recipe entries
+//
+// **************
+
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('this.props', this.props);
     this.state = {
       bookmarked: false,
     };
@@ -33,13 +37,13 @@ class SearchBar extends React.Component {
   }
 
   checkBookmarks() {
-    this.props.setUserInfo(user);
-    const userId = this.props.user.user_id;
-    const { recipe } = this.props;
-    const params = {
-      recipeId: recipe._id,
-      userId: userId
-    };
+    // const userId = this.props.user.user_id;
+    // const { recipe } = this.props.recipe;
+    // console.log(this.props.recipe['name']);
+    // const params = {
+    //   recipeId: recipe._id,
+    //   userId: userId
+    // };
     //
     // axios.get('/api/bookmarks/check', { params: params })
     //   .then((res) => {
@@ -147,7 +151,13 @@ const Content = () =>
     <Hits hitComponent={Hit} />
   </div>;
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(SearchBar);
 
 
 
