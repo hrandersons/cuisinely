@@ -20,6 +20,7 @@ var index = client.initIndex('recipes');
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
 
     this.state = {
       bookmarked: false,
