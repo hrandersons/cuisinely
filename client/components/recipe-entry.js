@@ -3,8 +3,7 @@ import { Link, Route } from 'react-router-dom';
 import { setUserInfo } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import axios from 'axios';
-// import { InstantSearch, Hits, SearchBox, Highlight } from 'react-instantsearch/dom';
-//
+
 // const Hit = ({hit}) =>
 //   <div className="col s12 m7">
 //     <div className="card horizontal hoverable">
@@ -54,10 +53,9 @@ class RecipeEntry extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: this.props.hit.objectID,
+      recipeId: recipe._id,
       userId: userId
     };
-    console.log(params);
 
     axios.get('/api/bookmarks/check', { params: params })
       .then((res) => {
@@ -112,7 +110,6 @@ class RecipeEntry extends React.Component {
   render() {
     return (
       <div>
-        // <Hits />
       </div>
     );
   }

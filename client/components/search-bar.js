@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { setUserInfo } from '../actions/actions.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import axios from 'axios';
 import {
   InstantSearch,
@@ -12,47 +16,15 @@ import algoliasearch from 'algoliasearch';
 var client = algoliasearch('KUPHP9V5MI', '8e465f8475198ae5cb2d621323e06fb4');
 var index = client.initIndex('recipes');
 
-const Hit = ({hit}) =>
-  <div className="col s12 m7">
-    <div className="card horizontal hoverable">
-      <div className="card-image thumbnail">
-        <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />
-      </div>
-      <div className="card-stacked">
-        <div className="card-content">
-          <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
-          <blockquote>
-            {hit.description}
-          </blockquote>
-          <ul>
-            <li><strong>Difficulty:</strong> {hit.difficulty}</li>
-            <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
-          </ul>
-        </div>
-        <div className="card-action">
-          <Link to={`recipes/${hit._id}`}>Explore</Link>
-        </div>
-      </div>
-    </div>
-  </div>;
-
-const Sidebar = () =>
-  <div className="sidebar">
-
-  </div>;
-
-const Content = () =>
-  <div className="content">
-    <Hits hitComponent={Hit} />
-  </div>;
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log('this.props', this.props);
     this.state = {
       bookmarked: false,
     };
+    this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
@@ -61,15 +33,13 @@ class SearchBar extends React.Component {
   }
 
   checkBookmarks() {
-    const user = JSON.parse(localStorage.profile);
-    const userId = user.user_id;
-
-    // const { recipe } = this.props;
-    // const params = {
-    //   recipeId: this.props.hit.objectID,
-    //   userId: userId
-    // };
-    // console.log(params);
+    this.props.setUserInfo(user);
+    const userId = this.props.user.user_id;
+    const { recipe } = this.props;
+    const params = {
+      recipeId: recipe._id,
+      userId: userId
+    };
     //
     // axios.get('/api/bookmarks/check', { params: params })
     //   .then((res) => {
@@ -142,6 +112,40 @@ class SearchBar extends React.Component {
     );
   }
 }
+
+const Hit = ({hit}) =>
+  <div className="col s12 m7">
+    <div className="card horizontal hoverable">
+      <div className="card-image thumbnail">
+        <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />
+      </div>
+      <div className="card-stacked">
+        <div className="card-content">
+          <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
+          <blockquote>
+            {hit.description}
+          </blockquote>
+          <ul>
+            <li><strong>Difficulty:</strong> {hit.difficulty}</li>
+            <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
+          </ul>
+        </div>
+        <div className="card-action">
+          <Link to={`recipes/${hit._id}`}>Explore</Link>
+        </div>
+      </div>
+    </div>
+  </div>;
+
+const Sidebar = () =>
+  <div className="sidebar">
+
+  </div>;
+
+const Content = () =>
+  <div className="content">
+    <Hits hitComponent={Hit} />
+  </div>;
 
 export default SearchBar;
 
