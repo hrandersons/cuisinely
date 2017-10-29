@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Input, Row, Button, Icon, Card } from 'react-materialize';
+import { Input, Row, Button, Icon, Card, Dropdown, NavItem } from 'react-materialize';
+import { Multiselect } from 'react-widgets'
 import { Redirect } from 'react-router-dom';
 
 class SubmitRecipe extends React.Component {
@@ -22,6 +23,7 @@ class SubmitRecipe extends React.Component {
       instructions: [],
       imageUrl: '',
       file: '',
+      units:['NoUnits'],
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
@@ -95,7 +97,6 @@ class SubmitRecipe extends React.Component {
       ingName: '',
       ingQuantity: ''
     });
-
   }
 
   handleImageUpload(e) {
@@ -131,6 +132,18 @@ class SubmitRecipe extends React.Component {
     this.setState({
       ingName: e.target.value
     });
+     console.log('It is being invoked');
+     let ingridient  = {food:e.target.value}
+    axios.post('/api/units', ingridient)
+    .then((res) => {
+        console.log('Req.data ---> ',res.data);
+        this.setState({
+          units:res.data
+        })
+      })
+      .catch((err) => {
+        console.log('error: ', err);
+      });
   }
 
   handleIngQuantity(e) {
@@ -192,7 +205,11 @@ class SubmitRecipe extends React.Component {
     if (redirect) {
       return <Redirect to="/recipes" />;
     }
-
+    const { styles } = {
+        customWidth: {
+          width: 200,
+        },
+      };
     return (
       <div className="container">
         <h5 className="component-title">Submit a Recipe!</h5>
@@ -295,3 +312,7 @@ class SubmitRecipe extends React.Component {
 }
 
 export default SubmitRecipe;
+
+
+
+                // <Input s={5} label="Number/Unit" type="text" onChange={this.handleIngQuantity} value={this.state.ingQuantity}/>

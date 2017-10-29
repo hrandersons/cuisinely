@@ -12,9 +12,8 @@ addons:
     - 45.55.247.148
 after_success:
         - eval "$(ssh-agent -s)"
+        - cat $DEPLOY_KEY > .travis/deploy_key.pem
         - chmod 600 .travis/deploy_key.pem 
         - ssh-add .travis/deploy_key.pem
-        - git add build/*
-        - git commit -m "Travis worked"
         - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
-        - git push deploy
+        - git push deploy master
