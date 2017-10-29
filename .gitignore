@@ -21,3 +21,7 @@ deploy_key.pub
 server/cloudinary_keys.js
 secrets.tgz
 travis_rsa.pub
+
+#Data dump files
+db/recipeDump.json
+db/bbcRecipes.json
