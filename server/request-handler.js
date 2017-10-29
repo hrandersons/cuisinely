@@ -35,54 +35,54 @@ exports.getUserInfo = (req, res) => {
       }
     });
 };
-let filterResults = function(arr,bool) {
+let filterResults = function(arr, bool) {
   if (bool) {
     return arr.filter((word) => {
       if (word !== 'Pound' && word !== 'Kilogram' && word !== 'Gram' && word !== 'Handful' && word !== 'Ounce' && word !== 'Dessert spoon' && word !== 'Cubic inch' && word !== 'Tad' && word !== 'Salt spoon') {
         return word;
       }
-    })
+    });
   } else {
     return arr.filter((word) => {
       if (word !== 'Quart' && word !== 'Gallon' && word !== 'Bottle' && word !== 'Liter' && word !== 'Milliliter' && word !== 'Tad' && word !== 'Pint' && word !== 'Fluid ounce' && word !== 'Dessert spoon' && word !== 'Cubic inch' && word !== 'Tad' && word !== 'Salt spoon') {
         return word;
       }
-    })
+    });
   }
-}
+};
 
-exports.getsourceUnits = (req,res) => {
-console.log('Ingridient --> ',req.body);
-let appid = '6a032b94';
-let appkey = 'af04dee8c1b92b496501c456b635a697';
-let url = 'https://api.edamam.com/api/food-database/parser?ingr='+req.body.food+'&app_id='+appid+'&app_key='+appkey+'&page=0'
-    if (req.body.food !== '') {
-    request.get(url,(error,response,body) => {
+exports.getsourceUnits = (req, res) => {
+  console.log('Ingridient --> ', req.body);
+  let appid = '6a032b94';
+  let appkey = 'af04dee8c1b92b496501c456b635a697';
+  let url = 'https://api.edamam.com/api/food-database/parser?ingr=' + req.body.food + '&app_id=' + appid + '&app_key=' + appkey + '&page=0';
+  if (req.body.food !== '') {
+    request.get(url, (error, response, body) => {
       if (error) {
-        console.log('Error --> ',error);
+        console.log('Error --> ', error);
       }
       var result = JSON.parse(body);
       if (result['hints'].length !== 0) {
-      var temp = result['hints'][0]['measures'];
-      let arr = temp.reduce((acc,el) => {
-        acc.push(el.label)
-        return acc;
-      },[])
-      if (arr.indexOf['Fluid ounce'] !== -1) {
-        arr = filterResults(arr,true);
-      } else {
-        arr = filterResults(arr,false);
-      }
-      console.log('Response --> ',arr.length);
-      res.status(200).send(arr); 
+        var temp = result['hints'][0]['measures'];
+        let arr = temp.reduce((acc, el) => {
+          acc.push(el.label);
+          return acc;
+        }, []);
+        if (arr.indexOf['Fluid ounce'] !== -1) {
+          arr = filterResults(arr, true);
         } else {
-          res.status(200).send('No response'); 
+          arr = filterResults(arr, false);
         }
-       })
+        console.log('Response --> ', arr.length);
+        res.status(200).send(arr); 
+      } else {
+        res.status(200).send('No response'); 
+      }
+    });
   } else {
     res.status(200).send('No input');
   }
-}
+};
 
 
 exports.sendRecipes = (req, res) => {
