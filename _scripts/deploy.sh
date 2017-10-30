@@ -5,7 +5,7 @@ if [ $TRAVIS_BRANCH == 'develop' ] ; then
     cd _site
     git init
         
-    git remote add deploy "ssh://root@45.55.247.148/var/repo/site.git"
+    git remote add deploy "deploy@repo:/var/repo"
     git config user.name "boisbb18"
     git config user.email "bois.bb18@gmail.com"
     

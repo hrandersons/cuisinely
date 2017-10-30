@@ -7,6 +7,6 @@ env:
 addons:
   ssh_known_hosts: repo
 before_install:
-  - bash _scripts/install.sh
+- bash _scripts/install.sh
 after_success:
-  - bash _scripts/deploy.sh
+- bash _scripts/deploy.sh
