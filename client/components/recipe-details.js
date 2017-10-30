@@ -76,7 +76,7 @@ class RecipeDetails extends React.Component {
       recipeId: this.state.id,
       userId: userId
     };
-    console.log(params)
+    console.log(params);
 
     axios.put('/api/bookmarks', params)
       .then((res) => {
