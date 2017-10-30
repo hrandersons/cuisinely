@@ -17,7 +17,6 @@ class Recipes extends React.Component {
     this.state = {
       recipes: []
     };
-
   }
 
   componentDidMount() {
@@ -41,7 +40,9 @@ class Recipes extends React.Component {
       <div className="container">
         <h5 className="component-title">Recipes</h5>
         <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
-
+        <div align="right">
+          <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
+        </div>
         <InstantSearch
           appId="KUPHP9V5MI"
           apiKey="8e465f8475198ae5cb2d621323e06fb4"
