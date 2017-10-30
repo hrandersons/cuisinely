@@ -73,7 +73,6 @@ exports.getsourceUnits = (req, res) => {
         } else {
           arr = filterResults(arr, false);
         }
-        console.log('Response --> ', arr.length);
         res.status(200).send(arr); 
       } else {
         res.status(200).send('No response'); 
@@ -132,7 +131,7 @@ exports.newRecipe = (req, res) => {
   let difficulty = recipeHelper.calcDifficulty(req.body);
   let pic = req.file;
   let image = '';
-  cloudinary.v2.uploader.upload(pic.path, {public_id: req.body.name}, function(error, result) {
+  cloudinary.v2.uploader.upload(pic.path, {publicId: req.body.name}, function(error, result) {
     if (error) {
       console.log('Error ---> ', error);
     }
@@ -160,7 +159,13 @@ exports.newRecipe = (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(201).send('Recipe saved!');
+        User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 2 }}).exec((err, newuser) => {
+          if (err) {
+            console.log('Error --> ', err);
+          } else {
+            res.status(201).send({point: newuser.points});
+          }
+        });
       }
     });
 

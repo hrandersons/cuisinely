@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Input, Row, Button, Icon, Card, Dropdown, NavItem } from 'react-materialize';
 import { Multiselect } from 'react-widgets';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setPoints } from '../actions/actions.js';
+import { bindActionCreators } from 'redux';
 
 class SubmitRecipe extends React.Component {
   constructor(props) {
@@ -45,7 +48,7 @@ class SubmitRecipe extends React.Component {
   handleSubmitRecipe(e) {
     e.preventDefault();
     let instructions = this.state.instructions;
-
+    console.log('UserId --> ', this.props.user.user_id);
     let formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('time', this.state.time);
@@ -57,9 +60,12 @@ class SubmitRecipe extends React.Component {
     formData.append('picture', this.state.file);
     formData.append('rating', 0);
     formData.append('instructions', instructions);
+    formData.append('userId', this.props.user.user_id);
 
     axios.post('/api/recipes', formData)
       .then((res) => {
+        console.log('User Points --> ', res.data);
+        this.props.setPoints(res.data.point);
         this.setState({ redirect: true });
       })
       .catch((err) => {
@@ -132,18 +138,17 @@ class SubmitRecipe extends React.Component {
     this.setState({
       ingName: e.target.value
     });
-    console.log('It is being invoked');
-    let ingridient = {food: e.target.value};
-    axios.post('/api/units', ingridient)
-      .then((res) => {
-        console.log('Req.data ---> ', res.data);
-        this.setState({
-          units: res.data
-        });
-      })
-      .catch((err) => {
-        console.log('error: ', err);
-      });
+    // let ingridient = {food: e.target.value};
+    // axios.post('/api/units', ingridient)
+    //   .then((res) => {
+    //     console.log('Req.data ---> ', res.data);
+    //     this.setState({
+    //       units: res.data
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log('error: ', err);
+    //   });
   }
 
   handleIngQuantity(e) {
@@ -311,7 +316,17 @@ class SubmitRecipe extends React.Component {
   }
 }
 
-export default SubmitRecipe;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setPoints }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitRecipe);
 
 
 
