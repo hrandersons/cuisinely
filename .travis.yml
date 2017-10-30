@@ -1,19 +1,12 @@
 language: node_js
 node_js:
-- 6.9.1
-notifications:
-  email:
-     recipients:
-        -bois.bb18@gmail.com
-     on_success: change
-     on_failure: change 
+- 6.9.
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
-  ssh_known_hosts:
-    - 45.55.247.148
+  ssh_known_hosts: repo
+before_install:
+  - bash _scripts/install.sh
 after_success:
-        - eval "$(ssh-agent -s)"
-        - cat $DEPLOY_KEY > .travis/deploy_key.pem
-        - chmod 600 .travis/deploy_key.pem 
-        - ssh-add .travis/deploy_key.pem
-        - git remote add deploy ssh://root@45.55.247.148/var/repo/site.git
-        - git push deploy master
+  - bash _scripts/deploy.sh
