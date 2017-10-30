@@ -54,23 +54,4 @@ class Recipes extends React.Component {
   }
 }
 
-//original render of recipes
-// <div className="container">
-//   <h5 className="component-title">Recipes</h5>
-//   <div>
-//     <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
-//     <div align="right">
-//       <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
-//     </div>
-//     <SearchBar />
-//   </div>
-//   <div className="recipe-entries">
-//     {
-//       (!this.state.recipes.length)
-//         ? <span> Loading Recipes... </span>
-//         : this.state.recipes.map(recipe => <SearchBar recipe={Hit} key={recipe._id} />)
-//     }
-//   </div>
-// </div>
-
 export default Recipes;

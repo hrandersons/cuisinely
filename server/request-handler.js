@@ -52,7 +52,7 @@ exports.sendRecipes = (req, res) => {
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
 
-  Recipe.find({'_id': recipeId}).exec()
+  Recipe.find({'algolia': recipeId}).exec()
     .then((recipe) => {
       res.status(200).send(recipe);
     }).catch((err) => {
@@ -175,7 +175,6 @@ exports.checkBookmarks = (req, res) => {
         const exists = !!(user.bookmarks.indexOf(recipeId) !== -1);
         res.status(200).send(exists);
       }
-
     })
     .catch((err) => {
       res.status(400).send(err);
@@ -187,24 +186,26 @@ exports.getBookmarks = (req, res) => {
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
-        console.log('cant find user -->', user);
         return res.status(400).send('user not found');
       } else {
-        console.log('user', user)
-        console.log('user bookmarks', user.bookmarks);
         return user.bookmarks;
       }
     })
     .then((bookmarks) => {
       let recipes = [];
+      let bookmark = bookmarks[0]
       bookmarks.forEach((bookmark) => {
+        console.log('One bookmark ---> ',bookmark);
         recipes.push(
-          Recipe.findById(bookmark)
+          Recipe.findOne({ 'algolia': bookmark })
             .then((recipe) => {
+              if (!recipe) {
+                console.log('Not Found');
+              }
               return recipe;
             })
         );
-      });
+     });
       return Promise.all(recipes).then(recipes);
     })
     .then((recipes) => {

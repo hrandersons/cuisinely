@@ -61,7 +61,7 @@ class RecipeDetails extends React.Component {
           ingredients: recipe.ingredients,
           equipment: recipe.equipment,
           instructions: recipe.instructions,
-          id: recipe._id,
+          id: recipe.algolia,
         });
         this.checkBookmarks(recipe._id);
       })

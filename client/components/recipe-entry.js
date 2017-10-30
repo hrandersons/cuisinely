@@ -33,7 +33,6 @@ class RecipeEntry extends React.Component {
       recipeId: hit.objectID,
       userId: userId
     };
-
     axios.get('/api/bookmarks/check', { params: params })
       .then((res) => {
         this.setState({
@@ -41,7 +40,7 @@ class RecipeEntry extends React.Component {
         });
       })
       .catch((err) => {
-        console.log('error -->', err);
+        console.log(err);
       });
   }
 

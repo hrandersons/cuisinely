@@ -4,6 +4,7 @@ mongoose.Promise = require('bluebird');
 
 const recipeSchema = new mongoose.Schema({
   //Full recipe title
+  algolia: { type: String, required: true },
   name: { type: String, required: true },
   //may want to collect keywords (nationality, flavor profiles, nutrition details?) to assist with search relevance
   //keywords: { type: ?, required: true }

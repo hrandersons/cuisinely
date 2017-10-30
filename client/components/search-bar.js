@@ -33,7 +33,6 @@ class SearchBar extends React.Component {
   }
 
   checkBookmarks() {
-    console.log(this.props);
     const userId = this.props.user.user_id;
     // const { hit } = this.props;
     // const params = {
