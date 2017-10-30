@@ -40,6 +40,7 @@
     "body-parser": "^1.18.2",
     "chart.js": "^2.7.0",
     "clean-webpack-plugin": "^0.1.17",
+    "cloudinary": "^1.9.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "html-webpack-plugin": "^2.30.1",

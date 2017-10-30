@@ -41,7 +41,7 @@ class RecipeEntry extends React.Component {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('error -->', err);
       });
   }
 
@@ -105,7 +105,7 @@ class RecipeEntry extends React.Component {
                 </ul>
               </div>
               <div className="card-action">
-                <Link to={`recipes/${hit._id}`}>Explore</Link>
+                <Link to={`recipes/${hit.objectID}`}>Explore</Link>
                 {
                   (this.state.bookmarked)
                     ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
@@ -120,8 +120,6 @@ class RecipeEntry extends React.Component {
     );
   }
 }
-
-
 
 const mapStateToProps = (state) => {
   return {

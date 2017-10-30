@@ -40,6 +40,8 @@ class Recipes extends React.Component {
     return (
       <div className="container">
         <h5 className="component-title">Recipes</h5>
+        <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
+
         <InstantSearch
           appId="KUPHP9V5MI"
           apiKey="8e465f8475198ae5cb2d621323e06fb4"
