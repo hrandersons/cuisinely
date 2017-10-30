@@ -4,7 +4,12 @@ import axios from 'axios';
 
 import SearchBar from './search-bar.js';
 import RecipeEntry from './recipe-entry.js';
-
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Highlight,
+} from 'react-instantsearch/dom';
 class Recipes extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +17,6 @@ class Recipes extends React.Component {
     this.state = {
       recipes: []
     };
-
   }
 
   componentDidMount() {
@@ -35,21 +39,18 @@ class Recipes extends React.Component {
     return (
       <div className="container">
         <h5 className="component-title">Recipes</h5>
-        <div>
-          <SearchBar />
-          <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
-        </div>
+        <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
         <div align="right">
           <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>
-        <div className="recipe-entries">
-          {
-            (!this.state.recipes.length)
-              ? <span> Loading Recipes... </span>
-              : this.state.recipes.map(recipe => <RecipeEntry recipe={recipe} key={recipe._id} />)
-          }
-        </div>
+        <InstantSearch
+          appId="KUPHP9V5MI"
+          apiKey="8e465f8475198ae5cb2d621323e06fb4"
+          indexName="recipes">
+          <SearchBar />
+        </InstantSearch>
       </div>
+
     );
   }
 }

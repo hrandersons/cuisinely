@@ -32,7 +32,6 @@ class RecipeDetails extends React.Component {
 
   checkBookmarks(id) {
     const userId = this.props.user.user_id;
-
     const params = {
       recipeId: id,
       userId: userId
@@ -62,9 +61,9 @@ class RecipeDetails extends React.Component {
           ingredients: recipe.ingredients,
           equipment: recipe.equipment,
           instructions: recipe.instructions,
-          id: recipe._id,
+          id: recipe.algolia,
         });
-        this.checkBookmarks(recipe._id);
+        this.checkBookmarks(recipe.algolia);
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +76,7 @@ class RecipeDetails extends React.Component {
       recipeId: this.state.id,
       userId: userId
     };
+    console.log(params);
 
     axios.put('/api/bookmarks', params)
       .then((res) => {

@@ -15,11 +15,9 @@ cloudinary.config(cloudinaryKeys);
 exports.getUserInfo = (req, res) => {
   console.log('geting user info');
   const { userId } = req.params;
-  console.log(userId);
   User.findOne({ userId: userId })
     .exec((err, found) => {
       if (found) {
-        console.log('user found!');
         res.status(200).json(found);
       } else {
         User.create({
@@ -54,11 +52,11 @@ exports.sendRecipes = (req, res) => {
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
 
-  Recipe.find({'_id': recipeId}).exec()
+  Recipe.find({'algolia': recipeId}).exec()
     .then((recipe) => {
       res.status(200).send(recipe);
-    }).catch((err) =>{
-      res.status(500).send('error: ', err);
+    }).catch((err) => {
+      res.status(500).send(err);
     });
 };
 
@@ -85,7 +83,7 @@ exports.newRecipe = (req, res) => {
   let image = '';
   cloudinary.v2.uploader.upload(pic.path, {public_id: req.body.name}, function(error, result) {
     if (error) {
-      console.log('Error ---> ', error);
+      console.log(error);
     }
     image = result.url;
     let newRecipe = new Recipe({
@@ -177,7 +175,6 @@ exports.checkBookmarks = (req, res) => {
         const exists = !!(user.bookmarks.indexOf(recipeId) !== -1);
         res.status(200).send(exists);
       }
-
     })
     .catch((err) => {
       res.status(400).send(err);
@@ -186,7 +183,6 @@ exports.checkBookmarks = (req, res) => {
 
 exports.getBookmarks = (req, res) => {
   const { userId } = req.query;
-
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
@@ -197,10 +193,15 @@ exports.getBookmarks = (req, res) => {
     })
     .then((bookmarks) => {
       let recipes = [];
+      let bookmark = bookmarks[0];
       bookmarks.forEach((bookmark) => {
+        console.log('One bookmark ---> ', bookmark);
         recipes.push(
-          Recipe.findById(bookmark)
+          Recipe.findOne({ 'algolia': bookmark })
             .then((recipe) => {
+              if (!recipe) {
+                console.log('Not Found');
+              }
               return recipe;
             })
         );
@@ -211,7 +212,7 @@ exports.getBookmarks = (req, res) => {
       res.status(200).send(recipes);
     })
     .catch((err) => {
-      res.status(400).send(err);
+      console.log(err);
     });
 };
 

@@ -3,6 +3,12 @@ import { Link, Route } from 'react-router-dom';
 import { setUserInfo } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Highlight,
+} from 'react-instantsearch/dom';
 
 class RecipeEntry extends React.Component {
   constructor(props) {
@@ -22,12 +28,11 @@ class RecipeEntry extends React.Component {
 
   checkBookmarks() {
     const userId = this.props.user.user_id;
-    const { recipe } = this.props;
+    const { hit } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: hit.objectID,
       userId: userId
     };
-
     axios.get('/api/bookmarks/check', { params: params })
       .then((res) => {
         this.setState({
@@ -41,9 +46,9 @@ class RecipeEntry extends React.Component {
 
   handleAddBookmark() {
     const userId = this.props.user.user_id;
-    const { recipe } = this.props;
+    const { hit } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: hit.objectID,
       userId: userId
     };
     axios.put('/api/bookmarks', params)
@@ -60,9 +65,9 @@ class RecipeEntry extends React.Component {
 
   handleRemoveBookmark() {
     const userId = this.props.user.user_id;
-    const { recipe } = this.props;
+    const { hit } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: hit.objectID,
       userId: userId
     };
     axios.delete('/api/bookmarks', { params: params })
@@ -77,37 +82,40 @@ class RecipeEntry extends React.Component {
       });
   }
 
-  render() {
-    const { recipe } = this.props;
-    return (
-      <div className="col s12 m7">
-        <div className="card horizontal hoverable">
-          <div className="card-image thumbnail">
-            <img src={(recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (recipe.imageUrl)} />
-          </div>
-          <div className="card-stacked">
-            <div className="card-content">
-              <span className="card-title"><strong>{recipe.name}</strong> ({recipe.rating})</span>
-              <blockquote>
-                {recipe.description}
-              </blockquote>
-              <ul>
-                <li><strong>Difficulty:</strong> {recipe.difficulty}</li>
-                <li><strong>Estimated Time:</strong> {recipe.time} Minutes</li>
-              </ul>
-            </div>
-            <div className="card-action">
-              <Link to={`recipes/${recipe._id}`}>Explore</Link>
-              {
-                (this.state.bookmarked)
-                  ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
-                  : <a onClick={this.handleAddBookmark}>Bookmark</a>
-              }
 
+  render() {
+    const {hit} = this.props;
+    return (
+      <div>
+        <div className="col s12 m7">
+          <div className="card horizontal hoverable">
+            <div className="card-image thumbnail">
+              <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />
+            </div>
+            <div className="card-stacked">
+              <div className="card-content">
+                <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
+                <blockquote>
+                  {hit.description}
+                </blockquote>
+                <ul>
+                  <li><strong>Difficulty:</strong> {hit.difficulty}</li>
+                  <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
+                </ul>
+              </div>
+              <div className="card-action">
+                <Link to={`recipes/${hit.objectID}`}>Explore</Link>
+                {
+                  (this.state.bookmarked)
+                    ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
+                    : <a onClick={this.handleAddBookmark}>Bookmark</a>
+                }
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     );
   }
 }
@@ -117,5 +125,7 @@ const mapStateToProps = (state) => {
     user: state.user
   };
 };
+
+
 
 export default connect(mapStateToProps)(RecipeEntry);
