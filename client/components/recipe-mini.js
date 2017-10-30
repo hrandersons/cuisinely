@@ -24,7 +24,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
 
@@ -43,7 +43,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
     axios.put('/api/bookmarks', params)
@@ -62,7 +62,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
     axios.delete('/api/bookmarks', { params: params })
@@ -89,7 +89,7 @@ class MiniRecipe extends React.Component {
           <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
         <div className="card-action">
-          <Link to={`recipes/${this.props.recipe._id}`}>Details</Link>
+          <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
           {
             (this.state.bookmarked)
               ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>

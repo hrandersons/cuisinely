@@ -35,11 +35,6 @@ class Dashboard extends React.Component {
   }
 }
 
-//bar chart for progress?
-//achievement table
-//recommended Recipes
-//meals on calendar
-
 const mapStateToProps = (state) => {
   return {
     user: state.user

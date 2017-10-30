@@ -4,6 +4,7 @@ mongoose.Promise = require('bluebird');
 
 const recipeSchema = new mongoose.Schema({
   //Full recipe title
+  algolia: { type: String, required: true },
   name: { type: String, required: true },
   //may want to collect keywords (nationality, flavor profiles, nutrition details?) to assist with search relevance
   //keywords: { type: ?, required: true }
@@ -19,11 +20,15 @@ const recipeSchema = new mongoose.Schema({
   description: { type: String },
   //instructions, collected in order
   instructions: { type: [], required: true },
+
+  servings: { type: String },
   //difficulty rating, will have to calculate on recipe save
   difficulty: { type: Number, required: true },
   //user rating, can have this default to 0 or 10 until we implement rating changes
   rating: { type: Number, required: true },
   //image source
+  likes: { type: Number},
+
   imageUrl: { type: String, required: true },
   //original recipe source: need to track whether recipe is user-submitted or from an external site
   source: {type: String, required: true}
