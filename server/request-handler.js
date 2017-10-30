@@ -193,9 +193,9 @@ exports.getBookmarks = (req, res) => {
     })
     .then((bookmarks) => {
       let recipes = [];
-      let bookmark = bookmarks[0]
+      let bookmark = bookmarks[0];
       bookmarks.forEach((bookmark) => {
-        console.log('One bookmark ---> ',bookmark);
+        console.log('One bookmark ---> ', bookmark);
         recipes.push(
           Recipe.findOne({ 'algolia': bookmark })
             .then((recipe) => {
@@ -205,7 +205,7 @@ exports.getBookmarks = (req, res) => {
               return recipe;
             })
         );
-     });
+      });
       return Promise.all(recipes).then(recipes);
     })
     .then((recipes) => {
