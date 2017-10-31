@@ -369,7 +369,6 @@ exports.sendRecipe = (req, res) => {
   var user = req.body.user;
   var link = 'localhost:8080/recipes/' + req.body.recipe.id;
 
-  console.log(recipe);
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
