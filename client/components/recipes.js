@@ -46,7 +46,7 @@ class Recipes extends React.Component {
         <InstantSearch
           appId="KUPHP9V5MI"
           apiKey="8e465f8475198ae5cb2d621323e06fb4"
-          indexName="recipes">
+          indexName="allrecipes">
           <SearchBar />
         </InstantSearch>
       </div>

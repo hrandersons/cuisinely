@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Input, Row, Button, Icon, Card, Dropdown, NavItem } from 'react-materialize';
-import { Multiselect } from 'react-widgets';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setPoints } from '../actions/actions.js';

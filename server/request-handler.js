@@ -71,9 +71,9 @@ exports.getsourceUnits = (req, res) => {
         } else {
           arr = filterResults(arr, false);
         }
-        res.status(200).send(arr); 
+        res.status(200).send(arr);
       } else {
-        res.status(200).send('No response'); 
+        res.status(200).send('No response');
       }
     });
   } else {
@@ -262,7 +262,6 @@ exports.getBookmarks = (req, res) => {
       let recipes = [];
       let bookmark = bookmarks[0];
       bookmarks.forEach((bookmark) => {
-        console.log('One bookmark ---> ', bookmark);
         recipes.push(
           Recipe.findOne({ 'algolia': bookmark })
             .then((recipe) => {

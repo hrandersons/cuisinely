@@ -40,7 +40,8 @@ let seedDB = () => {
       rating: recipe.rating,
       likes: recipe.likes,
       imageUrl: recipe.imageUrl,
-      source: recipe.source
+      source: recipe.source,
+      algolia: recipe.algolia,
     });
 
     newpioneerRecipe.save((err, result) => {

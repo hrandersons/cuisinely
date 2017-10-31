@@ -77,8 +77,6 @@ class RecipeDetails extends React.Component {
       recipeId: this.state.id,
       userId: userId
     };
-    console.log(params);
-
     axios.put('/api/bookmarks', params)
       .then((res) => {
         console.log('bookmarked');
@@ -93,7 +91,6 @@ class RecipeDetails extends React.Component {
 
   handleRemoveBookmark() {
     const userId = this.props.user.user_id;
-
     const params = {
       recipeId: this.state.id,
       userId: userId
