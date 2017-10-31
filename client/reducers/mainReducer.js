@@ -27,6 +27,7 @@ export default function(state = initialState, action) {
     mealPlan = state.mealPlan.slice();
     for (let i = 0; i < mealPlan.length; i ++) {
       if (mealPlan[i]._id === state.editId) {
+        recipeToAdd.date = mealPlan[i].date;
         mealPlan[i] = recipeToAdd;
         break;
       }

@@ -24,7 +24,11 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.getPlannedRecipes();
+    if (this.props.mealPlan.length) {
+      this.makeShoppingList(this.props.mealPlan);
+    } else {
+      this.getPlannedRecipes();
+    }
   }
 
   getPlannedRecipes() {
@@ -59,7 +63,9 @@ class Calendar extends React.Component {
     let mealPlan = {};
     let datedRecipes = this.props.mealPlan.slice();
     datedRecipes.forEach((recipe, index) => {
-      recipe.date = moment().add(index, 'days').format('ddd L');
+      if (recipe.date === undefined ) {
+        recipe.date = moment().add(index, 'days').format('ddd L');
+      }
     });
     mealPlan.recipes = datedRecipes;
     mealPlan.startDate = moment().format('dddd L');
