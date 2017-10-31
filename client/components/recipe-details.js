@@ -1,13 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setPoints } from '../actions/actions.js';
+import { setPoints, editMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
+import request from 'superagent';
+
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      currentRecipe: {},
       name: '',
       imageUrl: '',
       time: 0,
@@ -24,7 +27,8 @@ class RecipeDetails extends React.Component {
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
-
+    this.handleEditPlan = this.handleEditPlan.bind(this);
+    this.emailRecipe = this.emailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +58,7 @@ class RecipeDetails extends React.Component {
       .then((res) => {
         const recipe = res.data[0];
         this.setState({
+          currentRecipe: recipe,
           name: recipe.name,
           imageUrl: recipe.imageUrl,
           time: recipe.time,
@@ -122,6 +127,31 @@ class RecipeDetails extends React.Component {
       });
     console.log('recipe complete!');
   }
+
+  handleEditPlan() {
+    this.props.editMealPlan(this.state.currentRecipe);
+  }
+
+  emailRecipe() {
+    console.log('recipe sent');
+    var url = 'http://localhost:8080/api/emailRecipe';
+
+    request
+      .post(url)
+      .send({
+        email: this.props.user.email,
+        recipe: this.state,
+        user: this.props.user,
+      })
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+        }
+      });
+  }
+
 
   render() {
     let stepCount = 1;
@@ -218,13 +248,21 @@ class RecipeDetails extends React.Component {
                     <i className="material-icons">menu</i>
                   </a>
                   <ul>
-                    <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
+                    <li><a onClick={this.emailRecipe} className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
                     <li>
                       {
                         (this.state.bookmarked)
                           ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
                           : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
+                      }
+
+                    </li>
+                    <li>
+                      {
+                        (this.props.editId)
+                          ? <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a>
+                          : null
                       }
                     </li>
                   </ul>
@@ -241,12 +279,14 @@ class RecipeDetails extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    points: state.points
+    points: state.points,
+    mealPlan: state.mealPlan,
+    editId: state.editId
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setPoints }, dispatch);
+  return bindActionCreators({ setPoints, editMealPlan }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

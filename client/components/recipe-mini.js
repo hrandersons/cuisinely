@@ -1,5 +1,8 @@
 import React from 'react';
+import { Button, Icon } from 'react-materialize';
 import { Link, Route } from 'react-router-dom';
+import { setEdit } from '../actions/actions.js';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -14,6 +17,7 @@ class MiniRecipe extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +28,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe.algolia,
+      recipeId: recipe._id,
       userId: userId
     };
 
@@ -43,7 +47,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe.algolia,
+      recipeId: recipe._id,
       userId: userId
     };
     axios.put('/api/bookmarks', params)
@@ -62,7 +66,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe.algolia,
+      recipeId: recipe._id,
       userId: userId
     };
     axios.delete('/api/bookmarks', { params: params })
@@ -77,6 +81,10 @@ class MiniRecipe extends React.Component {
       });
   }
 
+  handleEdit() {
+    this.props.setEdit(this.props.recipe._id);
+  }
+
   render() {
     return (
       <div>
@@ -88,13 +96,27 @@ class MiniRecipe extends React.Component {
         <div>
           <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
+        {/* button that marks a recipe as complete or not:
+            on click :
+            sets 'completed' key in recipe to 'true'
+              and awards points to user
+              as long as 'completed' is false
+
+            find recipe in current meal plan in redux state
+              make slice of current meal plan
+              set recipe 'completed' to true
+
+             */}
         <div className="card-action">
-          <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
+          <Link to={`recipes/${this.props.recipe._id}`}>Details</Link>
           {
             (this.state.bookmarked)
               ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
               : <a onClick={this.handleAddBookmark}>Bookmark</a>
           }
+          <div>
+            <a onClick={this.handleEdit}>Edit</a>
+          </div>
         </div>
       </div>
     );
@@ -107,4 +129,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(MiniRecipe);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setEdit }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MiniRecipe);
