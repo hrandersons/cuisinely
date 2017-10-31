@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setPoints } from '../actions/actions.js';
+import { setPoints, setMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -241,12 +241,14 @@ class RecipeDetails extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    points: state.points
+    points: state.points,
+    mealPlan: state.mealPlan,
+    editId: state.editId
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setPoints }, dispatch);
+  return bindActionCreators({ setPoints, setMealPlan }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

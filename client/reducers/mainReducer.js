@@ -1,7 +1,8 @@
-import { SET_SHOPPING_LIST, SET_USER_INFO, SET_POINT, SET_EDIT } from '../actions/actions.js';
+import { SET_SHOPPING_LIST, SET_MEAL_PLAN, EDIT_MEAL_PLAN, SET_USER_INFO, SET_POINT, SET_EDIT } from '../actions/actions.js';
 const initialState = {
   loggedIn: '',
   shoppingList: [],
+  mealPlan: [],
   user: {},
   points: 0,
   editId: ''
@@ -9,6 +10,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
   let shoppingList;
+  let mealPlan;
+  let recipeToAdd;
   let user;
   let points;
   let editId;
@@ -16,6 +19,19 @@ export default function(state = initialState, action) {
   case SET_SHOPPING_LIST:
     shoppingList = action.payload;
     return {...state, shoppingList };
+  case SET_MEAL_PLAN:
+    mealPlan = action.payload;
+    return {...state, mealPlan};
+  case EDIT_MEAL_PLAN:
+    recipeToAdd = action.payload;
+    mealPlan = state.mealPlan.slice();
+    for (let i = 0; i < editedPlan.length; i ++) {
+      if (mealPlan[i]._id === state.editId) {
+        mealPlan[i] = recipeToAdd;
+        break;
+      }
+    }
+    return {...state, mealPlan};
   case SET_USER_INFO:
     user = action.payload;
     return {...state, user};
