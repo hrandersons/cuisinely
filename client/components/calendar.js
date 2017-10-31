@@ -6,7 +6,7 @@ import ShoppingList from './shopping-list.js';
 import { Card, CardTitle, Row, Col, Button, Icon } from 'react-materialize';
 import { Link, Route } from 'react-router-dom';
 import moment from 'moment';
-import { setList } from '../actions/actions.js';
+import { setList, setMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -14,7 +14,6 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: [],
       list: []
     };
 
@@ -25,7 +24,11 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.getPlannedRecipes();
+    if (this.props.mealPlan.length) {
+      this.makeShoppingList(this.props.mealPlan);
+    } else {
+      this.getPlannedRecipes();
+    }
   }
 
   getPlannedRecipes() {
@@ -35,9 +38,10 @@ class Calendar extends React.Component {
     })
       .then((response) => {
         if (response.data.recipes) {
-          this.setState({
-            recipes: response.data.recipes
-          });
+          this.props.setMealPlan(response.data.recipes);
+          // this.setState({
+          //   recipes: response.data.recipes
+          // });
           this.makeShoppingList(response.data.recipes);
         }
       });
@@ -47,17 +51,21 @@ class Calendar extends React.Component {
     axios.get('/api/calendarRecipes')
       .then((response) => {
         let listOfFive = response.data.slice(0, 5);
-        this.setState({
-          recipes: listOfFive
-        });
+        this.props.setMealPlan(listOfFive);
+        // this.setState({
+        //   recipes: listOfFive
+        // });
       });
   }
 
   saveMealPlan() {
+    //TODO: fix so if a plan already has dates you don't overwrite them
     let mealPlan = {};
-    let datedRecipes = this.state.recipes.slice();
+    let datedRecipes = this.props.mealPlan.slice();
     datedRecipes.forEach((recipe, index) => {
-      recipe.date = moment().add(index, 'days').format('ddd L');
+      if (recipe.date === undefined ) {
+        recipe.date = moment().add(index, 'days').format('ddd L');
+      }
     });
     mealPlan.recipes = datedRecipes;
     mealPlan.startDate = moment().format('dddd L');
@@ -102,7 +110,7 @@ class Calendar extends React.Component {
         <h5 className="component-title">My Calendar</h5>
         <Row>
           <Col s={0} m={0} l={1} />
-          {this.state.recipes.length ? this.state.recipes.map(((recipe, index) => {
+          {this.props.mealPlan.length ? this.props.mealPlan.map(((recipe, index) => {
             return (
               <Col s={12} m={5} l={2} key={recipe._id}>
                 <Card style={{minWidth: '200px'}}
@@ -117,7 +125,8 @@ class Calendar extends React.Component {
           <Col s={0} m={0} l={1} />
         </Row>
         <Button style={{'marginRight': '5px'}} waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
-        <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>New Meal Plan<Icon left>cloud</Icon></Button>
+        <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
+        {/* <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={console.log('clicked')}>Custom Meal Plan<Icon left>cloud</Icon></Button> */}
         <div style={{'marginTop': '10px'}}>
           <Link to='/shoppinglist'>
             <Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
@@ -133,12 +142,13 @@ class Calendar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ingredients: state.shoppingList,
+    mealPlan: state.mealPlan,
     user: state.user
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setList }, dispatch);
+  return bindActionCreators({ setList, setMealPlan }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
