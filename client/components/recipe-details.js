@@ -233,9 +233,12 @@ class RecipeDetails extends React.Component {
                           ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
                           : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
                       }
+
+                    </li>
+                    <li>
                       {
                         (this.props.editId)
-                          ? <li><a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a></li>
+                          ? <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a>
                           : null
                       }
                     </li>
