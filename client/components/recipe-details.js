@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { setPoints, editMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
+import request from 'superagent';
+
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class RecipeDetails extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
     this.handleEditPlan = this.handleEditPlan.bind(this);
-
+    this.emailRecipe = this.emailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -130,6 +132,27 @@ class RecipeDetails extends React.Component {
     this.props.editMealPlan(this.state.currentRecipe);
   }
 
+  emailRecipe() {
+    console.log('recipe sent');
+    var url = 'http://localhost:8080/api/emailRecipe';
+
+    request
+      .post(url)
+      .send({
+        email: this.props.user.email,
+        recipe: this.state,
+        user: this.props.user,
+      })
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+        }
+      });
+  }
+
+
   render() {
     let stepCount = 1;
 
@@ -225,7 +248,7 @@ class RecipeDetails extends React.Component {
                     <i className="material-icons">menu</i>
                   </a>
                   <ul>
-                    <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
+                    <li><a onClick={this.emailRecipe} className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
                     <li>
                       {

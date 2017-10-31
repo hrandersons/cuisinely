@@ -363,7 +363,7 @@ exports.getData = (req, res) => {
     });
 };
 
-exports.sendRecipe = (req, res) => {
+exports.emailRecipe = (req, res) => {
   var userEmail = req.body.email;
   var recipe = req.body.recipe;
   var user = req.body.user;
