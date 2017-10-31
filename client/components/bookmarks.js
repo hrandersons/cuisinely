@@ -39,7 +39,7 @@ export default class Bookmarks extends React.Component {
           <div>
             <ul>
               {(this.state.bookmarks.length)
-                ? this.state.bookmarks.map((recipe) => <li key={recipe._id}><Link to={`recipes/${recipe.algolia}`}>{recipe.name}</Link></li>)
+                ? this.state.bookmarks.map((recipe) => <li key={recipe.algolia}><Link to={`recipes/${recipe.algolia}`}>{recipe.name}</Link></li>)
                 : 'You don\'t have any bookmarked recipes!'}
             </ul>
           </div>

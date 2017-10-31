@@ -28,7 +28,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
 
@@ -47,7 +47,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
     axios.put('/api/bookmarks', params)
@@ -66,7 +66,7 @@ class MiniRecipe extends React.Component {
     const userId = this.props.user.user_id;
     const { recipe } = this.props;
     const params = {
-      recipeId: recipe._id,
+      recipeId: recipe.algolia,
       userId: userId
     };
     axios.delete('/api/bookmarks', { params: params })
@@ -82,10 +82,14 @@ class MiniRecipe extends React.Component {
   }
 
   handleEdit() {
-    this.props.setEdit(this.props.recipe._id);
+    let editedRecipe = {};
+    editedRecipe.id = this.props.recipe.algolia;
+    editedRecipe.date = this.props.recipe.date;
+    this.props.setEdit(editedRecipe);
   }
 
   render() {
+    console.log(this.props.recipe);
     return (
       <div>
         <span className="recipe-mini-title">{this.props.recipe.name}</span>
@@ -108,14 +112,18 @@ class MiniRecipe extends React.Component {
 
              */}
         <div className="card-action">
-          <Link to={`recipes/${this.props.recipe._id}`}>Details</Link>
+          <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
           {
             (this.state.bookmarked)
               ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
               : <a onClick={this.handleAddBookmark}>Bookmark</a>
           }
           <div>
-            <a onClick={this.handleEdit}>Edit</a>
+            {
+              (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
+                ? <a onClick={this.handleEdit}>Editing...</a>
+                : <a onClick={this.handleEdit}>Edit</a>
+            }
           </div>
         </div>
       </div>
@@ -125,7 +133,9 @@ class MiniRecipe extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    editId: state.editId,
+    editDate: state.editDate
   };
 };
 
