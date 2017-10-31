@@ -112,12 +112,12 @@ class Calendar extends React.Component {
           <Col s={0} m={0} l={1} />
           {this.props.mealPlan.length ? this.props.mealPlan.map(((recipe, index) => {
             return (
-              <Col s={12} m={5} l={2} key={recipe._id}>
+              <Col s={12} m={5} l={2} key={recipe.algolia}>
                 <Card style={{minWidth: '200px'}}
                   className='large hoverable'
                   header={<div className={recipe.date === moment().format('ddd L') ? 'calendar-today' : 'calendar-date'}>
                     {recipe.date ? recipe.date : moment().add(index, 'days').format('ddd L')}</div>} >
-                  <MiniRecipe recipe={recipe} key={recipe._id} />
+                  <MiniRecipe recipe={recipe} key={recipe.algolia} />
                 </Card>
               </Col>
             );

@@ -5,7 +5,8 @@ const initialState = {
   mealPlan: [],
   user: {},
   points: 0,
-  editId: ''
+  editId: '',
+  editDate: ''
 };
 
 export default function(state = initialState, action) {
@@ -15,6 +16,7 @@ export default function(state = initialState, action) {
   let user;
   let points;
   let editId;
+  let editDate;
   switch (action.type) {
   case SET_SHOPPING_LIST:
     shoppingList = action.payload;
@@ -26,13 +28,14 @@ export default function(state = initialState, action) {
     recipeToAdd = action.payload;
     mealPlan = state.mealPlan.slice();
     for (let i = 0; i < mealPlan.length; i ++) {
-      if (mealPlan[i]._id === state.editId) {
+      if (mealPlan[i].algolia === state.editId) {
         recipeToAdd.date = mealPlan[i].date;
         mealPlan[i] = recipeToAdd;
         break;
       }
     }
-    return {...state, mealPlan};
+    editId = '';
+    return {...state, mealPlan, editId};
   case SET_USER_INFO:
     user = action.payload;
     return {...state, user};
@@ -40,9 +43,9 @@ export default function(state = initialState, action) {
     points = action.payload;
     return {...state, points};
   case SET_EDIT:
-    console.log('editing');
-    editId = action.payload;
-    return {...state, editId};
+    editId = action.payload.id;
+    editDate = action.payload.date;
+    return {...state, editId, editDate};
   default:
     return state;
   }
