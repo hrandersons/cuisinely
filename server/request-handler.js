@@ -7,6 +7,8 @@ const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
 const cloudinaryKeys = require('./cloudinary_keys');
 const request = require('request');
+const nodemailer = require('nodemailer');
+
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
@@ -357,6 +359,41 @@ exports.getData = (req, res) => {
     .exec((err, found) => {
       if (found) {
         res.status(200).json(found);
-      } 
+      }
     });
+};
+
+exports.emailRecipe = (req, res) => {
+  var userEmail = req.body.email;
+  var recipe = req.body.recipe;
+  var user = req.body.user;
+  var link = 'localhost:8080/recipes/' + req.body.recipe.id;
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ifeedmeteam@gmail.com',
+      pass: 'foodfoodfood1'
+    }
+  });
+  var mailOptions = {
+    to: userEmail,
+    subject: 'Hi from iFeedMe! Check out this recipe!',
+    html: '<b> Hi </b>' + userEmail + '! <br />' +
+          '<b>Here is the recipe you wanted to share: <br /></b>' +
+          recipe.name + ' ' + '<br />' +
+          'View more at: ' + link,
+    attachments: [
+      {path: recipe.imageUrl}
+    ]
+  };
+  transporter.sendMail(mailOptions, function(error, response) {
+    if (error) {
+      console.log(error);
+      res.json({hi: 'error here'});
+    } else {
+      console.log('Email sent: ' + response);
+      res.json({response: response});
+    }
+  });
 };
