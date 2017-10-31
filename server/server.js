@@ -26,7 +26,7 @@ app.get('/api/user-data/:userId', handler.getData);
 let foodUpload = upload.single('picture');
 
 // export recipe
-// app.post('/sendlist', handler.sendList);
+app.post('/api/sendRecipe', handler.sendRecipe);
 
 // Recipes handlers
 app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
