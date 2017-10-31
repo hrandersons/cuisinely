@@ -3,8 +3,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { setPoints, editMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
-import request from 'superagent';
-
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -28,31 +26,11 @@ class RecipeDetails extends React.Component {
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
     this.handleEditPlan = this.handleEditPlan.bind(this);
-    this.sendRecipe = this.sendRecipe.bind(this);
+
   }
 
   componentDidMount() {
     this.getRecipeDetail();
-  }
-
-  sendRecipe() {
-    console.log('recipe sent!');
-    var url = 'http://localhost:8080/api/sendRecipe';
-
-    request
-      .post(url)
-      .send({
-        user: this.props.user,
-        email: this.props.user.email,
-        recipe: this.state,
-      })
-      .end((err, res) => {
-        if (err) {
-          console.log('error sending email', err);
-        } else {
-          console.log(res);
-        }
-      });
   }
 
   checkBookmarks(id) {
@@ -247,7 +225,7 @@ class RecipeDetails extends React.Component {
                     <i className="material-icons">menu</i>
                   </a>
                   <ul>
-                    <li><a onClick={this.sendRecipe} className="btn-floating blue"><i className="material-icons">email</i></a></li>
+                    <li><a className="btn-floating blue"><i className="material-icons">email</i></a></li>
                     <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
                     <li>
                       {
@@ -255,9 +233,12 @@ class RecipeDetails extends React.Component {
                           ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
                           : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
                       }
+
+                    </li>
+                    <li>
                       {
                         (this.props.editId)
-                          ? <li><a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a></li>
+                          ? <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a>
                           : null
                       }
                     </li>
