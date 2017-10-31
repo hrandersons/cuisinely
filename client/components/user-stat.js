@@ -2,24 +2,44 @@ import React from 'react';
 
 import {Bar} from 'react-chartjs-2';
 
-const data = {
-  labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-  datasets: [
-    {
-      label: 'Recipes Completed',
-      backgroundColor: '#ef9a9a',
-      borderColor: '#ef9a9a',
-      borderWidth: 1,
-      hoverBackgroundColor: '#e57373',
-      hoverBorderColor: '#e57373',
-      data: [2, 1, 4, 3]
-    }
-  ]
-};
+// const data = {
+//   labels: ['Mon', 'Tue','Wed','Thu','Fri','Sat', 'Sun'],
+//   datasets: [
+//     {
+//       label: 'Recipes Completed',
+//       backgroundColor: '#ef9a9a',
+//       borderColor: '#ef9a9a',
+//       borderWidth: 1,
+//       hoverBackgroundColor: '#e57373',
+//       hoverBorderColor: '#e57373',
+//       data: [2, 1, 4, 3]
+//     }
+//   ]
+// };
 
 export default class UserStat extends React.Component {
   constructor(props) {
     super(props);
+    this.data = {
+      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      datasets: [
+        {
+          label: 'Recipes Completed',
+          backgroundColor: '#ef9a9a',
+          borderColor: '#ef9a9a',
+          borderWidth: 1,
+          hoverBackgroundColor: '#e57373',
+          hoverBorderColor: '#e57373',
+          data: this.props.data
+        }
+      ]
+    };
+  }
+
+
+  componentDidMount() {
+
+
   }
 
   render() {
@@ -28,7 +48,7 @@ export default class UserStat extends React.Component {
         <div className="card-content black-text">
           <span className="card-title">Recipes Completed This Month</span>
           <Bar
-            data={data}
+            data={ this.data}
             options={{
               legend: {
                 display: false
@@ -36,7 +56,7 @@ export default class UserStat extends React.Component {
               scales: {
                 yAxes: [{
                   ticks: {
-                    max: 5,
+                    max: 10,
                     min: 0,
                     stepSize: 1
                   },

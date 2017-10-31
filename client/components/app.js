@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUserInfo } from '../actions/actions.js';
+import { setUserInfo, setPoints } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 
 import Auth from '../Auth/Auth';
@@ -35,7 +35,6 @@ class App extends React.Component {
     this.state = {
       drawerOpen: false,
       bookmarks: [],
-      points: 0
     };
   }
 
@@ -49,9 +48,10 @@ class App extends React.Component {
     const userId = user.user_id;
     axios.get('/api/user/' + userId)
       .then((res) => {
+        console.log('Res.data --> ', res.data);
+        this.props.setPoints(res.data.points);
         this.setState({
-          bookmarks: res.data.bookmarks,
-          points: res.data.points
+          bookmarks: res.data.bookmarks
         });
       })
       .catch((err) => {
@@ -109,12 +109,13 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    points: state.points
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setUserInfo }, dispatch);
+  return bindActionCreators({ setUserInfo, setPoints }, dispatch);
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
