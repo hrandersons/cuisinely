@@ -46,7 +46,7 @@ export default class UserStat extends React.Component {
     return (
       <div className="card white">
         <div className="card-content black-text">
-          <span className="card-title">Recipes Completed This Month</span>
+          <span className="card-title">Recipes Completed This Week</span>
           <Bar
             data={ this.data}
             options={{

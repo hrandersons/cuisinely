@@ -360,3 +360,10 @@ exports.getData = (req, res) => {
       } 
     });
 };
+
+exports.recommendedRecipes = (req, res) => {
+  var num = parseInt(req.query['0']);
+  Recipe.find( {'difficulty': 6}).limit(5).exec((err, recipes) => {
+    res.status(200).send(recipes);
+  });
+};
