@@ -1,24 +1,24 @@
 import React from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
-const data = {
-  labels: [],
-  datasets: [
-    {
-      label: 'Feed Meter',
-      backgroundColor: '#ffe082',
-      borderColor: '#ffab00',
-      borderWidth: 1,
-      hoverBackgroundColor: '#ffa726',
-      hoverBorderColor: '#ff9100',
-      data: [7]
-    }
-  ]
-};
 
 export default class FeedMeter extends React.Component {
   constructor(props) {
     super(props);
+    this.data = {
+      labels: [],
+      datasets: [
+        {
+          label: 'Feed Meter',
+          backgroundColor: '#ffe082',
+          borderColor: '#ffab00',
+          borderWidth: 1,
+          hoverBackgroundColor: '#ffa726',
+          hoverBorderColor: '#ff9100',
+          data: [this.props.points]
+        }
+      ]
+    };
   }
 
   render() {
@@ -26,7 +26,7 @@ export default class FeedMeter extends React.Component {
       <div className="valign-wrapper">
         <div className="col s11 m11 l11">
           <HorizontalBar
-            data={data}
+            data={this.data}
             height={8}
             width={100}
             options={{

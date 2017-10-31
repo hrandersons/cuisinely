@@ -21,6 +21,7 @@ app.listen(PORT, () => {
 });
 
 app.get('/api/user/:userId', handler.getUserInfo);
+app.get('/api/user-data/:userId', handler.getData);
 
 let foodUpload = upload.single('picture');
 

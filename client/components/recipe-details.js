@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-
+import { setPoints } from '../actions/actions.js';
+import { bindActionCreators } from 'redux';
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -116,7 +117,8 @@ class RecipeDetails extends React.Component {
       points: 10
     })
       .then((res) => {
-        console.log(res);
+        this.props.setPoints(res.data.points);
+        console.log('Points --> ', this.props.points);
       })
       .catch((err) => {
         console.log(err);
@@ -241,8 +243,13 @@ class RecipeDetails extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    points: state.points
   };
 };
 
-export default connect(mapStateToProps)(RecipeDetails);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setPoints }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);

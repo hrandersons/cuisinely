@@ -157,11 +157,24 @@ exports.newRecipe = (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 2 }}).exec((err, newuser) => {
+        User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
           if (err) {
             console.log('Error --> ', err);
           } else {
-            res.status(201).send({point: newuser.points});
+            let now = new Date();
+            let weekDay = now.getDay();
+            if (newuser.pointsGraph.length === 0 ) {
+              newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+            } else {
+              let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
+              if (weekDay !== lastelement.weekDay) {
+                newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
+              } else {
+                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+              }
+            }
+            newuser.save();
+            res.status(201).send({point: newuser.points + 1});
           }
         });
       }
@@ -308,15 +321,43 @@ exports.sendMealPlan = (req, res) => {
 };
 
 exports.awardPoints = (req, res) => {
-  User.findOne({ userId: req.body.userId })
-    .exec((err, user) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Failed to update points');
+  User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
+    if (err) {
+      console.log('Error --> ', err);
+      res.status(500).send('Failed to update points');
+    } else {
+      let now = new Date();
+      let points = newuser.points + 1;
+      let weekDay = now.getDay();
+      let arr = newuser.pointsGraph;
+      if (arr.length === 0 ) {
+        arr.push({ date: now, points: points, weekDay: weekDay});
       } else {
-        user.points += req.body.points;
-        user.save();
-        res.status(200).send('Points updated!');
+        let lastelement = arr[arr.length - 1];
+        if (weekDay !== lastelement.weekDay) {
+          arr.push({ date: now, points: 1, weekDay: weekDay});
+        } else {
+          arr[arr.length - 1]['points'] += 1;
+        }
       }
+      User.findOneAndUpdate({ userId: req.body.userId }, { '$set': { 'points': points, pointsGraph: arr } }).exec((err, user) => {
+        if (err) {
+          console.log('Err ---> ', err);
+        } else {
+          console.log('User ----> ', user);
+          res.status(200).send({points: user.points});
+        }
+      });
+    }
+  });
+};
+
+exports.getData = (req, res) => {
+  const { userId } = req.params;
+  User.findOne({ userId: userId })
+    .exec((err, found) => {
+      if (found) {
+        res.status(200).json(found);
+      } 
     });
 };
