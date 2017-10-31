@@ -1,6 +1,8 @@
 export const SET_SHOPPING_LIST = 'SET_SHOPPING_LIST';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_POINT = 'SET_POINT';
+export const SET_EDIT = 'SET_EDIT';
+
 export const setList = (list) => ({
   type: SET_SHOPPING_LIST,
   payload: list
@@ -14,4 +16,9 @@ export const setUserInfo = (user) => ({
 export const setPoints = (points) => ({
   type: SET_POINT,
   payload: points
+});
+
+export const setEdit = (recipeId) => ({
+  type: SET_EDIT,
+  payload: recipeId
 });
