@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
   case EDIT_MEAL_PLAN:
     recipeToAdd = action.payload;
     mealPlan = state.mealPlan.slice();
-    for (let i = 0; i < editedPlan.length; i ++) {
+    for (let i = 0; i < mealPlan.length; i ++) {
       if (mealPlan[i]._id === state.editId) {
         mealPlan[i] = recipeToAdd;
         break;

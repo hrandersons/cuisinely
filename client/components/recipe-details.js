@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setPoints, setMealPlan } from '../actions/actions.js';
+import { setPoints, editMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      currentRecipe: {},
       name: '',
       imageUrl: '',
       time: 0,
@@ -24,6 +25,7 @@ class RecipeDetails extends React.Component {
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
     this.checkBookmarks = this.checkBookmarks.bind(this);
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
+    this.handleEditPlan = this.handleEditPlan.bind(this);
 
   }
 
@@ -54,6 +56,7 @@ class RecipeDetails extends React.Component {
       .then((res) => {
         const recipe = res.data[0];
         this.setState({
+          currentRecipe: recipe,
           name: recipe.name,
           imageUrl: recipe.imageUrl,
           time: recipe.time,
@@ -121,6 +124,10 @@ class RecipeDetails extends React.Component {
         console.log(err);
       });
     console.log('recipe complete!');
+  }
+
+  handleEditPlan() {
+    this.props.editMealPlan(this.state.currentRecipe);
   }
 
   render() {
@@ -226,6 +233,11 @@ class RecipeDetails extends React.Component {
                           ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
                           : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
                       }
+                      {
+                        (this.props.editId)
+                          ? <li><a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a></li>
+                          : null
+                      }
                     </li>
                   </ul>
                 </div>
@@ -248,7 +260,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setPoints, setMealPlan }, dispatch);
+  return bindActionCreators({ setPoints, editMealPlan }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
