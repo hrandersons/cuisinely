@@ -34,7 +34,7 @@ app.get('/api/recipes', handler.sendRecipes);
 app.post('/api/recipes', foodUpload, handler.newRecipe);
 
 // meal plan handlers
-app.post('/api/units', handler.getsourceUnits);
+//app.post('/api/units', handler.getsourceUnits);
 app.get('/api/calendarRecipes', handler.getCalendarRecipes);
 app.get('/api/mealPlan', handler.sendMealPlan);
 app.post('/api/mealPlan', handler.saveMealPlan);

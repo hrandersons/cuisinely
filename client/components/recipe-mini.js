@@ -89,7 +89,6 @@ class MiniRecipe extends React.Component {
   }
 
   render() {
-    console.log(this.props.recipe);
     return (
       <div>
         <span className="recipe-mini-title">{this.props.recipe.name}</span>
