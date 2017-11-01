@@ -9,7 +9,8 @@ import {
   Highlight,
   RefinementList,
   SortBy,
-  Pagination
+  Pagination,
+  Stats
 } from 'react-instantsearch/dom';
 import algoliasearch from 'algoliasearch';
 import RecipeEntry from './recipe-entry.js';
@@ -31,28 +32,15 @@ class SearchBar extends React.Component {
       <div>
         <SearchBox />
         <Hits hitComponent={RecipeEntry} />
+        <div className="pagination">
+          <Pagination showlast/>
+        </div>
       </div>
 
     );
   }
 }
 
-// const Content = () =>
-// <div className="content">
-//   <div className="info">
-//     <SortBy
-//       defaultRefinement="instant_search"
-//       items={[
-//         {value:'instant_search', label:'Most Relevant'},
-//         {value:'instant_search_price_asc', label:'Lowest Price'},
-//         {value:'instant_search_price_desc', label:'Highest Price'}
-//       ]}
-//       />
-//   </div>
-//   <div className="pagination">
-//     <Pagination showlast/>
-//   </div>
-// </div>
 
 const mapStateToProps = (state) => {
   return {

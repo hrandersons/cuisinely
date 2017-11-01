@@ -66,6 +66,7 @@ class SubmitRecipe extends React.Component {
         console.log('User Points --> ', res.data);
         this.props.setPoints(res.data.point);
         this.setState({ redirect: true });
+        Materialize.toast('Recipe Submitted!', 4000);
       })
       .catch((err) => {
         console.log('error: ', err);
