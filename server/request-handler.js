@@ -9,6 +9,8 @@ const cloudinaryKeys = require('./cloudinary_keys');
 const request = require('request');
 const nodemailer = require('nodemailer');
 const algoliaKeys = require('./algolia_keys');
+const algoliasearch = require('algoliasearch');
+
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
 
