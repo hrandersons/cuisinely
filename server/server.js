@@ -33,7 +33,7 @@ app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
 app.get('/api/recipes', handler.sendRecipes);
 app.post('/api/recipes', foodUpload, handler.newRecipe);
 app.get('/api/recommended', handler.recommendedRecipes);
-
+app.get('/api/popular', handler.popularRecipes);
 // meal plan handlers
 //app.post('/api/units', handler.getsourceUnits);
 app.get('/api/calendarRecipes', handler.getCalendarRecipes);

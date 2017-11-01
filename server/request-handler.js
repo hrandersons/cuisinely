@@ -143,8 +143,13 @@ exports.newRecipe = (req, res) => {
     }
     image = result.url;
 
+    index.
+
+    //set algolia variable in local db after grabbing objectID from algolia db
+    let algolia = objectID;
 
     let newRecipe = new Recipe({
+      algolia: algolia,
       name: req.body.name,
       ingredients: req.body.ingredients,
       equipment: req.body.equipment,
@@ -405,7 +410,7 @@ exports.recommendedRecipes = (req, res) => {
       }, 0);
       let average = (Math.floor(sum / count) >= 4) ? Math.floor(sum / count) : 4;
       let newRecipes = [];
-      return Recipe.find( {'difficulty': average}).limit(15);  
+      return Recipe.find( {'difficulty': average}).limit(15);
     })
     .then((newRecipes) => {
       let recipe = [];
@@ -415,7 +420,7 @@ exports.recommendedRecipes = (req, res) => {
         if (obj[rand] === undefined) {
           recipe.push(newRecipes[rand]);
           obj[rand] = true;
-        }   
+        }
       }
 
       res.status(200).send(recipe);
@@ -424,6 +429,11 @@ exports.recommendedRecipes = (req, res) => {
       console.log(err);
     });
 };
+
+exports.popularRecipes = (req, res) => {
+  Recipe.find( {'difficulty': 3}).limit(5).exec((err, recipes) => {
+    res.status(200).send(recipes);
+  });
 
 exports.emailRecipe = (req, res) => {
   var userEmail = req.body.email;

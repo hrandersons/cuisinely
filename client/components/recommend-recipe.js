@@ -42,7 +42,7 @@ export default class Recommended extends React.Component {
         { (this.state.pictures.length > 0)
           ? <Carousel className="carousel" >
             { this.state.recipes.map( item => {
-              return <div className="carousel-pic">
+              return <div className="carousel-pic" key={item.algolia}>
                 <Link to={'recipes/' + item.algolia}>{item.name}</Link>
                 <img src={(item.imageUrl === 'none') ? '/assets/no_img.jpg' : (item.imageUrl)} />
               </div>;
