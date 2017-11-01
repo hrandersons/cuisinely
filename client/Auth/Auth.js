@@ -11,7 +11,7 @@ const lock = new Auth0Lock(keys.clientId, keys.domain, {
   closable: true,
   allowSignUp: true,
   auth: {
-    //redirectUrl: keys.callbackUrl,
+    //redirectUrl: keys.callbackUrl
     responseType: 'token id_token',
     scope: 'openid profile'
   }
