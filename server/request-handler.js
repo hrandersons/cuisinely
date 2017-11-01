@@ -12,6 +12,9 @@ const algoliasearch = require('algoliasearch');
 
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
+
+var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
+var index = client.initIndex('allrecipes');
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
