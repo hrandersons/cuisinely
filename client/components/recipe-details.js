@@ -154,6 +154,10 @@ class RecipeDetails extends React.Component {
       });
   }
 
+  printRecipe() {
+    console.log('clicked');
+    window.print();
+  }
 
   render() {
     let stepCount = 1;
@@ -251,7 +255,7 @@ class RecipeDetails extends React.Component {
                   </a>
                   <ul>
                     <li><a onClick={this.emailRecipe} className="btn-floating blue"><i className="material-icons">email</i></a></li>
-                    <li><a className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
+                    <li><a onClick={this.printRecipe} className="btn-floating green"><i className="material-icons">local_printshop</i></a></li>
                     <li>
                       {
                         (this.state.bookmarked)
