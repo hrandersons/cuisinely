@@ -13,8 +13,11 @@ client/public/dist/bundle.js
 cloudinary
 uploads
 
+algolia_keys.js
+
 #Keys
 client/Auth/Auth_keys.js
+server/algolia_keys.js
 deploy_key
 deploy_key.pem
 deploy_key.pub
@@ -22,6 +25,7 @@ server/cloudinary_keys.js
 secrets.tgz
 travis_rsa.pub
 deploy-key.pub
+server/algolia_keys.js
 
 #Data dump files
 db/recipeDump.json

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { Link, Route, Redirect } from 'react-router-dom';
-import { setEdit } from '../actions/actions.js';
+import { setEdit, completeRecipe } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -18,6 +18,7 @@ class MiniRecipe extends React.Component {
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleComplete = this.handleComplete.bind(this);
   }
 
   componentDidMount() {
@@ -86,7 +87,14 @@ class MiniRecipe extends React.Component {
     editedRecipe.id = this.props.recipe.algolia;
     editedRecipe.date = this.props.recipe.date;
     this.props.setEdit(editedRecipe);
-    // return <Redirect to='/recipes'/>;
+  }
+
+  handleComplete() {
+    let completed = {};
+    completed.algolia = this.props.recipe.algolia;
+    completed.date = this.props.recipe.date;
+    this.props.completeRecipe(completed);
+    console.log(this.props.mealPlan);
   }
 
   render() {
@@ -125,6 +133,9 @@ class MiniRecipe extends React.Component {
                 : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
             }
           </div>
+          <div align="center">
+            <a onClick={this.handleComplete} className={this.props.recipe.complete ? 'waves-effect waves-light btn red darken-3' : 'waves-effect waves-light btn yellow darken-3'}><i className="material-icons left">star</i>Done!</a>
+          </div>
         </div>
       </div>
     );
@@ -135,12 +146,13 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     editId: state.editId,
-    editDate: state.editDate
+    editDate: state.editDate,
+    mealPlan: state.mealPlan
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setEdit }, dispatch);
+  return bindActionCreators({ setEdit, completeRecipe }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MiniRecipe);
