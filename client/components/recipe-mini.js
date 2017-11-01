@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Redirect } from 'react-router-dom';
 import { setEdit } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -86,6 +86,7 @@ class MiniRecipe extends React.Component {
     editedRecipe.id = this.props.recipe.algolia;
     editedRecipe.date = this.props.recipe.date;
     this.props.setEdit(editedRecipe);
+    // return <Redirect to='/recipes'/>;
   }
 
   render() {
@@ -120,8 +121,8 @@ class MiniRecipe extends React.Component {
           <div>
             {
               (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
-                ? <a onClick={this.handleEdit}>Editing...</a>
-                : <a onClick={this.handleEdit}>Edit</a>
+                ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
+                : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
             }
           </div>
         </div>

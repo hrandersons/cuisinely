@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setPoints, editMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import request from 'superagent';
@@ -261,7 +262,7 @@ class RecipeDetails extends React.Component {
                     <li>
                       {
                         (this.props.editId)
-                          ? <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">bookmark</i></a>
+                          ? <Link to='/meals'> <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">add_circle</i></a></Link>
                           : null
                       }
                     </li>
