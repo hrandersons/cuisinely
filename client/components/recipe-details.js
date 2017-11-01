@@ -126,6 +126,7 @@ class RecipeDetails extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+    Materialize.toast('Keep Cooking! You earned a point!', 4000);
     console.log('recipe complete!');
   }
 
