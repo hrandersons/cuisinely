@@ -17,6 +17,7 @@ algolia_keys.js
 
 #Keys
 client/Auth/Auth_keys.js
+server/algolia_keys.js
 deploy_key
 deploy_key.pem
 deploy_key.pub

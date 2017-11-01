@@ -17,7 +17,7 @@ export default class Recommended extends React.Component {
   }
 
   getPictures() {
-    axios.get('/api/recommended', { params: this.props.points })
+    axios.get('/api/recommended', { params: this.props.id })
       .then((res) => {
         console.log(res.data);
         let arr = res.data.reduce((acc, el) => {

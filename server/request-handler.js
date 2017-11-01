@@ -5,8 +5,7 @@ const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
-const cloudinaryKeys = require('./cloudinary_keys');
-const request = require('request');
+const cloudinaryKeys = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('./cloudinary_keys');
 const nodemailer = require('nodemailer');
 const algoliaKeys = require('./algolia_keys');
 const algoliasearch = require('algoliasearch');
@@ -14,6 +13,8 @@ const algoliasearch = require('algoliasearch');
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
 
+var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
+var index = client.initIndex('allrecipes');
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
@@ -158,7 +159,7 @@ exports.newRecipe = (req, res) => {
       //upload to hosting service may take a while,
       //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
       imageUrl: image || 'none',
-      //save a reference to the original submitter
+      //save a reference to the original submitted
       source: req.body.userId
     });
     newRecipe.save((err, recipe) => {
@@ -370,11 +371,58 @@ exports.getData = (req, res) => {
 };
 
 exports.recommendedRecipes = (req, res) => {
-  var num = parseInt(req.query['0']);
-  Recipe.find( {'difficulty': 6}).limit(5).exec((err, recipes) => {
-    console.log(recipes);
-    res.status(200).send(recipes);
-  });
+  var userId = req.query['0'];
+  User.findOne({ userId: userId })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send('user not found');
+      } else {
+        return user.bookmarks;
+      }
+    })
+    .then((bookmarks) => {
+      let recipes = [];
+      let bookmark = bookmarks[0];
+      bookmarks.forEach((bookmark) => {
+        recipes.push(
+          Recipe.findOne({ 'algolia': bookmark })
+            .then((recipe) => {
+              if (!recipe) {
+                console.log('Not Found');
+              }
+              return recipe;
+            })
+        );
+      });
+      return Promise.all(recipes).then(recipes);
+    })
+    .then((recipes) => {
+      let count = 0;
+      let sum = recipes.reduce((acc, el) => {
+        acc += el.difficulty;
+        count += 1;
+        return acc;
+      }, 0);
+      let average = (Math.floor(sum / count) >= 4) ? Math.floor(sum / count) : 4;
+      let newRecipes = [];
+      return Recipe.find( {'difficulty': average}).limit(15);  
+    })
+    .then((newRecipes) => {
+      let recipe = [];
+      let obj = {};
+      while ( recipe.length !== 5) {
+        let rand = Math.floor(Math.random() * newRecipes.length);
+        if (obj[rand] === undefined) {
+          recipe.push(newRecipes[rand]);
+          obj[rand] = true;
+        }   
+      }
+
+      res.status(200).send(recipe);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.emailRecipe = (req, res) => {

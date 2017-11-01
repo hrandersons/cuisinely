@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
             <div className="row">
-              <Recommended points={this.props.points}/>
+              <Recommended id={this.props.user.user_id}/>
             </div>
           </div>
           : <div> Loading ...</div>
