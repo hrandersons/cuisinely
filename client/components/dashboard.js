@@ -6,6 +6,7 @@ import FeedMeter from './feed-meter.js';
 import { connect } from 'react-redux';
 import { setPoints } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
+import Recommended from './recommend-recipe.js';
 import axios from 'axios';
 
 class Dashboard extends React.Component {
@@ -62,13 +63,16 @@ class Dashboard extends React.Component {
               <div className="col s12 m12 l6">
                 <UserStat data={this.state.dataInfo}/>
               </div>
+              <div className="col s12 m12 l6">
+                <Bookmarks userId={this.props.user.user_id} />
+              </div>
+            </div>
+            <div className="row">
+              <Recommended points={this.props.points}/>
             </div>
           </div>
           : <div> Loading ...</div>
-        }
-        <div className="col s12 m12 l6">
-          <Bookmarks userId={this.props.user.user_id} />
-        </div>
+        } 
       </div>
     );
   }
