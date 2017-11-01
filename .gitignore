@@ -13,6 +13,8 @@ client/public/dist/bundle.js
 cloudinary
 uploads
 
+algolia_keys.js
+
 #Keys
 client/Auth/Auth_keys.js
 deploy_key

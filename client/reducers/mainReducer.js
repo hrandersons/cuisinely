@@ -1,4 +1,4 @@
-import { SET_SHOPPING_LIST, SET_MEAL_PLAN, EDIT_MEAL_PLAN, SET_USER_INFO, SET_POINT, SET_EDIT } from '../actions/actions.js';
+import { SET_SHOPPING_LIST, SET_MEAL_PLAN, EDIT_MEAL_PLAN, COMPLETE_RECIPE, SET_USER_INFO, SET_POINT, SET_EDIT } from '../actions/actions.js';
 const initialState = {
   loggedIn: '',
   shoppingList: [],
@@ -13,6 +13,7 @@ export default function(state = initialState, action) {
   let shoppingList;
   let mealPlan;
   let recipeToAdd;
+  let completedRecipe;
   let user;
   let points;
   let editId;
@@ -36,6 +37,16 @@ export default function(state = initialState, action) {
     }
     editId = '';
     return {...state, mealPlan, editId};
+  case COMPLETE_RECIPE:
+    completedRecipe = action.payload;
+    mealPlan = state.mealPlan.slice();
+    for (let i = 0; i < mealPlan.length; i ++) {
+      if (mealPlan[i].algolia === completedRecipe.algolia && mealPlan[i].date === completedRecipe.date) {
+        mealPlan[i].complete = true;
+        break;
+      }
+    }
+    return {...state, mealPlan};
   case SET_USER_INFO:
     user = action.payload;
     return {...state, user};
