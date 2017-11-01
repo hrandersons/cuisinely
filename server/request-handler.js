@@ -133,7 +133,6 @@ exports.getCalendarRecipes = (req, res) => {
 };
 
 exports.newRecipe = (req, res) => {
-  // function to calculate recipe difficulty? Or should we let users select their own?
   let difficulty = recipeHelper.calcDifficulty(req.body);
   let pic = req.file;
   let image = '';
@@ -142,63 +141,61 @@ exports.newRecipe = (req, res) => {
       console.log(error);
     }
     image = result.url;
-
-    index.
-
-    //set algolia variable in local db after grabbing objectID from algolia db
-    let algolia = objectID;
-
-    //set algolia variable in local db after grabbing objectID from algolia db
-    let algolia = objectID;
-
-    let newRecipe = new Recipe({
-      algolia: algolia,
-      name: req.body.name,
-      ingredients: req.body.ingredients,
-      equipment: req.body.equipment,
-      description: req.body.description,
-      time: req.body.time,
-      instructions: req.body.instructions,
-      //hard-coded for now
-      difficulty: difficulty,
-      //also hard-coded for now
-      rating: 0,
-      //Allow users to upload pictures with the recipe;
-      //upload to hosting service may take a while,
-      //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
-      imageUrl: image || 'none',
-      //save a reference to the original submitted
-      source: req.body.userId
-    });
-    newRecipe.save((err, recipe) => {
+    var recipeObj = req.body;
+    index.addObject(recipeObj, function(err, content) {
       if (err) {
         console.log(err);
-        res.status(500).send(err);
-      } else {
-        User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
-          if (err) {
-            console.log('Error --> ', err);
-          } else {
-            let now = new Date();
-            let weekDay = now.getDay();
-            if (newuser.pointsGraph.length === 0 ) {
-              newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-            } else {
-              let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
-              if (weekDay !== lastelement.weekDay) {
-                newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
-              } else {
-                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-              }
-            }
-            newuser.save();
-            res.status(201).send({point: newuser.points + 1});
-          }
-        });
       }
+      console.log('req body', req.body);
+      var id = content.objectID;
+      let newRecipe = new Recipe({
+        algolia: id,
+        name: req.body.name,
+        ingredients: req.body.ingredients,
+        equipment: req.body.equipment,
+        description: req.body.description,
+        time: req.body.time,
+        instructions: req.body.instructions,
+        //hard-coded for now
+        difficulty: difficulty,
+        //also hard-coded for now
+        rating: 0,
+        //Allow users to upload pictures with the recipe;
+        //upload to hosting service may take a while,
+        //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
+        imageUrl: image || 'none',
+        //save a reference to the original submitter
+        source: req.body.userId
+      });
+      newRecipe.save((err, recipe) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
+            if (err) {
+              console.log('Error --> ', err);
+            } else {
+              let now = new Date();
+              let weekDay = now.getDay();
+              if (newuser.pointsGraph.length === 0 ) {
+                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+              } else {
+                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
+                if (weekDay !== lastelement.weekDay) {
+                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
+                } else {
+                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+                }
+              }
+              newuser.save();
+              res.status(201).send({point: newuser.points + 1});
+            }
+          });
+        }
+      });
     });
   });
-
   //invoke next(); to move onto async image processing function
   //TODO: write image processing & imageUrl update function
 };

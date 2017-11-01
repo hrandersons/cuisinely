@@ -62,7 +62,6 @@ class SubmitRecipe extends React.Component {
     formData.append('rating', 0);
     formData.append('instructions', instructions);
     formData.append('userId', this.props.user.user_id);
-    formData.append('algolia', this.state.algolia);
 
     axios.post('/api/recipes', formData)
       .then((res) => {
@@ -119,7 +118,6 @@ class SubmitRecipe extends React.Component {
         file: file
       });
     };
-
     reader.readAsDataURL(file);
   }
 
