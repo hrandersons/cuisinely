@@ -130,6 +130,7 @@ class Calendar extends React.Component {
         <div style={{'marginTop': '10px'}}>
           <Link to='/shoppinglist'>
             <Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
+
           </Link>
         </div>
         {/* {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null } */}

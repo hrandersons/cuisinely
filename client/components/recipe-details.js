@@ -152,10 +152,10 @@ class RecipeDetails extends React.Component {
           console.log(res);
         }
       });
+    Materialize.toast('Recipe sent!', 4000);
   }
 
   printRecipe() {
-    console.log('clicked');
     window.print();
   }
 

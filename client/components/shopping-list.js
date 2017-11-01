@@ -6,6 +6,10 @@ class ShoppingList extends React.Component {
     super(props);
   }
 
+  printRecipe() {
+    window.print();
+  }
+
   render() {
     return (
       <div className="row">
@@ -13,6 +17,7 @@ class ShoppingList extends React.Component {
           <div className="card white">
             <div className="card-content black-text">
               <span className="card-title"> Groceries: <i className="material-icons right">shopping_cart</i></span>
+
               <table className="highlight">
                 <thead>
                   <tr>
@@ -34,6 +39,7 @@ class ShoppingList extends React.Component {
                   }
                 </tbody>
               </table>
+              <a onClick={this.printRecipe} className="btn-floating black"><i className="material-icons">local_printshop</i></a>
             </div>
           </div>
         </div>
