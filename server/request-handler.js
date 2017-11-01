@@ -148,6 +148,9 @@ exports.newRecipe = (req, res) => {
     //set algolia variable in local db after grabbing objectID from algolia db
     let algolia = objectID;
 
+    //set algolia variable in local db after grabbing objectID from algolia db
+    let algolia = objectID;
+
     let newRecipe = new Recipe({
       algolia: algolia,
       name: req.body.name,

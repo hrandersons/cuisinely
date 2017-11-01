@@ -26,6 +26,7 @@ class SubmitRecipe extends React.Component {
       imageUrl: '',
       file: '',
       units: ['NoUnits'],
+      algolia: '',
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
@@ -48,6 +49,7 @@ class SubmitRecipe extends React.Component {
     e.preventDefault();
     let instructions = this.state.instructions;
     console.log('UserId --> ', this.props.user.user_id);
+
     let formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('time', this.state.time);
@@ -60,6 +62,7 @@ class SubmitRecipe extends React.Component {
     formData.append('rating', 0);
     formData.append('instructions', instructions);
     formData.append('userId', this.props.user.user_id);
+    formData.append('algolia', this.state.algolia);
 
     axios.post('/api/recipes', formData)
       .then((res) => {
