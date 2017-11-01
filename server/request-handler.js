@@ -8,6 +8,9 @@ const cloudinary = require('cloudinary');
 const cloudinaryKeys = require('./cloudinary_keys');
 const request = require('request');
 const nodemailer = require('nodemailer');
+const algoliaKeys = require('./algolia_keys');
+var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
+var index = client.initIndex('allrecipes');
 
 //all requests go here
 //export contents to server.js
@@ -136,6 +139,8 @@ exports.newRecipe = (req, res) => {
       console.log(error);
     }
     image = result.url;
+
+
     let newRecipe = new Recipe({
       name: req.body.name,
       ingredients: req.body.ingredients,
@@ -181,7 +186,6 @@ exports.newRecipe = (req, res) => {
         });
       }
     });
-
   });
 
   //invoke next(); to move onto async image processing function
@@ -367,7 +371,7 @@ exports.recommendedRecipes = (req, res) => {
   var num = parseInt(req.query['0']);
   Recipe.find( {'difficulty': 6}).limit(5).exec((err, recipes) => {
     res.status(200).send(recipes);
-  })
+  });
 };
 exports.emailRecipe = (req, res) => {
   var userEmail = req.body.email;

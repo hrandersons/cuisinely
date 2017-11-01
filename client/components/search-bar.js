@@ -15,9 +15,6 @@ import {
 import algoliasearch from 'algoliasearch';
 import RecipeEntry from './recipe-entry.js';
 
-var client = algoliasearch('KUPHP9V5MI', '8e465f8475198ae5cb2d621323e06fb4');
-var index = client.initIndex('recipes');
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
