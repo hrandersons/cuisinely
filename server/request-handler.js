@@ -4,8 +4,7 @@ const MealPlan = require('../db/models/mealplan.js');
 const recipeHelper = require('../helpers/recipe-helper.js');
 const randomizer = require ('../helpers/dbEntryRandomizer.js');
 const mongoose = require ('mongoose');
-const cloudinary = require('cloudinary');
-const cloudinaryKeys = require('./cloudinary_keys');
+const cloudinary = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('cloudinary');
 const request = require('request');
 const nodemailer = require('nodemailer');
 
