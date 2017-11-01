@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import { setUserInfo } from '../actions/actions.js';
+import { setUserInfo, editMealPlan } from '../actions/actions.js';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import {
   InstantSearch,
@@ -20,6 +21,7 @@ class RecipeEntry extends React.Component {
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
     this.checkBookmarks = this.checkBookmarks.bind(this);
+    this.handleEditPlan = this.handleEditPlan.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +84,12 @@ class RecipeEntry extends React.Component {
       });
   }
 
+  handleEditPlan() {
+    let replacementRecipe = this.props.hit;
+    replacementRecipe.algolia = replacementRecipe.objectID;
+    this.props.editMealPlan(replacementRecipe);
+  }
+
 
   render() {
     const {hit} = this.props;
@@ -110,6 +118,12 @@ class RecipeEntry extends React.Component {
                     ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
                     : <a onClick={this.handleAddBookmark}>Bookmark</a>
                 }
+                {
+                  (this.props.editId)
+                    ? <Link to='/meals' onClick={this.handleEditPlan}>Add to plan</Link>
+                    : null
+                }
+
               </div>
             </div>
           </div>
@@ -122,10 +136,13 @@ class RecipeEntry extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    editId: state.editId
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ editMealPlan }, dispatch);
+};
 
-
-export default connect(mapStateToProps)(RecipeEntry);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeEntry);
