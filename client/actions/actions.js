@@ -1,6 +1,7 @@
 export const SET_SHOPPING_LIST = 'SET_SHOPPING_LIST';
 export const SET_MEAL_PLAN = 'SET_MEAL_PLAN';
 export const EDIT_MEAL_PLAN = 'EDIT_MEAL_PLAN';
+export const COMPLETE_RECIPE = 'COMPLETE_RECIPE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_POINT = 'SET_POINT';
 export const SET_EDIT = 'SET_EDIT';
@@ -18,6 +19,11 @@ export const setMealPlan = (mealPlan) => ({
 export const editMealPlan = (recipeToAdd) => ({
   type: EDIT_MEAL_PLAN,
   payload: recipeToAdd
+});
+
+export const completeRecipe = (completedRecipe) => ({
+  type: COMPLETE_RECIPE,
+  payload: completedRecipe
 });
 
 export const setUserInfo = (user) => ({
