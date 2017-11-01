@@ -150,7 +150,7 @@ exports.newRecipe = (req, res) => {
       //upload to hosting service may take a while,
       //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
       imageUrl: image || 'none',
-      //save a reference to the original submitter
+      //save a reference to the original submitted
       source: req.body.userId
     });
     newRecipe.save((err, recipe) => {
