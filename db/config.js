@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var url = 'mongodb://127.0.0.1/ifeedme';
+var url = process.env.MONGODB_URI || 'mongodb://127.0.0.1/ifeedme';
 mongoose.connect(url, { useMongoClient: true });
 
 var ifeedme = mongoose.connection;
