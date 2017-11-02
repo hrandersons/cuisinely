@@ -138,11 +138,11 @@ exports.newRecipe = (req, res) => {
     if (error) {
       console.log(error);
     }
-    console.log('result-------> ',result);
+    console.log('result-------> ', result);
     image = result.url;
-    console.log('IMage url --> ',image);
-       var recipeObj = req.body;
-       recipeObj.imageUrl = image;
+    console.log('IMage url --> ', image);
+    var recipeObj = req.body;
+    recipeObj.imageUrl = image;
     index.addObject(recipeObj, function(err, content) {
       if (err) {
         console.log(err);
