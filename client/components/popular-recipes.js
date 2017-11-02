@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Slider, Slide } from 'react-materialize';
+import { Slider, Slide, Preloader } from 'react-materialize';
 
 export default class PopularRecipes extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.popularRecipes = this.popularRecipes.bind(this);
     this.state = {
       pictures: [],
@@ -39,23 +39,30 @@ export default class PopularRecipes extends React.Component {
 
   render() {
     return (
-      <div className="slider">
-        <ul className="slides">
-          {(this.state.recipes.length)
-            ? this.state.recipes.map((recipe) =>
-              <li key={recipe.algolia}>
-                <Link to={`recipes/${recipe.algolia}`}>
-                  <Slider>
-                    <Slide
-                      src={recipe.imageUrl}
-                      title= {recipe.name} >
-                    Enjoy in {recipe.time} minutes!
-                    </Slide>
-                  </Slider>
-                </Link>
-              </li>)
-            : 'No popular items!' }
-        </ul>
+      <div>
+        {(this.state.recipes.length > 0)
+          ? <div className="slider">
+            <ul className="slides">
+              { this.state.recipes.map((recipe) => {
+                return (<li key={recipe.algolia}>
+                  <Link to={`recipes/${recipe.algolia}`}>
+                    <Slider>
+                      <Slide
+                        src={recipe.imageUrl}
+                        title= {recipe.name} >
+                      Enjoy in {recipe.time} minutes!
+                      </Slide>
+                    </Slider>
+                  </Link>
+                </li>); 
+              })
+              }
+            </ul>
+          </div>
+          : <div className="text-center">
+            <Preloader size='big' className="text-center"/>
+          </div>
+        }
       </div>
     );
   }
