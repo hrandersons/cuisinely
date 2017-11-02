@@ -38,7 +38,7 @@ export default class FeedMeter extends React.Component {
                 xAxes: [{
                   ticks: {
                     display: false,
-                    max: 10,
+                    max: 30,
                     min: 0,
                     stepSize: 1
                   },

@@ -1,0 +1,1 @@
+web: webpack && node server/server.js
