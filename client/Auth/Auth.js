@@ -1,6 +1,8 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-import keys from './Auth_keys';
+//import keys from './Auth_keys';
+const keys = (process.env.NODE_ENV === 'production') ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
+
 
 
 
