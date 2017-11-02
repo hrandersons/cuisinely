@@ -33,7 +33,7 @@ module.exports = {
         exclude: [/node_modules/],
         use: [{
           loader: 'babel-loader',
-          options: { presets: ['env', 'react', 'stage-0', 'stage-3'] },
+          options: { presets: ['env', 'react', 'stage-3'] },
         }],
       }, {
         test: /\.css$/,
