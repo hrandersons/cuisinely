@@ -13,8 +13,6 @@ const algoliasearch = require('algoliasearch');
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
 
-var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
-var index = client.initIndex('allrecipes');
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
@@ -133,7 +131,6 @@ exports.getCalendarRecipes = (req, res) => {
 };
 
 exports.newRecipe = (req, res) => {
-  // function to calculate recipe difficulty? Or should we let users select their own?
   let difficulty = recipeHelper.calcDifficulty(req.body);
   let pic = req.file;
   let image = '';
@@ -142,55 +139,60 @@ exports.newRecipe = (req, res) => {
       console.log(error);
     }
     image = result.url;
-
-
-    let newRecipe = new Recipe({
-      name: req.body.name,
-      ingredients: req.body.ingredients,
-      equipment: req.body.equipment,
-      description: req.body.description,
-      time: req.body.time,
-      instructions: req.body.instructions,
-      //hard-coded for now
-      difficulty: difficulty,
-      //also hard-coded for now
-      rating: 0,
-      //Allow users to upload pictures with the recipe;
-      //upload to hosting service may take a while,
-      //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
-      imageUrl: image || 'none',
-      //save a reference to the original submitted
-      source: req.body.userId
-    });
-    newRecipe.save((err, recipe) => {
+    var recipeObj = req.body;
+    index.addObject(recipeObj, function(err, content) {
       if (err) {
         console.log(err);
-        res.status(500).send(err);
-      } else {
-        User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
-          if (err) {
-            console.log('Error --> ', err);
-          } else {
-            let now = new Date();
-            let weekDay = now.getDay();
-            if (newuser.pointsGraph.length === 0 ) {
-              newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-            } else {
-              let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
-              if (weekDay !== lastelement.weekDay) {
-                newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
-              } else {
-                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-              }
-            }
-            newuser.save();
-            res.status(201).send({point: newuser.points + 1});
-          }
-        });
       }
+      var id = content.objectID;
+      let newRecipe = new Recipe({
+        algolia: id,
+        name: req.body.name,
+        ingredients: req.body.ingredients,
+        equipment: req.body.equipment,
+        description: req.body.description,
+        time: req.body.time,
+        instructions: req.body.instructions,
+        //hard-coded for now
+        difficulty: difficulty,
+        //also hard-coded for now
+        rating: 0,
+        //Allow users to upload pictures with the recipe;
+        //upload to hosting service may take a while,
+        //so we'll save a placeholder and update the recipe entry with the right url when the upload is done.
+        imageUrl: image || 'none',
+        //save a reference to the original submitter
+        source: req.body.userId
+      });
+      newRecipe.save((err, recipe) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
+            if (err) {
+              console.log('Error --> ', err);
+            } else {
+              let now = new Date();
+              let weekDay = now.getDay();
+              if (newuser.pointsGraph.length === 0 ) {
+                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+              } else {
+                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
+                if (weekDay !== lastelement.weekDay) {
+                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
+                } else {
+                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+                }
+              }
+              newuser.save();
+              res.status(201).send({point: newuser.points + 1});
+            }
+          });
+        }
+      });
     });
   });
-
   //invoke next(); to move onto async image processing function
   //TODO: write image processing & imageUrl update function
 };
@@ -405,7 +407,7 @@ exports.recommendedRecipes = (req, res) => {
       }, 0);
       let average = (Math.floor(sum / count) >= 4) ? Math.floor(sum / count) : 4;
       let newRecipes = [];
-      return Recipe.find( {'difficulty': average}).limit(15);  
+      return Recipe.find( {'difficulty': average}).limit(15);
     })
     .then((newRecipes) => {
       let recipe = [];
@@ -415,7 +417,7 @@ exports.recommendedRecipes = (req, res) => {
         if (obj[rand] === undefined) {
           recipe.push(newRecipes[rand]);
           obj[rand] = true;
-        }   
+        }
       }
 
       res.status(200).send(recipe);
@@ -423,6 +425,12 @@ exports.recommendedRecipes = (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.popularRecipes = (req, res) => {
+  Recipe.find( {'difficulty': 3}).limit(5).exec((err, recipes) => {
+    res.status(200).send(recipes);
+  });
 };
 
 exports.emailRecipe = (req, res) => {

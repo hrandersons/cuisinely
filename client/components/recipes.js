@@ -45,7 +45,7 @@ class Recipes extends React.Component {
     return (
       <div className="container">
         <h5 className="component-title">Recipes</h5>
-        <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>, <a href="#">Ramen</a>
+        <strong>Trending Keywords:</strong> <a href="#">Ramen</a>, <a href="#">Chicken</a>, <a href="#">Pasta</a>, <a href="#">Bread</a>
         <div align="right">
           <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>

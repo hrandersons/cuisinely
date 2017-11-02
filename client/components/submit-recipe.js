@@ -26,6 +26,7 @@ class SubmitRecipe extends React.Component {
       imageUrl: '',
       file: '',
       units: ['NoUnits'],
+      algolia: '',
     };
 
     this.handleSubmitRecipe = this.handleSubmitRecipe.bind(this);
@@ -47,7 +48,7 @@ class SubmitRecipe extends React.Component {
   handleSubmitRecipe(e) {
     e.preventDefault();
     let instructions = this.state.instructions;
-    console.log('UserId --> ', this.props.user.user_id);
+
     let formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('time', this.state.time);
@@ -116,7 +117,6 @@ class SubmitRecipe extends React.Component {
         file: file
       });
     };
-
     reader.readAsDataURL(file);
   }
 

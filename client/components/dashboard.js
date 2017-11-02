@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 import { setPoints } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import Recommended from './recommend-recipe.js';
+import PopularRecipes from './popular-recipes.js';
 import axios from 'axios';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       dataInfo: []
     };
@@ -53,6 +54,9 @@ class Dashboard extends React.Component {
         <div className="row" align="center">
           <h5><strong>Welcome {name}! Ready to cook?</strong></h5>
         </div>
+        <div className="row">
+          <PopularRecipes />
+        </div>
         { (this.state.dataInfo.length > 0)
           ? <div>
             <div className="row" align="center">
@@ -72,7 +76,7 @@ class Dashboard extends React.Component {
             </div>
           </div>
           : <div> Loading ...</div>
-        } 
+        }
       </div>
     );
   }

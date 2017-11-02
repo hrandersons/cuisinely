@@ -196,7 +196,7 @@ class RecipeDetails extends React.Component {
                                 (this.state.ingredients.length)
                                   ? (this.state.ingredients.map(item => (
                                     <tr className="ingredient"
-                                      key={item.name}>
+                                      key={item.algolia}>
                                       <td>{item.name}</td>
                                       <td>{item.quantity}</td>
                                     </tr>

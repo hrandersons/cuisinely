@@ -72,7 +72,6 @@ class Calendar extends React.Component {
     mealPlan.endDate = moment().add(4, 'days').format('dddd L');
     mealPlan.userId = this.props.user.user_id;
 
-
     axios.post('/api/mealPlan', mealPlan)
       .then((res) => {
         console.log('Meals saved!');
