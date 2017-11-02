@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { Link, Route, Redirect } from 'react-router-dom';
-import { setEdit, completeRecipe } from '../actions/actions.js';
+import { setEdit, completeRecipe, setPoints } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -90,12 +90,47 @@ class MiniRecipe extends React.Component {
   }
 
   handleComplete() {
+    const userId = this.props.user.user_id;
     let completed = {};
+    let totalComplete = 0;
     completed.algolia = this.props.recipe.algolia;
     completed.date = this.props.recipe.date;
     this.props.completeRecipe(completed);
-    console.log(this.props.mealPlan);
+
+    axios.post('/api/points', {
+      userId: userId
+    })
+      .then((res) => {
+        this.props.setPoints(res.data.points);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.props.mealPlan.forEach((recipe) => {
+      if (recipe.complete) {
+        totalComplete ++;
+      }
+    });
+
+    if (totalComplete === 5) {
+      let newPoints = this.props.points + 5;
+      axios.post('/api/bonus', {
+        userId: userId,
+        points: newPoints
+      })
+        .then((res) => {
+          this.props.setPoints(newPoints);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      Materialize.toast('Congratulations, chef! You met your weekly goal!', 4000);
+    }
+
   }
+
+
 
   render() {
     return (
@@ -134,7 +169,7 @@ class MiniRecipe extends React.Component {
             }
           </div>
           <div align="center">
-            <a onClick={this.handleComplete} className={this.props.recipe.complete ? 'waves-effect waves-light btn red darken-3' : 'waves-effect waves-light btn yellow darken-3'}><i className="material-icons left">star</i>Done!</a>
+            <a onClick={this.handleComplete} className={this.props.recipe.complete ? 'disabled waves-effect waves-light btn yellow darken-3' : 'waves-effect waves-light btn yellow darken-3'}><i className="material-icons left">star</i>Done!</a>
           </div>
         </div>
       </div>
@@ -147,12 +182,13 @@ const mapStateToProps = (state) => {
     user: state.user,
     editId: state.editId,
     editDate: state.editDate,
-    mealPlan: state.mealPlan
+    mealPlan: state.mealPlan,
+    points: state.points
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setEdit, completeRecipe }, dispatch);
+  return bindActionCreators({ setEdit, completeRecipe, setPoints }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MiniRecipe);
