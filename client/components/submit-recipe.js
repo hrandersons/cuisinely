@@ -48,7 +48,6 @@ class SubmitRecipe extends React.Component {
   handleSubmitRecipe(e) {
     e.preventDefault();
     let instructions = this.state.instructions;
-    console.log('UserId --> ', this.props.user.user_id);
 
     let formData = new FormData();
     formData.append('name', this.state.name);

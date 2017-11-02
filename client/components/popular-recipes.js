@@ -39,8 +39,8 @@ export default class PopularRecipes extends React.Component {
 
   render() {
     return (
-      <div class="slider">
-        <ul class="slides">
+      <div className="slider">
+        <ul className="slides">
           {(this.state.recipes.length)
             ? this.state.recipes.map((recipe) =>
               <li key={recipe.algolia}>
