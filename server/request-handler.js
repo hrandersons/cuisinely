@@ -330,6 +330,18 @@ exports.sendMealPlan = (req, res) => {
     });
 };
 
+exports.bonusPoints = (req, res) => {
+  let points = req.body.points;
+  User.findOneAndUpdate({ userId: req.body.userId }, { 'points': points }, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send({points: points});
+    }
+  });
+
+};
+
 exports.awardPoints = (req, res) => {
   User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
     if (err) {
@@ -345,7 +357,7 @@ exports.awardPoints = (req, res) => {
       } else {
         let lastelement = arr[arr.length - 1];
         if (weekDay !== lastelement.weekDay) {
-          arr.push({ date: now, points: 1, weekDay: weekDay});
+          arr.push({ date: now, points: 1, weekDay: weekDay });
         } else {
           arr[arr.length - 1]['points'] += 1;
         }
@@ -354,7 +366,6 @@ exports.awardPoints = (req, res) => {
         if (err) {
           console.log('Err ---> ', err);
         } else {
-          console.log('User ----> ', user);
           res.status(200).send({points: user.points});
         }
       });
