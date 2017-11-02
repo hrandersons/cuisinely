@@ -7,7 +7,7 @@ const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
 const cloudinaryKeys = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('./cloudinary_keys');
 const nodemailer = require('nodemailer');
-const algoliaKeys = require('./algolia_keys');
+const algoliaKeys = (process.env.NODE_ENV === 'production') ? {application_ID: process.env.APPLICATION_ID, adminAPI_key: process.env.ADMINAPI_KEY } : require('./algolia_keys');
 const algoliasearch = require('algoliasearch');
 
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);

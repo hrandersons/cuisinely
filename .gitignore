@@ -26,6 +26,8 @@ secrets.tgz
 travis_rsa.pub
 deploy-key.pub
 server/algolia_keys.js
+heroku_deploy
+heroku_deploy.pub
 
 #Data dump files
 db/recipeDump.json
