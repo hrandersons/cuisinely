@@ -5,7 +5,7 @@ export const COMPLETE_RECIPE = 'COMPLETE_RECIPE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_POINT = 'SET_POINT';
 export const SET_EDIT = 'SET_EDIT';
-
+export const SET_LEVEL = 'SET_LEVEL';
 export const setList = (list) => ({
   type: SET_SHOPPING_LIST,
   payload: list
@@ -39,4 +39,9 @@ export const setPoints = (points) => ({
 export const setEdit = (recipeId) => ({
   type: SET_EDIT,
   payload: recipeId
+});
+
+export const setLevel = (level) => ({
+  type: SET_LEVEL,
+  payload: level
 });

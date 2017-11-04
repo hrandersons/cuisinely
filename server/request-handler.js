@@ -13,6 +13,8 @@ const algoliasearch = require('algoliasearch');
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
 
+
+
 //all requests go here
 //export contents to server.js
 //TODO: write function that sends some or all of a user's info to client on Login
@@ -25,12 +27,14 @@ exports.getUserInfo = (req, res) => {
   User.findOne({ userId: userId })
     .exec((err, found) => {
       if (found) {
+        console.log('User ---> ', found);
         res.status(200).json(found);
       } else {
         User.create({
           userId: userId,
           bookmarks: [],
-          points: 0
+          points: 0,
+          level: 1
         })
           .then((newUser) => {
             console.log('user created!');
@@ -39,6 +43,8 @@ exports.getUserInfo = (req, res) => {
       }
     });
 };
+
+
 let filterResults = function(arr, bool) {
   if (bool) {
     return arr.filter((word) => {
@@ -170,23 +176,10 @@ exports.newRecipe = (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
-          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
+          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 2 }}).exec((err, newuser) => {
             if (err) {
               console.log('Error --> ', err);
             } else {
-              let now = new Date();
-              let weekDay = now.getDay();
-              if (newuser.pointsGraph.length === 0 ) {
-                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-              } else {
-                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
-                if (weekDay !== lastelement.weekDay) {
-                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
-                } else {
-                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-                }
-              }
-              newuser.save();
               res.status(201).send({point: newuser.points + 1});
             }
           });
@@ -391,6 +384,7 @@ exports.recommendedRecipes = (req, res) => {
       if (!user) {
         return res.status(400).send('user not found');
       } else {
+        console.log('User found --> ', user);
         return user.bookmarks;
       }
     })
@@ -411,8 +405,10 @@ exports.recommendedRecipes = (req, res) => {
       return Promise.all(recipes).then(recipes);
     })
     .then((recipes) => {
+      console.log('Recipes --> ', recipes);
       let count = 0;
       let sum = recipes.reduce((acc, el) => {
+        // console.log('difficulty ---> ',el);
         acc += el.difficulty;
         count += 1;
         return acc;

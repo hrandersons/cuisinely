@@ -1,12 +1,10 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-//import keys from './Auth_keys';
-//const keys = (process.env.CLIENT_ID) ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
+import keys from './Auth_keys';
 
 
 
-
-const lock = new Auth0Lock(process.env.CLIENT_ID, process.env.DOMAIN, {
+const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
@@ -53,6 +51,7 @@ export default class Auth {
         if (err) {
           console.log(err);
         }
+        console.log('Profile --> ', profile);
         localStorage.setItem('accessToken', authResult.accessToken);
         localStorage.setItem('profile', JSON.stringify(profile));
         localStorage.setItem('idToken', authResult.idToken);

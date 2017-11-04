@@ -13,7 +13,6 @@ import axios from 'axios';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       dataInfo: []
     };
@@ -85,7 +84,8 @@ class Dashboard extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    points: state.points
+    points: state.points,
+    level: state.level
   };
 };
 
