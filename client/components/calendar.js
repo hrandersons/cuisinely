@@ -79,8 +79,39 @@ class Calendar extends React.Component {
     let formattedList = [];
     recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
-        if (list[ingredient.name]) {
-          list[ingredient.name] += ', ' + ingredient.quantity;
+        if (ingredient.name.includes('water')) {
+          //in this block we can exclude ingredients you don't need to buy at the store i.e. water
+          console.log('Not going to include this.');
+        } else if (list[ingredient.name]) {
+          let splitIngredient = ingredient.quantity.split(' ');
+          let quantityList = list[ingredient.name].split(', ');
+          let isNumber = false;
+          let isFraction = false;
+          let quantityVal;
+          if (Number(splitIngredient[0])) {
+            quantityVal = Number(splitIngredient[0]);
+          } else if (splitIngredient[0].split('/').length === 2) {
+            let fraction = splitIngredient[0].split('/');
+            quantityVal = Number(fraction[0]) / Number(fraction[1]);
+          }
+          for (var i = 0; i < quantityList.length; i ++) {
+            let currentQuantity = quantityList[i].split(' ');
+            if (currentQuantity.slice(1).join(' ') === splitIngredient.slice(1).join(' ')) {
+              if (Number(currentQuantity[0])) {
+                let currentNumber = Number(currentQuantity[0]);
+                currentQuantity[0] = (currentNumber + quantityVal).toString();
+                quantityList[i] = currentQuantity.join(' ');
+                break;
+              } else if (currentQuantity[0].split('/').length === 2) {
+                let currentFraction = currentQuantity[0].split('/');
+                let currentQuantityVal = Number(currentFraction[0]) / Number(currentFraction[1]);
+                currentQuantity[0] = (currentQuantityVal + quantityVal).toString();
+                quantityList[i] = currentQuantity.join(' ');
+                break;
+              }
+            }
+          }
+          list[ingredient.name] = quantityList.join(', ');
         } else {
           list[ingredient.name] = ingredient.quantity;
         }
