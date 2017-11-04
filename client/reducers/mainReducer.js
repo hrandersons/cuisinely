@@ -7,7 +7,7 @@ const initialState = {
   points: 0,
   editId: '',
   editDate: '',
-  level: {}
+  level: 1
 };
 
 export default function(state = initialState, action) {

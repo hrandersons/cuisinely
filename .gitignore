@@ -28,6 +28,7 @@ deploy-key.pub
 server/algolia_keys.js
 heroku_deploy
 heroku_deploy.pub
+server/client_secret.json
 
 #Data dump files
 db/recipeDump.json
