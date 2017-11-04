@@ -1,4 +1,4 @@
-import { SET_SHOPPING_LIST, SET_MEAL_PLAN, EDIT_MEAL_PLAN, COMPLETE_RECIPE, SET_USER_INFO, SET_POINT, SET_EDIT } from '../actions/actions.js';
+import { SET_SHOPPING_LIST, SET_MEAL_PLAN, EDIT_MEAL_PLAN, COMPLETE_RECIPE, SET_USER_INFO, SET_POINT, SET_EDIT, SET_LEVEL } from '../actions/actions.js';
 const initialState = {
   loggedIn: '',
   shoppingList: [],
@@ -6,7 +6,8 @@ const initialState = {
   user: {},
   points: 0,
   editId: '',
-  editDate: ''
+  editDate: '',
+  level: 1
 };
 
 export default function(state = initialState, action) {
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
   let points;
   let editId;
   let editDate;
+  let level;
   switch (action.type) {
   case SET_SHOPPING_LIST:
     shoppingList = action.payload;
@@ -57,6 +59,9 @@ export default function(state = initialState, action) {
     editId = action.payload.id;
     editDate = action.payload.date;
     return {...state, editId, editDate};
+  case SET_LEVEL:
+    level = action.payload;
+    return {...state, level};
   default:
     return state;
   }

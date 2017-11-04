@@ -2,11 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUserInfo, setPoints } from '../actions/actions.js';
+import { setUserInfo, setPoints, setLevel } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 
 import Auth from '../Auth/Auth';
 import history from './history.js';
+import levels from '../../db/levels'
 
 const auth = new Auth();
 
@@ -50,6 +51,7 @@ class App extends React.Component {
       .then((res) => {
         console.log('Res.data --> ', res.data);
         this.props.setPoints(res.data.points);
+        this.props.setLevel(res.data.level);
         this.setState({
           bookmarks: res.data.bookmarks
         });
@@ -110,12 +112,13 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    points: state.points
+    points: state.points,
+    level: state.level
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setUserInfo, setPoints }, dispatch);
+  return bindActionCreators({ setUserInfo, setPoints, setLevel }, dispatch);
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

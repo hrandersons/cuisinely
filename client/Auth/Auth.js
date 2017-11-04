@@ -51,6 +51,7 @@ export default class Auth {
         if (err) {
           console.log(err);
         }
+        console.log('Profile --> ', profile);
         localStorage.setItem('accessToken', authResult.accessToken);
         localStorage.setItem('profile', JSON.stringify(profile));
         localStorage.setItem('idToken', authResult.idToken);

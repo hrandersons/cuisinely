@@ -4,18 +4,20 @@ import Bookmarks from './bookmarks.js';
 import UserStat from './user-stat.js';
 import FeedMeter from './feed-meter.js';
 import { connect } from 'react-redux';
-import { setPoints } from '../actions/actions.js';
+import { setPoints, setLevel } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import Recommended from './recommend-recipe.js';
 import PopularRecipes from './popular-recipes.js';
 import axios from 'axios';
+import levels from '../../db/levels'
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      dataInfo: []
+      dataInfo: [],
+      pointsLeft: levels.levels[this.props.level + 1].points - this.props.points,
+      pointsNextLevel:levels.levels[this.props.level + 1].points
     };
     this.getDataInformation = this.getDataInformation.bind(this);
   }
@@ -29,6 +31,9 @@ class Dashboard extends React.Component {
       .then((res) => {
         let arr = [];
         this.props.setPoints(res.data.points);
+        this.props.setLevel(res.data.level);
+       let nextLevel = levels.levels[res.data.level + 1].points;
+        let pointsLeft = nextLevel - res.data.points;
         res.data.pointsGraph.forEach((item) => {
           arr[item.weekDay] = item['points'];
         });
@@ -39,7 +44,9 @@ class Dashboard extends React.Component {
         }
 
         this.setState({
-          dataInfo: arr
+          dataInfo: arr,
+          pointsLeft:pointsLeft,
+          pointsNextLevel: nextLevel
         });
       })
       .catch((err) => {
@@ -60,8 +67,8 @@ class Dashboard extends React.Component {
         { (this.state.dataInfo.length > 0)
           ? <div>
             <div className="row" align="center">
-              <span><strong>Feed Meter!</strong></span>
-              <FeedMeter points={this.props.points}/>
+              <span><strong>Points Until Next Level: {this.state.pointsLeft} pts!</strong></span>
+              <FeedMeter points={this.props.points} pointsNextLevel={this.state.pointsNextLevel}/>
             </div>
             <div className="row">
               <div className="col s12 m12 l6">
@@ -85,12 +92,13 @@ class Dashboard extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    points: state.points
+    points: state.points,
+    level: state.level
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setPoints }, dispatch);
+  return bindActionCreators({ setPoints, setLevel }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

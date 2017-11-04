@@ -7,7 +7,8 @@ userSchema = new mongoose.Schema(
     userId: { type: String, required: true, index: { unique: true }},
     bookmarks: { type: [] },
     points: {type: Number },
-    pointsGraph: { type: []}
+    pointsGraph: { type: []},
+    level: { type: Number }
   }
 );
 

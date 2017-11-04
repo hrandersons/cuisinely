@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setPoints, editMealPlan } from '../actions/actions.js';
+import { setPoints, editMealPlan,setLevel } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import request from 'superagent';
 
@@ -121,7 +121,7 @@ class RecipeDetails extends React.Component {
     })
       .then((res) => {
         this.props.setPoints(res.data.points);
-        console.log('Points --> ', this.props.points);
+        this.props.setLevel(res.data.level);
       })
       .catch((err) => {
         console.log(err);
@@ -292,7 +292,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setPoints, editMealPlan }, dispatch);
+  return bindActionCreators({ setPoints, editMealPlan, setLevel }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
