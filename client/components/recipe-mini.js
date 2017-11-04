@@ -127,7 +127,7 @@ class MiniRecipe extends React.Component {
         });
       Materialize.toast('Congratulations, chef! You met your weekly goal!', 4000);
     }
-
+    this.props.save();
   }
 
 
@@ -143,17 +143,6 @@ class MiniRecipe extends React.Component {
         <div>
           <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
-        {/* button that marks a recipe as complete or not:
-            on click :
-            sets 'completed' key in recipe to 'true'
-              and awards points to user
-              as long as 'completed' is false
-
-            find recipe in current meal plan in redux state
-              make slice of current meal plan
-              set recipe 'completed' to true
-
-             */}
         <div className="card-action">
           <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
           {
@@ -163,9 +152,11 @@ class MiniRecipe extends React.Component {
           }
           <div>
             {
-              (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
-                ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
-                : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
+              (this.props.recipe.complete)
+                ? null
+                : (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
+                  ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
+                  : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
             }
           </div>
           <div align="center">

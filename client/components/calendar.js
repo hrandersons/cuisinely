@@ -39,9 +39,6 @@ class Calendar extends React.Component {
       .then((response) => {
         if (response.data.recipes) {
           this.props.setMealPlan(response.data.recipes);
-          // this.setState({
-          //   recipes: response.data.recipes
-          // });
           this.makeShoppingList(response.data.recipes);
         }
       });
@@ -52,14 +49,10 @@ class Calendar extends React.Component {
       .then((response) => {
         let listOfFive = response.data.slice(0, 5);
         this.props.setMealPlan(listOfFive);
-        // this.setState({
-        //   recipes: listOfFive
-        // });
       });
   }
 
   saveMealPlan() {
-    //TODO: fix so if a plan already has dates you don't overwrite them
     let mealPlan = {};
     let datedRecipes = this.props.mealPlan.slice();
     datedRecipes.forEach((recipe, index) => {
@@ -116,7 +109,7 @@ class Calendar extends React.Component {
                   className='large hoverable'
                   header={<div className={recipe.date === moment().format('ddd L') ? 'calendar-today' : 'calendar-date'}>
                     {recipe.date ? recipe.date : moment().add(index, 'days').format('ddd L')}</div>} >
-                  <MiniRecipe recipe={recipe} key={recipe.algolia} />
+                  <MiniRecipe recipe={recipe} key={recipe.algolia} save={this.saveMealPlan}/>
                 </Card>
               </Col>
             );
@@ -125,15 +118,11 @@ class Calendar extends React.Component {
         </Row>
         <Button style={{'marginRight': '5px'}} waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
         <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
-        {/* <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={console.log('clicked')}>Custom Meal Plan<Icon left>cloud</Icon></Button> */}
         <div style={{'marginTop': '10px'}}>
           <Link to='/shoppinglist'>
             <Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
-
           </Link>
         </div>
-        {/* {this.state.list.length ? <ShoppingList ingredients={this.state.list}/> : null } */}
-
       </div>
     );
   }
