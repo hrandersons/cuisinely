@@ -1,6 +1,6 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-import keys from './Auth_keys';
+const keys = (process.env.CLIENT_ID) ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
 
 
 
