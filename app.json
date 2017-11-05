@@ -1,0 +1,23 @@
+{
+   "name": "ifeedme",
+   "scripts": {
+   },
+   "env": {
+     "MONGODB_URI": {
+      "required": true
+    },
+    "PRODUCTION": {
+      "required": true
+    }
+   },
+   "formation": {
+   },
+   "addons": [
+      "mongolab"
+   ],
+   "buildpacks": [
+     {
+       "url": "heroku/nodejs"
+     }
+   ]
+ }
