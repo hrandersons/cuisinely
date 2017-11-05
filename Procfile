@@ -1,1 +1,1 @@
-web: node db/seedDB.js
+web: npm run start-heroku
