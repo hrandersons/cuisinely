@@ -4,10 +4,14 @@ class Locator extends React.Component {
   constructor() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     super();
 =======
     super()
 >>>>>>> ratings
+=======
+    super();
+>>>>>>> ratings changes
 =======
     super();
 >>>>>>> ratings changes
@@ -21,10 +25,14 @@ class Locator extends React.Component {
       </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     );
 =======
     )
 >>>>>>> ratings
+=======
+    );
+>>>>>>> ratings changes
 =======
     );
 >>>>>>> ratings changes
