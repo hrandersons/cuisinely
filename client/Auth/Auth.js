@@ -4,7 +4,7 @@ import history from '../components/history';
 
 
 
-const lock = new Auth0Lock(process.env.CLIENT_ID, process.env.DOMAIN, {
+const lock = new Auth0Lock('' + process.env.CLIENT_ID, '' + process.env.DOMAIN, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
