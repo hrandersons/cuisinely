@@ -2,7 +2,7 @@ import React from 'react';
 
 class Locator extends React.Component {
   constructor() {
-    super()
+    super();
   }
 
   render() {
@@ -11,7 +11,7 @@ class Locator extends React.Component {
       <div>
         LOCATOR GOES HERE
       </div>
-    )
+    );
   }
 }
 

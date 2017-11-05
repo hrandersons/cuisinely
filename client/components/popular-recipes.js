@@ -61,8 +61,8 @@ export default class PopularRecipes extends React.Component {
             </ul>
           </div>
           : <div className="text-center">
-              <Preloader size='big' className="text-center"/>
-            </div>
+            <Preloader size='big' className="text-center"/>
+          </div>
         }
       </div>
     );
