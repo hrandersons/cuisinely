@@ -1,10 +1,10 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-const keys = (process.env.CLIENT_ID) ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
+//const keys = (process.env.CLIENT_ID) ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
 
 
 
-const lock = new Auth0Lock(keys.clientId, keys.domain, {
+const lock = new Auth0Lock('sNfZXyIkcjg3QZve68HJXoGfzFVZgjE4', 'ifeedme.auth0.com', {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
@@ -51,7 +51,6 @@ export default class Auth {
         if (err) {
           console.log(err);
         }
-        console.log('Profile --> ', profile);
         localStorage.setItem('accessToken', authResult.accessToken);
         localStorage.setItem('profile', JSON.stringify(profile));
         localStorage.setItem('idToken', authResult.idToken);
@@ -72,8 +71,10 @@ export default class Auth {
   }
 
   isAuthenticated() {
+    // this.logout();
     // Check whether the current time is past the
     // access token's expiry time
+    // Clear access token and ID token from local storage
     return (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken'));
   }
 }
