@@ -1,1 +1,1 @@
-web: webpack && node server/server.js
+web: npm run start-heroku
