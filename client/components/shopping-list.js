@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import GoogleMapLoader from 'react-google-maps-loader';
 import Map from './map.js';
+=======
+import Locator from './locator.js';
+>>>>>>> ratings
 
 class ShoppingList extends React.Component {
   constructor(props) {
@@ -46,12 +50,20 @@ class ShoppingList extends React.Component {
           </div>
         </div>
 
+<<<<<<< HEAD
         <div className="row">
           <div className="col s12">
             <div className="card white">
               <div className="card-content black-text">
                 <span className="card-title"> Find a supermarket here! <i className="material-icons left">location_on</i></span>
                 <Map />
+=======
+        <div class="row">
+          <div class="col s12">
+            <div class="card white">
+              <div class="card-content black-text">
+                <Locator />
+>>>>>>> ratings
               </div>
             </div>
           </div>

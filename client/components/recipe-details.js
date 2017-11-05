@@ -137,6 +137,7 @@ class RecipeDetails extends React.Component {
       });
   }
 
+
   handleRecipeComplete() {
     const userId = this.props.user.user_id;
     axios.post('/api/points', {
