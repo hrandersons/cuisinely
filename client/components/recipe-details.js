@@ -277,12 +277,15 @@ class RecipeDetails extends React.Component {
                       <Rater onRate={this.handleRating.bind(this)} />
                       <br />
                     </div>
+<<<<<<< HEAD
                     <div>
                       <br />
                       <a href="https://www.facebook.com/sharer/sharer.php?u=http://thepioneerwoman.com/cooking/" target={this.state.name}>
                         <FacebookIcon size={58} round={true} />
                       </a>
                     </div>
+=======
+>>>>>>> ratings changes
                   </div>
                 </div>
                 <div className="fixed-action-btn horizontal click-to-toggle">
