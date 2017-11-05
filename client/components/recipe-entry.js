@@ -90,9 +90,8 @@ class RecipeEntry extends React.Component {
     this.props.editMealPlan(replacementRecipe);
   }
 
-
   render() {
-    const {hit} = this.props;
+    const { hit } = this.props;
     return (
       <div>
         <div className="col s12 m7">
@@ -102,12 +101,12 @@ class RecipeEntry extends React.Component {
             </div>
             <div className="card-stacked">
               <div className="card-content">
-                <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
+                <span className="card-title"><strong>{hit.name}</strong> ({hit.rating}) </span>
                 <blockquote>
                   {hit.description}
                 </blockquote>
                 <ul>
-                  <li><strong>Difficulty:</strong> {hit.difficulty}</li>
+                  <li><strong>Difficulty:</strong> {hit.difficulty} </li>
                   <li><strong>Estimated Time:</strong> {hit.time} Minutes</li>
                 </ul>
               </div>
@@ -123,13 +122,11 @@ class RecipeEntry extends React.Component {
                     ? <Link to='/meals' onClick={this.handleEditPlan}>Add to plan</Link>
                     : null
                 }
-
               </div>
             </div>
           </div>
         </div>
       </div>
-
     );
   }
 }

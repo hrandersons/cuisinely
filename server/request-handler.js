@@ -7,12 +7,11 @@ const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
 const cloudinaryKeys = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('./cloudinary_keys');
 const nodemailer = require('nodemailer');
-const algoliaKeys = (process.env.NODE_ENV === 'production') ? {application_ID: process.env.APPLICATION_ID, adminAPI_key: process.env.ADMINAPI_KEY } : require('./algolia_keys');
+const algoliaKeys = require('./algolia_keys');
 const algoliasearch = require('algoliasearch');
 
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
-var levels = require('../db/levels');
 
 //all requests go here
 //export contents to server.js
@@ -21,7 +20,7 @@ var levels = require('../db/levels');
 cloudinary.config(cloudinaryKeys);
 
 exports.getUserInfo = (req, res) => {
-  //console.log('geting user info');
+  console.log('geting user info');
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
@@ -31,8 +30,7 @@ exports.getUserInfo = (req, res) => {
         User.create({
           userId: userId,
           bookmarks: [],
-          points: 0,
-          level: 1
+          points: 0
         })
           .then((newUser) => {
             console.log('user created!');
@@ -41,8 +39,6 @@ exports.getUserInfo = (req, res) => {
       }
     });
 };
-
-
 let filterResults = function(arr, bool) {
   if (bool) {
     return arr.filter((word) => {
@@ -109,7 +105,6 @@ exports.sendRecipes = (req, res) => {
 
 exports.getRecipeDetail = (req, res) => {
   const { recipeId } = req.params;
- // console.log(req);
   Recipe.find({'algolia': recipeId}).exec()
     .then((recipe) => {
       res.status(200).send(recipe);
@@ -174,24 +169,24 @@ exports.newRecipe = (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
-          User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
+          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
             if (err) {
               console.log('Error --> ', err);
             } else {
-              //res.status(201).send({point: newuser.points + 2});
-              let points = newuser.points + 2;
-              let level = newuser.level;
-              let pointsGraph = newuser.pointsGraph;
-              if (points === levels.levels[level + 1].points) {
-                points = 0;
-                level += 1;
-              } else if (points > levels.levels[level + 1].points) {
-                points = 1;
-                level += 1;
+              let now = new Date();
+              let weekDay = now.getDay();
+              if (newuser.pointsGraph.length === 0 ) {
+                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+              } else {
+                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
+                if (weekDay !== lastelement.weekDay) {
+                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
+                } else {
+                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+                }
               }
-              updateUserPoints(req.body.userId,points,pointsGraph,level,(user) => {
-                res.status(201).send({point: user.points});
-              });
+              newuser.save();
+              res.status(201).send({point: newuser.points + 1});
             }
           });
         }
@@ -222,7 +217,7 @@ exports.addBookmark = (req, res) => {
     .then(() => { res.status(200).send('bookmarked!'); })
     .catch((err) => {
       console.log(err);
-  });
+    });
 };
 
 exports.removeBookmark = (req, res) => {
@@ -298,6 +293,35 @@ exports.getBookmarks = (req, res) => {
     });
 };
 
+exports.handleRating = (req, res) => {
+  const rating = req.body.rating;
+  const id = req.body.recipeId;
+  Recipe.findOne({'algolia': id})
+    .then((recipe) => {
+      console.log('original rating', recipe.rating);
+      let newRating = 0;
+      if (recipe.rating !== 0) {
+        newRating = (rating + recipe.rating) / 2;
+        //recipe[0].rating = newRating;
+      } else {
+        newRating = rating;
+      }
+      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} })
+    })
+    .then((newRating) => {
+      res.status(200).json(newRating);
+      // index.partialUpdateObject({
+      //   rating: newRating,
+      //   objectID: id,
+      // }, function(err, content) {
+      //   console.log(content);
+      // });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  };
+
 exports.saveMealPlan = (req, res) => {
   let plan = {
     userId: req.body.userId,
@@ -337,24 +361,11 @@ exports.sendMealPlan = (req, res) => {
 
 exports.bonusPoints = (req, res) => {
   let points = req.body.points;
-  User.findOne({ userId: req.body.userId } ,(err, user) => {
+  User.findOneAndUpdate({ userId: req.body.userId }, { 'points': points }, (err, user) => {
     if (err) {
       console.log(err);
     } else {
-      let level = user.level;
-      let leftPoints = levels.levels[level + 1].points - points;
-      if (leftPoints === 0) {
-        points = 0;
-        level += 1;
-      } else if (leftPoints < 0) {
-        points = Math.abs(leftPoints);
-        level += 1;
-      }
-
-      //res.status(200).send({points: points});
-       updateUserPoints(req.body.userId,points,user.pointsGraph,level,(user) => {
-        res.status(200).send({points: points});
-      });
+      res.status(200).send({points: points});
     }
   });
 
@@ -370,8 +381,6 @@ exports.awardPoints = (req, res) => {
       let points = newuser.points + 1;
       let weekDay = now.getDay();
       let arr = newuser.pointsGraph;
-      let nextLevel = levels.levels[newuser.level + 1].points;
-      let level = newuser.level;
       if (arr.length === 0 ) {
         arr.push({ date: now, points: points, weekDay: weekDay});
       } else {
@@ -382,26 +391,16 @@ exports.awardPoints = (req, res) => {
           arr[arr.length - 1]['points'] += 1;
         }
       }
-      if (points === nextLevel) {
-        level += 1;
-        points = 0;
-      }
-      updateUserPoints(req.body.userId,points,arr,level,(user) => {
-        res.status(200).send(user);
+      User.findOneAndUpdate({ userId: req.body.userId }, { '$set': { 'points': points, pointsGraph: arr } }).exec((err, user) => {
+        if (err) {
+          console.log('Err ---> ', err);
+        } else {
+          res.status(200).send({points: user.points});
+        }
       });
     }
   });
 };
-
-let updateUserPoints = (userId,points,pointsGraph,level,callback) => {
-   User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level } }).exec((err, user) => {
-   if (err) {
-    console.log('Err ---> ', err);
-   } else {
-    callback(user);
-   }
- });
-}
 
 exports.getData = (req, res) => {
   const { userId } = req.params;
@@ -420,7 +419,6 @@ exports.recommendedRecipes = (req, res) => {
       if (!user) {
         return res.status(400).send('user not found');
       } else {
-        console.log('User found --> ', user);
         return user.bookmarks;
       }
     })
@@ -443,7 +441,6 @@ exports.recommendedRecipes = (req, res) => {
     .then((recipes) => {
       let count = 0;
       let sum = recipes.reduce((acc, el) => {
-        // console.log('difficulty ---> ',el);
         acc += el.difficulty;
         count += 1;
         return acc;

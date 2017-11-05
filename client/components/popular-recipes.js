@@ -38,6 +38,7 @@ export default class PopularRecipes extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         {(this.state.recipes.length > 0)
@@ -54,14 +55,14 @@ export default class PopularRecipes extends React.Component {
                       </Slide>
                     </Slider>
                   </Link>
-                </li>); 
+                </li>);
               })
               }
             </ul>
           </div>
           : <div className="text-center">
-            <Preloader size='big' className="text-center"/>
-          </div>
+              <Preloader size='big' className="text-center"/>
+            </div>
         }
       </div>
     );
