@@ -101,19 +101,19 @@ class RecipeDetails extends React.Component {
   handleRating({ rating, type }) {
     this.setState({
       rating: rating
-    })
+    });
     if (type === 'click') {
       const params = {
         rating: rating,
         recipeId: this.state.id,
-      }
+      };
       axios.put('/api/recipes/detail/' + this.state.id, params)
         .then((res) => {
           console.log('rating submitted!');
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     }
   }
 
@@ -274,7 +274,7 @@ class RecipeDetails extends React.Component {
                       <br />
                       <Rater onRate={this.handleRating.bind(this)} />
                     </div>
-                </div>
+                  </div>
                 </div>
                 <div className="fixed-action-btn horizontal click-to-toggle">
                   <a className="btn-floating btn-large red">
