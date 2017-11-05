@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import Auth from '../Auth/Auth';
 import history from './history.js';
-import levels from '../../db/levels'
+import levels from '../../db/levels';
 
 const auth = new Auth();
 
@@ -40,6 +40,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    console.log('ENV CLIentId --> ', process.env.CLIENT_ID);
+    console.log('ENV DOmain ---> ', process.env.DOMAIN);
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 
