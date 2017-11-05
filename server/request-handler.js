@@ -307,35 +307,6 @@ exports.getBookmarks = (req, res) => {
     });
 };
 
-exports.handleRating = (req, res) => {
-  const rating = req.body.rating;
-  const id = req.body.recipeId;
-  Recipe.findOne({'algolia': id})
-    .then((recipe) => {
-      let newRating = 0;
-      if (recipe.rating !== 0) {
-        newRating = (rating + recipe.rating) / 2;
-        //recipe[0].rating = newRating;
-      } else {
-        newRating = rating;
-      }
-      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} });
-    })
-    .then((newRating) => {
-      res.status(200).json(newRating);
-      console.log('NEWRATING', newRating);
-      // index.partialUpdateObject({
-      //   rating: newRating,
-      //   objectID: id,
-      // }, function(err, content) {
-      //   console.log(content);
-      // });
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-};
-
 exports.saveMealPlan = (req, res) => {
   let plan = {
     userId: req.body.userId,
