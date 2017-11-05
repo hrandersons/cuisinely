@@ -13,7 +13,7 @@
     "lint": "eslint server client --ignore-path .gitignore --ext .js --ext .jsx",
     "precommit": "lint-staged",
     "start-heroku": "PRODUCTION=true node server/server.js",
-   "build": "cross-env NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
+   "heroku-postbuild" : "cross-env NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "lint-staged": {
     "*.{js,jsx}": [
