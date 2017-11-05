@@ -33,12 +33,21 @@ let foodUpload = upload.single('picture');
 app.post('/api/emailRecipe', recipeController.emailRecipe);
 
 // Recipes handlers
+<<<<<<< HEAD
 app.get('/api/recipes/detail/:recipeId', recipeController.getRecipeDetail);
 app.get('/api/recipes', recipeController.sendRecipes);
 app.post('/api/recipes', foodUpload, recipeController.newRecipe);
 app.get('/api/recommended', recipeController.recommendedRecipes);
 app.get('/api/popular', recipeController.popularRecipes);
 app.put('/api/recipes/detail/:recipeId', recipeController.handleRating);
+=======
+app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
+app.get('/api/recipes', handler.sendRecipes);
+app.post('/api/recipes', foodUpload, handler.newRecipe);
+app.get('/api/recommended', handler.recommendedRecipes);
+app.get('/api/popular', handler.popularRecipes);
+app.put('/api/recipes/detail/:recipeId', handler.handleRating);
+>>>>>>> ratings
 
 // meal plan handlers
 //app.post('/api/units', handler.getsourceUnits);
