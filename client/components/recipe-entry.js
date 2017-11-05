@@ -102,7 +102,7 @@ class RecipeEntry extends React.Component {
             </div>
             <div className="card-stacked">
               <div className="card-content">
-                <span className="card-title"><strong>{hit.name}</strong> ({hit.rating})</span>
+                <span className="card-title"><strong>{hit.name}</strong></span>
                 <blockquote>
                   {hit.description}
                 </blockquote>
