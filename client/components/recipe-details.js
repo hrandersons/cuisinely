@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { setPoints, editMealPlan,setLevel } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import request from 'superagent';
+import Rater from 'react-rater';
+import 'react-rater/lib/react-rater.css';
+
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -95,6 +98,25 @@ class RecipeDetails extends React.Component {
       });
   }
 
+  handleRating({ rating, type }) {
+    this.setState({
+      rating: rating
+    })
+    if (type === 'click') {
+      const params = {
+        rating: rating,
+        recipeId: this.state.id,
+      }
+      axios.put('/api/recipes/detail/' + this.state.id, params)
+        .then((res) => {
+          console.log('rating submitted!');
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }
+
   handleRemoveBookmark() {
     const userId = this.props.user.user_id;
     const params = {
@@ -112,6 +134,7 @@ class RecipeDetails extends React.Component {
         console.log(err);
       });
   }
+
 
   handleRecipeComplete() {
     const userId = this.props.user.user_id;
@@ -247,7 +270,11 @@ class RecipeDetails extends React.Component {
                   }
                   <div align="center">
                     <a onClick={this.handleRecipeComplete} className="waves-effect waves-light btn yellow darken-3"><i className="material-icons left">star</i>Recipe Complete!</a>
-                  </div>
+                    <div>
+                      <br />
+                      <Rater onRate={this.handleRating.bind(this)} />
+                    </div>
+                </div>
                 </div>
                 <div className="fixed-action-btn horizontal click-to-toggle">
                   <a className="btn-floating btn-large red">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Locator from './locator.js';
 
 class ShoppingList extends React.Component {
   constructor(props) {
@@ -43,6 +44,17 @@ class ShoppingList extends React.Component {
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card white">
+              <div class="card-content black-text">
+                <Locator />
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
