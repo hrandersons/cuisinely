@@ -1,10 +1,10 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-//const keys = (process.env.CLIENT_ID) ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
+const keys = (process.env.NODE_ENV === 'production') ?  { clientId: process.env.CLIENT_ID, domain: process.env.DOMAIN } : require('./Auth_keys');
 
 
 
-const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
+const lock = new Auth0Lock(keys.clientId, keys.domain, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
