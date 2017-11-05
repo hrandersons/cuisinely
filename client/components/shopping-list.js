@@ -61,6 +61,17 @@ class ShoppingList extends React.Component {
           </div>
           <div className="col s2"></div>
         </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card white">
+              <div class="card-content black-text">
+                <Locator />
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     );
