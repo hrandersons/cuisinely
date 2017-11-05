@@ -292,11 +292,10 @@ exports.handleRating = (req, res) => {
       } else {
         newRating = rating;
       }
-      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} });
+      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} })
     })
     .then((newRating) => {
       res.status(200).json(newRating);
-      console.log('NEWRATING', newRating);
       // index.partialUpdateObject({
       //   rating: newRating,
       //   objectID: id,
@@ -307,7 +306,7 @@ exports.handleRating = (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-};
+  };
 
 exports.saveMealPlan = (req, res) => {
   let plan = {
