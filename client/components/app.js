@@ -40,10 +40,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log('ENV CLIentId --> ', process.env.CLIENT_ID);
-    console.log('ENV DOmain ---> ', process.env.DOMAIN);
-    console.log('CloudName ---> ', process.env.CLOUD_NAME);
-    console.log('API_KEY ---> ', process.env.API_KEY);
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 

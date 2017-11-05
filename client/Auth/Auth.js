@@ -4,7 +4,7 @@ import history from '../components/history';
 
 
 
-const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
+const lock = new Auth0Lock(process.env.CLIENT_ID, process.env.DOMAIN, {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
