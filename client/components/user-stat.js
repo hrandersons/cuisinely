@@ -2,20 +2,6 @@ import React from 'react';
 
 import {Bar} from 'react-chartjs-2';
 
-// const data = {
-//   labels: ['Mon', 'Tue','Wed','Thu','Fri','Sat', 'Sun'],
-//   datasets: [
-//     {
-//       label: 'Recipes Completed',
-//       backgroundColor: '#ef9a9a',
-//       borderColor: '#ef9a9a',
-//       borderWidth: 1,
-//       hoverBackgroundColor: '#e57373',
-//       hoverBorderColor: '#e57373',
-//       data: [2, 1, 4, 3]
-//     }
-//   ]
-// };
 
 export default class UserStat extends React.Component {
   constructor(props) {
