@@ -54,14 +54,11 @@ export default class FeedMeter extends React.Component {
               }
             }}/>
         </div>
-
+        <div className="col s1 m1 l1">
+          <i className="feed-meter-icon material-icons large">mood</i>
+        </div>
       </div>
     );
   }
 
 }
-
-
-// <div className="col s1 m1 l1">
-//   <i className="feed-meter-icon material-icons large">mood</i>
-// </div>
