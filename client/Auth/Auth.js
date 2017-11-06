@@ -1,4 +1,4 @@
-import Auth0Lock from 'auth0-lock'; 
+import Auth0Lock from 'auth0-lock';
 import history from '../components/history';
 
 
