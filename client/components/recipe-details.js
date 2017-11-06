@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setPoints, editMealPlan,setLevel } from '../actions/actions.js';
+import { setPoints, editMealPlan, setLevel } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import request from 'superagent';
 import Rater from 'react-rater';
