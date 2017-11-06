@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import Recommended from './recommend-recipe.js';
 import PopularRecipes from './popular-recipes.js';
 import axios from 'axios';
-import levels from '../../db/levels'
+import levels from '../../db/levels';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
     this.state = {
       dataInfo: [],
       pointsLeft: levels.levels[this.props.level + 1].points - this.props.points,
-      pointsNextLevel:levels.levels[this.props.level + 1].points
+      pointsNextLevel: levels.levels[this.props.level + 1].points
     };
     this.getDataInformation = this.getDataInformation.bind(this);
   }
@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
         let arr = [];
         this.props.setPoints(res.data.points);
         this.props.setLevel(res.data.level);
-       let nextLevel = levels.levels[res.data.level + 1].points;
+        let nextLevel = levels.levels[res.data.level + 1].points;
         let pointsLeft = nextLevel - res.data.points;
         res.data.pointsGraph.forEach((item) => {
           arr[item.weekDay] = item['points'];
@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
 
         this.setState({
           dataInfo: arr,
-          pointsLeft:pointsLeft,
+          pointsLeft: pointsLeft,
           pointsNextLevel: nextLevel
         });
       })

@@ -79,41 +79,57 @@ class Calendar extends React.Component {
     let formattedList = [];
     recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
-        if (ingredient.name.includes('water')) {
-          //in this block we can exclude ingredients you don't need to buy at the store i.e. water
-          console.log('Not going to include this.');
-        } else if (list[ingredient.name]) {
-          let splitIngredient = ingredient.quantity.split(' ');
+        let splitIngredient = ingredient.quantity.split(' ');
+        let units = splitIngredient[splitIngredient.length - 1].toLowerCase();
+        if (units === 'cup' || units === 'tablespoon' || units === 'teaspoon' || units === 'stick') {
+          units = splitIngredient[splitIngredient.length - 1] + 's';
+          splitIngredient[splitIngredient.length - 1] = units;
+        }
+        if (list[ingredient.name]) {
           let quantityList = list[ingredient.name].split(', ');
           let isNumber = false;
           let isFraction = false;
           let quantityVal;
+          let added = false;
           if (Number(splitIngredient[0])) {
             quantityVal = Number(splitIngredient[0]);
           } else if (splitIngredient[0].split('/').length === 2) {
             let fraction = splitIngredient[0].split('/');
-            quantityVal = Number(fraction[0]) / Number(fraction[1]);
+            if (fraction[0].includes('-') || fraction[1].includes('-')) {
+              quantityVal = 0;
+            } else {
+              quantityVal = Number(fraction[0]) / Number(fraction[1]);
+            }
           }
           for (var i = 0; i < quantityList.length; i ++) {
             let currentQuantity = quantityList[i].split(' ');
-            if (currentQuantity.slice(1).join(' ') === splitIngredient.slice(1).join(' ')) {
+            if (currentQuantity.slice(1).join(' ').toLowerCase() === splitIngredient.slice(1).join(' ').toLowerCase()) {
               if (Number(currentQuantity[0])) {
                 let currentNumber = Number(currentQuantity[0]);
                 currentQuantity[0] = (currentNumber + quantityVal).toString();
                 quantityList[i] = currentQuantity.join(' ');
+                added = true;
                 break;
               } else if (currentQuantity[0].split('/').length === 2) {
                 let currentFraction = currentQuantity[0].split('/');
-                let currentQuantityVal = Number(currentFraction[0]) / Number(currentFraction[1]);
-                currentQuantity[0] = (currentQuantityVal + quantityVal).toString();
-                quantityList[i] = currentQuantity.join(' ');
-                break;
+                if (Number(currentFraction[0]) && Number(currentFraction[1])) {
+                  let currentQuantityVal = Number(currentFraction[0]) / Number(currentFraction[1]);
+                  currentQuantity[0] = (currentQuantityVal + quantityVal).toString();
+                  quantityList[i] = currentQuantity.join(' ');
+                  added = true;
+                  break;
+                }
               }
             }
           }
+          if (!added) {
+            quantityList.push(splitIngredient.join(' '));
+          }
           list[ingredient.name] = quantityList.join(', ');
         } else {
-          list[ingredient.name] = ingredient.quantity;
+          if (!ingredient.name.toLowerCase().includes('water')) {
+            list[ingredient.name] = splitIngredient.join(' ');
+          }
         }
       });
     });

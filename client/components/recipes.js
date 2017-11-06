@@ -49,14 +49,12 @@ class Recipes extends React.Component {
         <div align="right">
           <Link to="submit" className="waves-effect amber darken-1 btn"><i className="material-icons left">local_dining</i>Add Your Own!</Link>
         </div>
-
         <InstantSearch
           appId="KUPHP9V5MI"
           apiKey="8e465f8475198ae5cb2d621323e06fb4"
           indexName="allrecipes" >
           <SearchBar />
           <div className="info">
-            <Stats />
             <SortBy
               defaultRefinement="allrecipes"
               items={[
@@ -65,6 +63,7 @@ class Recipes extends React.Component {
                 {value: 'allrecipes_difficulty_asc', label: 'Easiest'},
               ]}
             />
+            <Stats />
           </div>
 
         </InstantSearch>
