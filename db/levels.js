@@ -10,4 +10,3 @@ exports.levels = {
   9: { name: 'Iron Chef', points: 65 },
   10: { name: 'Celebrity Chef', points: 70 }
 };
-
