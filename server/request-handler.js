@@ -24,13 +24,15 @@ exports.getUserInfo = (req, res) => {
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
+      console.log('USER FOUND', found)
       if (found) {
         res.status(200).json(found);
       } else {
         User.create({
           userId: userId,
           bookmarks: [],
-          points: 0
+          points: 0,
+          level: 1,
         })
           .then((newUser) => {
             console.log('user created!');
