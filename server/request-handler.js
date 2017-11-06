@@ -33,7 +33,6 @@ exports.getUserInfo = (req, res) => {
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
-      console.log('USER FOUND', found);
       if (found) {
         res.status(200).json(found);
       } else {
@@ -313,7 +312,6 @@ exports.handleRating = (req, res) => {
   const id = req.body.recipeId;
   Recipe.findOne({'algolia': id})
     .then((recipe) => {
-      console.log('original rating', recipe.rating);
       let newRating = 0;
       if (recipe.rating !== 0) {
         newRating = (rating + recipe.rating) / 2;
@@ -325,6 +323,7 @@ exports.handleRating = (req, res) => {
     })
     .then((newRating) => {
       res.status(200).json(newRating);
+      console.log('NEWRATING', newRating);
       // index.partialUpdateObject({
       //   rating: newRating,
       //   objectID: id,
