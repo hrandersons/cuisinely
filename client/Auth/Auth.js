@@ -1,10 +1,10 @@
-import Auth0Lock from 'auth0-lock'; 
+import Auth0Lock from 'auth0-lock';
 import history from '../components/history';
 import keys from './Auth_keys';
 
 
 
-const lock = new Auth0Lock(keys.clientId, keys.domain, {
+const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
