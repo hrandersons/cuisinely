@@ -1,10 +1,9 @@
 import Auth0Lock from 'auth0-lock'; 
 import history from '../components/history';
-import keys from './Auth_keys';
 
 
 
-const lock = new Auth0Lock(keys.clientId, keys.domain, {
+const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
   oidcConformant: false,
   autoclose: true,
   redirect: true,
@@ -51,7 +50,6 @@ export default class Auth {
         if (err) {
           console.log(err);
         }
-        console.log('Profile --> ', profile);
         localStorage.setItem('accessToken', authResult.accessToken);
         localStorage.setItem('profile', JSON.stringify(profile));
         localStorage.setItem('idToken', authResult.idToken);
@@ -72,8 +70,10 @@ export default class Auth {
   }
 
   isAuthenticated() {
+    // this.logout();
     // Check whether the current time is past the
     // access token's expiry time
+    // Clear access token and ID token from local storage
     return (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken'));
   }
 }

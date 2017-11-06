@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import Auth from '../Auth/Auth';
 import history from './history.js';
-import levels from '../../db/levels'
+import levels from '../../db/levels';
 
 const auth = new Auth();
 
@@ -49,7 +49,7 @@ class App extends React.Component {
     const userId = user.user_id;
     axios.get('/api/user/' + userId)
       .then((res) => {
-        console.log('Res.data --> ', res.data);
+        // console.log('Res.data --> ', res.data);
         this.props.setPoints(res.data.points);
         this.props.setLevel(res.data.level);
         this.setState({
