@@ -11,7 +11,9 @@
     "dev-client": "webpack-dev-server --color",
     "dev": "nodemon server/server.js --ignore client/*/**",
     "lint": "eslint server client --ignore-path .gitignore --ext .js --ext .jsx",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "start-heroku": "node server/server.js",
+   "heroku-postbuild" : "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "lint-staged": {
     "*.{js,jsx}": [
