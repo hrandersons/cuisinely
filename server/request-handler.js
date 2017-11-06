@@ -24,7 +24,7 @@ exports.getUserInfo = (req, res) => {
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
-      console.log('USER FOUND', found)
+      console.log('USER FOUND', found);
       if (found) {
         res.status(200).json(found);
       } else {
