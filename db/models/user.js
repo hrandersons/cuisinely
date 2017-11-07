@@ -8,7 +8,8 @@ userSchema = new mongoose.Schema(
     bookmarks: { type: [] },
     points: {type: Number },
     pointsGraph: { type: []},
-    level: { type: Number }
+    level: { type: Number },
+    weeklyPoints: { type: {} }
   }
 );
 
