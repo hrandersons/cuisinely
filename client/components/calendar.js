@@ -46,7 +46,10 @@ class Calendar extends React.Component {
   }
 
   getRandomRecipes() {
-    axios.get('/api/calendarRecipes')
+    axios.get('/api/recommended', {
+      params: this.props.user.user_id,
+      isMealPlan: true
+    })
       .then((response) => {
         let listOfFive = response.data.slice(0, 5);
         this.props.setMealPlan(listOfFive);
