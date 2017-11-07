@@ -21,6 +21,7 @@ import Login from './login.js';
 import Callback from './callback.js';
 import RecipeDetails from './recipe-details.js';
 import ShoppingList from './shopping-list.js';
+import Stats from './statiscs.js';
 
 
 
@@ -40,6 +41,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+   // console.log('Local Storage --> ',localStorage);
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 
@@ -90,6 +92,7 @@ class App extends React.Component {
           <Route path='/meals' render={(props) => (<Meals {...props} />)} />
           <Route path='/submit' render={(props) => (<SubmitRecipe {...props} />)} />
           <Route path='/shoppinglist' render={(props) => (<ShoppingList {...props} />)} />
+          <Route path='/user-stats' render={(props) => (<Stats {...props} />)} />
           <Redirect to='/dashboard' />
         </Switch>
       </div>

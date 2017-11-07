@@ -13,7 +13,7 @@
     "lint": "eslint server client --ignore-path .gitignore --ext .js --ext .jsx",
     "precommit": "lint-staged",
     "start-heroku": "node server/server.js",
-   "heroku-postbuild" : "webpack -p --config ./webpack.prod.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -69,6 +69,7 @@
     "node-google-calendar": "^1.1.1",
     "nodemailer": "^4.3.1",
     "react": "^16.0.0",
+    "react-big-calendar": "^0.17.0",
     "react-chartjs-2": "^2.6.4",
     "react-dom": "^16.0.0",
     "react-google-places-component": "0.0.5",

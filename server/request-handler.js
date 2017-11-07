@@ -173,7 +173,7 @@ exports.newRecipe = (req, res) => {
       });
     });
   });
-  //invoke next(); to move onto async image processing function
+ 
   //TODO: write image processing & imageUrl update function
 };
 
