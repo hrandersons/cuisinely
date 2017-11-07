@@ -8,7 +8,6 @@ import request from 'superagent';
 import Rater from 'react-rater';
 import 'react-rater/lib/react-rater.css';
 
-
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -239,9 +238,9 @@ class RecipeDetails extends React.Component {
                             <tbody>
                               {
                                 (this.state.equipment.length)
-                                  ? (this.state.equipment.map(equip => (
+                                  ? (this.state.equipment.map(equip, index => (
                                     <tr className="equipment"
-                                      key={equip.name}>
+                                      key={index}>
                                       <td>{equip.quantity} {equip.name}</td>
                                     </tr>
                                   )))

@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import GoogleMapLoader from 'react-google-maps-loader';
 import Locator from './locator.js';
+// import Map from './map.js';
 
 class ShoppingList extends React.Component {
   constructor(props) {
@@ -45,10 +47,10 @@ class ShoppingList extends React.Component {
           </div>
         </div>
 
-        <div class="row">
-          <div class="col s12">
-            <div class="card white">
-              <div class="card-content black-text">
+        <div className="row">
+          <div className="col s12">
+            <div className="card white">
+              <div className="card-content black-text">
                 <Locator />
               </div>
             </div>
