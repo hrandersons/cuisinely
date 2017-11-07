@@ -9,7 +9,7 @@ import moment from 'moment';
 import { setList, setMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import unitMerger from '../utils/ingredientParsers.js';
+import unitMerger, { commaRemover } from '../utils/ingredientParsers.js';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -80,14 +80,16 @@ class Calendar extends React.Component {
     let formattedList = [];
     recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
+        console.log(ingredient.name);
+        let shortName = commaRemover(ingredient.name);
         let splitIngredient = ingredient.quantity.split(' ');
         let units = splitIngredient[splitIngredient.length - 1].toLowerCase();
         if (units === 'cup' || units === 'tablespoon' || units === 'teaspoon' || units === 'stick') {
           units = splitIngredient[splitIngredient.length - 1] + 's';
           splitIngredient[splitIngredient.length - 1] = units;
         }
-        if (list[ingredient.name]) {
-          let quantityList = list[ingredient.name].split(', ');
+        if (list[shortName]) {
+          let quantityList = list[shortName].split(', ');
           let isNumber = false;
           let isFraction = false;
           let quantityVal;
@@ -126,10 +128,11 @@ class Calendar extends React.Component {
           if (!added) {
             quantityList.push(splitIngredient.join(' '));
           }
-          list[ingredient.name] = quantityList.join(', ');
+          list[shortName] = quantityList.join(', ');
         } else {
-          if (!ingredient.name.toLowerCase().includes('water')) {
-            list[ingredient.name] = splitIngredient.join(' ');
+          console.log(shortName);
+          if (!shortName.toLowerCase().includes('water')) {
+            list[shortName] = splitIngredient.join(' ');
           }
         }
       });
