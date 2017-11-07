@@ -40,9 +40,9 @@ exports.getUserInfo = (req, res) => {
         let now = new Date();
         let week2 = new Date(now);
         week2.setDate(week2.getDate() + 7);
-        let week3 = new Date(now); 
+        let week3 = new Date(now);
         week3.setDate(week3.getDate() + 14);
-        let week4 = new Date(now); 
+        let week4 = new Date(now);
         week4.setDate(week4.getDate() + 21);
         let weekly = { week1: {date: now, points: 0}, week2: {date: week2, points: 0}, week3: {date: week3, points: 0}, week4: {date: week4, points: 0}};
         User.create({
@@ -182,7 +182,7 @@ exports.newRecipe = (req, res) => {
       });
     });
   });
- 
+
   //TODO: write image processing & imageUrl update function
 };
 
@@ -380,7 +380,7 @@ exports.awardPoints = (req, res) => {
       else if (compareDays(today,weeklyPoints.week3.date) === 0) {
         arr = [];
         weeklyPoints.week3.points += 1
-      }  
+      }
      // checks week3 - week4
      else if (compareDays(today,weeklyPoints.week4.date) > -7) {
         if (weeklyPoints.week4.points === 0) {
@@ -395,9 +395,9 @@ exports.awardPoints = (req, res) => {
         arr = [];
         let week2 = new Date(now);
         week2.setDate(week2.getDate() + 7);
-        let week3 = new Date(now); 
+        let week3 = new Date(now);
         week3.setDate(week3.getDate() + 14);
-        let week4 = new Date(now); 
+        let week4 = new Date(now);
         week4.setDate(week4.getDate() + 21);
         weeklyPoints = { week1: {date: now, points: 1}, week2: {date: week2, points: 0}, week3: {date: week3, points: 0}, week4: {date: week4, points: 0}};
       }
@@ -457,6 +457,7 @@ exports.getData = (req, res) => {
 
 exports.recommendedRecipes = (req, res) => {
   var userId = req.query['0'];
+  let isMealPlan = true;
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
@@ -494,6 +495,19 @@ exports.recommendedRecipes = (req, res) => {
       return Recipe.find( {'difficulty': average}).limit(15);
     })
     .then((newRecipes) => {
+      let filteredRecipes;
+      if (isMealPlan = true) {
+        filteredRecipes = newRecipes.filter((recipe) => {
+          let newIngredients = [];
+          recipe.ingredients.forEach((ingredient) => {
+            newIngredients.push(ingredient.name);
+          });
+          return newIngredients.join('').toLowerCase().includes('sugar') === false;
+        });
+      }
+      if (filteredRecipes.length) {
+        newRecipes = filteredRecipes;
+      }
       let recipe = [];
       let obj = {};
       while ( recipe.length !== 5) {
