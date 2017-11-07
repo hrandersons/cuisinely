@@ -9,6 +9,7 @@ import moment from 'moment';
 import { setList, setMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import unitMerger from '../utils/ingredientParsers.js';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -137,7 +138,8 @@ class Calendar extends React.Component {
     for (var key in list) {
       let entry = {};
       entry.name = key;
-      entry.quantity = list[key];
+      let quantity = list[key].toLowerCase();
+      entry.quantity = unitMerger(quantity);
       formattedList.push(entry);
     }
     this.props.setList(formattedList);

@@ -367,15 +367,15 @@ exports.awardPoints = (req, res) => {
   });
 };
 
-let updateUserPoints = (userId, points, pointsGraph, level, callback) => {
-  User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level } }).exec((err, user) => {
-    if (err) {
-      console.log('Err ---> ', err);
-    } else {
-      callback(user);
-    }
-  });
-};
+// let updateUserPoints = (userId, points, pointsGraph, level, callback) => {
+//   User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level } }).exec((err, user) => {
+//     if (err) {
+//       console.log('Err ---> ', err);
+//     } else {
+//       callback(user);
+//     }
+//   });
+// };
 
 exports.getData = (req, res) => {
   const { userId } = req.params;
