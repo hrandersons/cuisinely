@@ -459,7 +459,7 @@ exports.recommendedRecipes = (req, res) => {
   var userId = req.query['0'];
   //console.log(req.query, req.isMealPlan);
   let isMealPlan = req.isMealPlan || false;
-  console.log(isMealPlan)
+  console.log(isMealPlan);
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
