@@ -9,7 +9,7 @@ import moment from 'moment';
 import { setList, setMealPlan } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import unitMerger, { commaRemover } from '../utils/ingredientParsers.js';
+import unitMerger, { commaRemover, parensRemover } from '../utils/ingredientParsers.js';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -80,8 +80,8 @@ class Calendar extends React.Component {
     let formattedList = [];
     recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
-        console.log(ingredient.name);
-        let shortName = commaRemover(ingredient.name);
+        let nameSansParens = parensRemover(ingredient.name);
+        let shortName = commaRemover(nameSansParens);
         let splitIngredient = ingredient.quantity.split(' ');
         let units = splitIngredient[splitIngredient.length - 1].toLowerCase();
         if (units === 'cup' || units === 'tablespoon' || units === 'teaspoon' || units === 'stick') {
@@ -145,6 +145,13 @@ class Calendar extends React.Component {
       entry.quantity = unitMerger(quantity);
       formattedList.push(entry);
     }
+    formattedList.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
     this.props.setList(formattedList);
   }
 

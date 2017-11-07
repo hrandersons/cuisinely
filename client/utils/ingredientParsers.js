@@ -64,5 +64,22 @@ export const commaRemover = (ingredientTitle) => {
   return ingredientTitle;
 };
 
+export const parensRemover = (ingredientTitle) => {
+  if (ingredientTitle.includes('(')) {
+    let openIndex = ingredientTitle.indexOf('(');
+    let closeIndex = ingredientTitle.indexOf(')');
+    let subset = ingredientTitle.substring(openIndex + 1, closeIndex);
+    let splitSet = subset.split(' ');
+    if (Number(splitSet[0])) {
+      return ingredientTitle;
+    } else {
+      let parsedStart = ingredientTitle.substring(0, openIndex);
+      let parsedEnd = ingredientTitle.substring(closeIndex + 1);
+      return parsedStart + parsedEnd;
+    }
+  }
+  return ingredientTitle;
+};
+
 
 export default unitMerger;
