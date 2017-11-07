@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-   // console.log('Local Storage --> ',localStorage);
+    // console.log('Local Storage --> ',localStorage);
     if (auth.isAuthenticated()) { this.getUserInfoFromDb(); }
   }
 

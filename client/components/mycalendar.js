@@ -12,9 +12,9 @@ const MyCalendar = props => (
       endAccessor='endDate'
     />
   </div>
-)
+);
 
 
 
 
-export default MyCalendar
+export default MyCalendar;

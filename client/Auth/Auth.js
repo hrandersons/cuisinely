@@ -14,7 +14,7 @@ const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com',
     //redirectUrl: keys.callbackUrl
     responseType: 'token id_token',
     scope: 'openid profile',
-  connectionScopes: {
+    connectionScopes: {
       'google': ['https://www.googleapis.com/auth/calendar.readonly']
     }
   }
