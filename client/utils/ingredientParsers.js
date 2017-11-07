@@ -57,5 +57,12 @@ const unitMerger = (unitList) => {
   return units.join(', ');
 };
 
+export const commaRemover = (ingredientTitle) => {
+  if (ingredientTitle.includes(',')) {
+    return ingredientTitle.split(',').slice(0, -1).join(',');
+  }
+  return ingredientTitle;
+};
+
 
 export default unitMerger;
