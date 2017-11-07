@@ -35,11 +35,13 @@ class NavBar extends React.Component {
                 <li><Link to="../dashboard">Dashboard</Link></li>
                 <li><Link to="../recipes">Recipes</Link></li>
                 <li><Link to="../meals">Meals</Link></li>
+                <li><Link to="../user-stats">User-Stats</Link></li>
               </ul>
             </SideNav>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link to="../dashboard">Dashboard</Link></li>
               <li><Link to="../recipes">Recipes</Link></li>
+              <li><Link to="../user-stats">User-Stats</Link></li>
               <li><Link to="../meals">Meals</Link></li>
               <li>
                 <SideNav

@@ -20,6 +20,36 @@ export default class UserStat extends React.Component {
         }
       ]
     };
+    this.chartOptions = {
+    showScale: true,
+    pointDot: true,
+    showLines: false,
+
+    title: {
+        display: true,
+        text: 'Chart.js Bar Chart'
+    },
+
+    legend: {
+        display: true,
+        labels: {
+            boxWidth: 50,
+            fontSize: 10,
+            fontColor: '#bbb',
+            padding: 5,
+        }
+    },
+
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero:true,
+              min: 50,
+              max: 100    
+          }
+        }]
+     }
+    }
   }
 
 
