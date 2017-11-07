@@ -1,5 +1,4 @@
 import React from 'react';
-
 import UserProfile from './user-profile.js';
 
 class SideDrawer extends React.Component {

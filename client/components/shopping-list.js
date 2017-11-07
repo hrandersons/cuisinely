@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Locator from './locator.js';
+import GoogleMapLoader from 'react-google-maps-loader';
+import Map from './map.js';
 
 class ShoppingList extends React.Component {
   constructor(props) {
@@ -40,16 +41,17 @@ class ShoppingList extends React.Component {
                   }
                 </tbody>
               </table>
-              <a onClick={this.printRecipe} className="btn-floating black"><i className="material-icons">local_printshop</i></a>
+              <a onClick={this.printRecipe} className="btn-floating black"><i className="material-icons right">local_printshop</i></a>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col s12">
-            <div class="card white">
-              <div class="card-content black-text">
-                <Locator />
+        <div className="row">
+          <div className="col s12">
+            <div className="card white">
+              <div className="card-content black-text">
+                <span className="card-title"> Find a supermarket here! <i className="material-icons left">location_on</i></span>
+                <Map />
               </div>
             </div>
           </div>
