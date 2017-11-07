@@ -168,9 +168,10 @@ class Calendar extends React.Component {
         <Button style={{'marginRight': '5px'}} waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
         <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
         <div style={{'marginTop': '10px'}}>
-          <Link to='/shoppinglist'>
-            <Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button>
-          </Link>
+          { this.props.ingredients.length
+            ? <Link to='/shoppinglist'><Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button></Link>
+            : <Button waves='light' className='disabled red lighten-3'>Preparing Your Shopping List...<Icon left>shopping_cart</Icon></Button>
+          }
         </div>
       </div>
     );
