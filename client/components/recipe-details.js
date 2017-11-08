@@ -210,8 +210,8 @@ class RecipeDetails extends React.Component {
                           <table className="highlight">
                             <thead>
                               <tr>
-                                <th>Item Name</th>
                                 <th>Item Quantity</th>
+                                <th>Item Name</th>
                               </tr>
                             </thead>
 
@@ -221,8 +221,8 @@ class RecipeDetails extends React.Component {
                                   ? (this.state.ingredients.map(item => (
                                     <tr className="ingredient"
                                       key={item.algolia}>
-                                      <td>{item.name}</td>
                                       <td>{item.quantity}</td>
+                                      <td>{item.name}</td>
                                     </tr>
                                   )))
                                   : (null)
