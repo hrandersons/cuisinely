@@ -7,21 +7,9 @@ import { bindActionCreators } from 'redux';
 import request from 'superagent';
 import Rater from 'react-rater';
 import 'react-rater/lib/react-rater.css';
-import {
-  ShareButtons,
-  ShareCounts,
-  generateShareIcon
-} from 'react-share';
-
-const {
-  FacebookShareButton,
-} = ShareButtons;
-
+import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+const { FacebookShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
-
-const {
-  FacebookShareCount,
-} = ShareCounts;
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -47,12 +35,10 @@ class RecipeDetails extends React.Component {
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
     this.handleEditPlan = this.handleEditPlan.bind(this);
     this.emailRecipe = this.emailRecipe.bind(this);
-    this.getUrl = this.getUrl.bind(this);
   }
 
   componentDidMount() {
     this.getRecipeDetail();
-    this.getUrl();
   }
 
   checkBookmarks(id) {
@@ -195,10 +181,6 @@ class RecipeDetails extends React.Component {
 
   printRecipe() {
     window.print();
-  }
-
-  getUrl() {
-    console.log(this.state.instructions);
   }
 
   render() {

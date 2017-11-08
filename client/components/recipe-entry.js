@@ -4,12 +4,7 @@ import { setUserInfo, editMealPlan } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Highlight,
-} from 'react-instantsearch/dom';
+import { InstantSearch, SearchBox, Hits, Highlight } from 'react-instantsearch/dom';
 
 class RecipeEntry extends React.Component {
   constructor(props) {

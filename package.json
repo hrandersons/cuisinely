@@ -74,7 +74,6 @@
     "react-big-calendar": "^0.17.0",
     "react-chartjs-2": "^2.6.4",
     "react-dom": "^16.0.0",
-    "react-facebook": "^4.0.16",
     "react-google-maps": "^9.2.2",
     "react-google-maps-loader": "^4.1.0",
     "react-hot-loader": "^3.1.1",
