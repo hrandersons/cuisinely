@@ -15,7 +15,12 @@ const unitMerger = (unitList) => {
             tspIndex = i;
           }
         }
-        let totalCups = Number(units[cupsIndex].split(' ')[0]);
+        let splitUnits = units[cupsIndex].split(' ');
+        if (units[cupsIndex].split(' ')[0].includes('/')) {
+          let fraction = splitUnits[0].split('/');
+          splitUnits[0] = Number(fraction[0]) / Number(fraction[1]);
+        }
+        let totalCups = Number(splitUnits[0]);
         totalCups = Math.floor(totalCups + 1);
         let cups = units[cupsIndex].split(' ');
         cups[0] = totalCups;
@@ -43,7 +48,12 @@ const unitMerger = (unitList) => {
           tspIndex = i;
         }
       }
-      let totalTbsp = Number(units[tbspIndex].split(' ')[0]);
+      let splitUnits = units[tbspIndex].split(' ');
+      if (splitUnits[0].includes('/')) {
+        let fraction = splitUnits[0].split('/');
+        splitUnits[0] = Number(fraction[0]) / Number(fraction[1]);
+      }
+      let totalTbsp = Number(splitUnits[0]);
       totalTbsp = Math.floor(totalTbsp + 1);
       let tbsp = units[tbspIndex].split(' ');
       tbsp[0] = totaltbsp;
@@ -58,6 +68,10 @@ const unitMerger = (unitList) => {
 };
 
 export const commaRemover = (ingredientTitle) => {
+  let title = ingredientTitle.toLowerCase();
+  if (title.includes('chicken breast') || title.includes('chicken breasts')) {
+    return ingredientTitle;
+  }
   if (ingredientTitle.includes(',')) {
     return ingredientTitle.split(',').slice(0, -1).join(',');
   }
