@@ -7,12 +7,11 @@ const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
 const cloudinaryKeys = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('./cloudinary_keys');
 const nodemailer = require('nodemailer');
-const algoliaKeys = (process.env.NODE_ENV === 'production') ? {application_ID: process.env.APPLICATION_ID, adminAPI_key: process.env.ADMINAPI_KEY } : require('./algolia_keys');
+const algoliaKeys = require('./algolia_keys');
 const algoliasearch = require('algoliasearch');
 
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
-var levels = require('../db/levels');
 
 //all requests go here
 //export contents to server.js
@@ -31,6 +30,7 @@ let updateUserPoints = (userId, points, pointsGraph, level, weeklyPoints, callba
 };
 
 exports.getUserInfo = (req, res) => {
+  console.log('geting user info');
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
@@ -59,8 +59,6 @@ exports.getUserInfo = (req, res) => {
       }
     });
 };
-
-
 let filterResults = function(arr, bool) {
   if (bool) {
     return arr.filter((word) => {
@@ -158,20 +156,21 @@ exports.newRecipe = (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
-          User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
+          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
             if (err) {
               console.log('Error --> ', err);
             } else {
-              //res.status(201).send({point: newuser.points + 2});
-              let points = newuser.points + 2;
-              let level = newuser.level;
-              let pointsGraph = newuser.pointsGraph;
-              if (points === levels.levels[level + 1].points) {
-                points = 0;
-                level += 1;
-              } else if (points > levels.levels[level + 1].points) {
-                points = 1;
-                level += 1;
+              let now = new Date();
+              let weekDay = now.getDay();
+              if (newuser.pointsGraph.length === 0 ) {
+                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+              } else {
+                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
+                if (weekDay !== lastelement.weekDay) {
+                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
+                } else {
+                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
+                }
               }
               updateUserPoints(req.body.userId, points, pointsGraph, level, newuser.weeklyPoints, (user) => {
                 res.status(201).send({point: user.points});
@@ -279,6 +278,35 @@ exports.getBookmarks = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+};
+
+exports.handleRating = (req, res) => {
+  const rating = req.body.rating;
+  const id = req.body.recipeId;
+  Recipe.findOne({'algolia': id})
+    .then((recipe) => {
+      let newRating = 0;
+      if (recipe.rating !== 0) {
+        newRating = (rating + recipe.rating) / 2;
+        //recipe[0].rating = newRating;
+      } else {
+        newRating = rating;
+      }
+      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} });
+    })
+    .then((newRating) => {
+      res.status(200).json(newRating);
+      console.log('NEWRATING', newRating);
+      // index.partialUpdateObject({
+      //   rating: newRating,
+      //   objectID: id,
+      // }, function(err, content) {
+      //   console.log(content);
+      // });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 };
 
@@ -451,7 +479,6 @@ exports.recommendedRecipes = (req, res) => {
       if (!user) {
         return res.status(400).send('user not found');
       } else {
-        console.log('User found --> ', user);
         return user.bookmarks;
       }
     })
