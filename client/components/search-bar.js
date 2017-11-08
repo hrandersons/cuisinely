@@ -26,18 +26,26 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <SearchBox />
-        <Hits hitComponent={RecipeEntry} />
-        <div className="pagination">
-          <Pagination showlast/>
+      <div className="row">
+        <div className="col s2">
+          <strong>Difficulty</strong>
+          <RefinementList attributeName="difficulty" />
+          <br />
+          <strong>Time (minutes)</strong>
+          <RefinementList attributeName="time" />
+        </div>
+
+        <div className="col s10">
+          <SearchBox className="searchbar"/>
+          <Hits hitComponent={RecipeEntry} />
+          <div className="pagination">
+            <Pagination showlast/>
+          </div>
         </div>
       </div>
-
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {

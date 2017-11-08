@@ -4,12 +4,7 @@ import { setUserInfo, editMealPlan } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Highlight,
-} from 'react-instantsearch/dom';
+import { InstantSearch, SearchBox, Hits, Highlight } from 'react-instantsearch/dom';
 
 class RecipeEntry extends React.Component {
   constructor(props) {
@@ -94,7 +89,7 @@ class RecipeEntry extends React.Component {
     const { hit } = this.props;
     return (
       <div>
-        <div className="col s12 m7">
+        <div className="col s12">
           <div className="card horizontal hoverable">
             <div className="card-image thumbnail">
               <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />

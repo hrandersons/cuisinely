@@ -218,21 +218,24 @@ a {
 .info {
   text-align: center;
 }
+
 #mycalendar {
   margin: auto;
   width: 90%;
   height: 500px;
   padding-bottom: 20px;
 }
+
 #mycalendar button {
   background: #ef5350;
   color: white;
 }
 
 .rbc-calendar {
-background: white;
-box-shadow: 1px 5px 20px grey;
+  background: white;
+  box-shadow: 1px 5px 20px grey;
 }
+
 .rbc-toolbar {
   background: #F97E7E;
   color: white;
