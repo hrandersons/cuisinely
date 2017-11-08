@@ -181,12 +181,12 @@ class Calendar extends React.Component {
         <div className="row">
           <div className="col s1"></div>
           <div className="col s12 m6 l2">
-            <Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
+            <Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto Meal Plan<Icon left>cloud</Icon></Button>
           </div>
           <div className="col s12 m6 l2">
             { this.props.ingredients.length
-              ? <Link to='/shoppinglist'><Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button></Link>
-              : <Button waves='light' className='disabled red lighten-3'>Preparing Your Shopping List...<Icon left>shopping_cart</Icon></Button>
+              ? <Link to='/shoppinglist'><Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3'>Grocery List<Icon left>shopping_cart</Icon></Button></Link>
+              : <Button waves='light' className='disabled red lighten-3'>Preparing Your List...<Icon left>shopping_cart</Icon></Button>
             }
           </div>
           <div className="col s12 m6 l2"></div>
