@@ -30,6 +30,7 @@ let updateUserPoints = (userId, points, pointsGraph, level, weeklyPoints, callba
 };
 
 exports.getUserInfo = (req, res) => {
+  console.log('geting user info');
   const { userId } = req.params;
   User.findOne({ userId: userId })
     .exec((err, found) => {
