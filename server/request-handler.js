@@ -60,7 +60,6 @@ exports.getUserInfo = (req, res) => {
     });
 };
 
-
 let filterResults = function(arr, bool) {
   if (bool) {
     return arr.filter((word) => {
@@ -451,7 +450,6 @@ exports.recommendedRecipes = (req, res) => {
       if (!user) {
         return res.status(400).send('user not found');
       } else {
-        console.log('User found --> ', user);
         return user.bookmarks;
       }
     })
@@ -562,6 +560,7 @@ exports.handleRating = (req, res) => {
       let newRating = 0;
       if (recipe.rating !== 0) {
         newRating = (rating + recipe.rating) / 2;
+        newRating = newRating.toFixed(1);
       } else {
         newRating = rating;
       }

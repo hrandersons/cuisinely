@@ -4,7 +4,6 @@ import history from '../components/history';
 
 
 const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
-
   oidcConformant: false,
   autoclose: true,
   redirect: true,

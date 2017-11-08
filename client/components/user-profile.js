@@ -8,7 +8,7 @@ class UserProfile extends React.Component {
 
   render() {
     const name = this.props.user.name.split('@')[0];
-    console.log('Points Now ---> ',this.props.points);
+    console.log('Points Now ---> ', this.props.points);
     return (
       <div className="row">
         <div className="col s12">
@@ -18,11 +18,8 @@ class UserProfile extends React.Component {
             </div>
             <div className="card-content">
               <strong className="profname"> {name} </strong>
-              <div> Level {this.props.level} | {levels.levels[this.props.level].name}</div>
-              <div> Points Until Next Level: {levels.levels[this.props.level+1].points - this.props.points} pts</div>
-              <div className="progress">
-                <div className="determinate" style={{'width': '70%'}}></div>
-              </div>
+              <p> Level {this.props.level} | {levels.levels[this.props.level].name}</p>
+              <p> Points Until Next Level: {levels.levels[this.props.level + 1].points - this.props.points} pts</p>
             </div>
           </div>
         </div>

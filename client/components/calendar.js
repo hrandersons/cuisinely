@@ -167,7 +167,7 @@ class Calendar extends React.Component {
           {this.props.mealPlan.length ? this.props.mealPlan.map(((recipe, index) => {
             return (
               <Col s={12} m={5} l={2} key={recipe.algolia}>
-                <Card style={{minWidth: '200px'}}
+                <Card style={{minWidth: '250px'}}
                   className='large hoverable'
                   header={<div className={recipe.date === moment().format('ddd L') ? 'calendar-today' : 'calendar-date'}>
                     {recipe.date ? recipe.date : moment().add(index, 'days').format('ddd L')}</div>} >
@@ -178,14 +178,25 @@ class Calendar extends React.Component {
           })) : 'No Meals Planned!'}
           <Col s={0} m={0} l={1} />
         </Row>
-        <Button style={{'marginRight': '5px'}} waves='light' className='red lighten-3' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
-        <Button style={{'marginLeft': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
-        <div style={{'marginTop': '10px'}}>
-          { this.props.ingredients.length
-            ? <Link to='/shoppinglist'><Button waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button></Link>
-            : <Button waves='light' className='disabled red lighten-3'>Preparing Your Shopping List...<Icon left>shopping_cart</Icon></Button>
-          }
+        <div className="row">
+          <div className="col s1"></div>
+          <div className="col s12 m6 l2">
+            <Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3' onClick={this.getRandomRecipes}>Auto 5-Day Meal Plan<Icon left>cloud</Icon></Button>
+          </div>
+          <div className="col s12 m6 l2">
+            { this.props.ingredients.length
+              ? <Link to='/shoppinglist'><Button style={{'marginBottom': '5px'}} waves='light' className='red lighten-3'>Weekly Shopping List<Icon left>shopping_cart</Icon></Button></Link>
+              : <Button waves='light' className='disabled red lighten-3'>Preparing Your Shopping List...<Icon left>shopping_cart</Icon></Button>
+            }
+          </div>
+          <div className="col s12 m6 l2"></div>
+          <div className="col s12 m6 l2"></div>
+          <div className="col s12 m6 l2">
+            <Button waves='light' className='red lighten-3 right' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
+          </div>
+          <div className="col s1"></div>
         </div>
+
       </div>
     );
   }
