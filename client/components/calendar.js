@@ -191,7 +191,6 @@ class Calendar extends React.Component {
           </div>
           <div className="col s12 m6 l2"></div>
           <div className="col s12 m6 l2"></div>
-
           <div className="col s12 m6 l2">
             <Button waves='light' className='red lighten-3 right' onClick={this.saveMealPlan}>Save<Icon left>save</Icon></Button>
           </div>
