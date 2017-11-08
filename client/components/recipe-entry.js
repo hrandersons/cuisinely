@@ -94,7 +94,7 @@ class RecipeEntry extends React.Component {
     const { hit } = this.props;
     return (
       <div>
-        <div className="col s12 m7">
+        <div className="col s12">
           <div className="card horizontal hoverable">
             <div className="card-image thumbnail">
               <img src={(hit.imageUrl === 'none') ? '/assets/no_img.jpg' : (hit.imageUrl)} />

@@ -7,6 +7,21 @@ import { bindActionCreators } from 'redux';
 import request from 'superagent';
 import Rater from 'react-rater';
 import 'react-rater/lib/react-rater.css';
+import {
+  ShareButtons,
+  ShareCounts,
+  generateShareIcon
+} from 'react-share';
+
+const {
+  FacebookShareButton,
+} = ShareButtons;
+
+const FacebookIcon = generateShareIcon('facebook');
+
+const {
+  FacebookShareCount,
+} = ShareCounts;
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -32,10 +47,12 @@ class RecipeDetails extends React.Component {
     this.handleRecipeComplete = this.handleRecipeComplete.bind(this);
     this.handleEditPlan = this.handleEditPlan.bind(this);
     this.emailRecipe = this.emailRecipe.bind(this);
+    this.getUrl = this.getUrl.bind(this);
   }
 
   componentDidMount() {
     this.getRecipeDetail();
+    this.getUrl();
   }
 
   checkBookmarks(id) {
@@ -180,6 +197,10 @@ class RecipeDetails extends React.Component {
     window.print();
   }
 
+  getUrl() {
+    console.log(this.state.instructions);
+  }
+
   render() {
     let stepCount = 1;
 
@@ -238,9 +259,9 @@ class RecipeDetails extends React.Component {
                             <tbody>
                               {
                                 (this.state.equipment.length)
-                                  ? (this.state.equipment.map(equip, index => (
+                                  ? (this.state.equipment.map(equip => (
                                     <tr className="equipment"
-                                      key={index}>
+                                      key={equip.name}>
                                       <td>{equip.quantity} {equip.name}</td>
                                     </tr>
                                   )))
@@ -271,6 +292,13 @@ class RecipeDetails extends React.Component {
                     <div>
                       <br />
                       <Rater onRate={this.handleRating.bind(this)} />
+                      <br />
+                    </div>
+                    <div>
+                      <br />
+                      <a href="https://www.facebook.com/sharer/sharer.php?u=http://thepioneerwoman.com/cooking/" target={this.state.name}>
+                        <FacebookIcon size={58} round={true} />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -295,6 +323,9 @@ class RecipeDetails extends React.Component {
                           ? <Link to='/meals'> <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">add_circle</i></a></Link>
                           : null
                       }
+                    </li>
+                    <li>
+
                     </li>
                   </ul>
                 </div>
