@@ -144,21 +144,25 @@ class MiniRecipe extends React.Component {
           <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
         <div className="card-action">
+
           <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
+
           {
-            (this.state.bookmarked)
-              ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
-              : <a onClick={this.handleAddBookmark}>Bookmark</a>
+            (this.props.recipe.complete)
+              ? null
+              : (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
+                ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
+                : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
           }
+
           <div>
             {
-              (this.props.recipe.complete)
-                ? null
-                : (this.props.editId === this.props.recipe.algolia && this.props.editDate === this.props.recipe.date)
-                  ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
-                  : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
+              (this.state.bookmarked)
+                ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
+                : <a onClick={this.handleAddBookmark}>Bookmark</a>
             }
           </div>
+          <br />
           <div align="center">
             <a onClick={this.handleComplete} className={this.props.recipe.complete ? 'disabled waves-effect waves-light btn yellow darken-3' : 'waves-effect waves-light btn yellow darken-3'}><i className="material-icons left">star</i>Done!</a>
           </div>
