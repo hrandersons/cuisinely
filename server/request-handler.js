@@ -280,35 +280,6 @@ exports.getBookmarks = (req, res) => {
     });
 };
 
-exports.handleRating = (req, res) => {
-  const rating = req.body.rating;
-  const id = req.body.recipeId;
-  Recipe.findOne({'algolia': id})
-    .then((recipe) => {
-      let newRating = 0;
-      if (recipe.rating !== 0) {
-        newRating = (rating + recipe.rating) / 2;
-        //recipe[0].rating = newRating;
-      } else {
-        newRating = rating;
-      }
-      return Recipe.findOneAndUpdate({'algolia': id}, { '$set': {rating: newRating} });
-    })
-    .then((newRating) => {
-      res.status(200).json(newRating);
-      console.log('NEWRATING', newRating);
-      // index.partialUpdateObject({
-      //   rating: newRating,
-      //   objectID: id,
-      // }, function(err, content) {
-      //   console.log(content);
-      // });
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-};
-
 exports.saveMealPlan = (req, res) => {
   let plan = {
     userId: req.body.userId,
@@ -436,7 +407,6 @@ exports.awardPoints = (req, res) => {
         weeklyPoints = { week1: {date: now, points: 1}, week2: {date: week2, points: 0}, week3: {date: week3, points: 0}, week4: {date: week4, points: 0}};
       }
 
-
       if (arr.length === 0 ) {
         arr.push({ date: now, points: 1, weekDay: weekDay});
       } else {
@@ -531,7 +501,6 @@ exports.recommendedRecipes = (req, res) => {
           obj[rand] = true;
         }
       }
-
       res.status(200).send(recipe);
     })
     .catch((err) => {
@@ -588,6 +557,7 @@ exports.handleRating = (req, res) => {
       let newRating = 0;
       if (recipe.rating !== 0) {
         newRating = (rating + recipe.rating) / 2;
+        newRating = newRating.toFixed(1);
       } else {
         newRating = rating;
       }

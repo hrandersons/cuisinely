@@ -59,6 +59,7 @@ class Dashboard extends React.Component {
     return (
       <div className="container">
         <div className="row" align="center">
+          <br />
           <h5><strong>Welcome {name}! Ready to cook?</strong></h5>
         </div>
         <div className="row">
