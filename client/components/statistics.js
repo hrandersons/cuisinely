@@ -101,9 +101,8 @@ class Stats extends React.Component {
         </Modal>
         { (this.state.data.length > 0 && this.state.mealPlanCheck)
           ? <div>
-            <div className="row">
+            <div className="text-center">
               <UserStats data={this.state.data}/>
-              <DoughnutChart />
             </div>
             <MyCalendar meals={this.state.mealPlan} handleView={this.handleView}/>
           </div>
