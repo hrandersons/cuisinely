@@ -127,6 +127,9 @@ exports.newRecipe = (req, res) => {
     }
     image = result.url;
     var recipeObj = req.body;
+    recipeObj.ingredients = JSON.parse(recipeObj.ingredients);
+    recipeObj.equipment = JSON.parse(recipeObj.equipment);
+    recipeObj.instructions = recipeObj.instructions.split('\n');
     recipeObj.imageUrl = image;
     index.addObject(recipeObj, function(err, content) {
       if (err) {
@@ -136,11 +139,11 @@ exports.newRecipe = (req, res) => {
       let newRecipe = new Recipe({
         algolia: id,
         name: req.body.name,
-        ingredients: req.body.ingredients,
-        equipment: req.body.equipment,
+        ingredients: recipeObj.ingredients,
+        equipment: recipeObj.equipment,
         description: req.body.description,
         time: req.body.time,
-        instructions: req.body.instructions,
+        instructions: recipeObj.instructions,
         //hard-coded for now
         difficulty: difficulty,
         //also hard-coded for now
