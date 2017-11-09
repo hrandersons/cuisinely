@@ -64,7 +64,7 @@ export default class UserStats extends React.Component {
     return (
       <div className="col s10 m5 l6">
         <div align='center'>
-          <h3>Weekly Points</h3>
+          <h4>Weekly Points</h4>
         </div>
         <Line data={this.data} options={this.chartOptions}/>
       </div>
