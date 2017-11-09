@@ -25,7 +25,7 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.mealPlan.length) {
+    if (this.props.mealPlan.length && !this.props.ingredients.length) {
       this.makeShoppingList(this.props.mealPlan);
     } else {
       this.getPlannedRecipes();

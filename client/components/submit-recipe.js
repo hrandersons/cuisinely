@@ -25,7 +25,6 @@ class SubmitRecipe extends React.Component {
       instructions: '',
       imageUrl: '',
       file: '',
-      units: ['NoUnits'],
       algolia: '',
     };
 
@@ -57,7 +56,6 @@ class SubmitRecipe extends React.Component {
     formData.append('ingredients', ingredients);
     formData.append('equipment', equipment);
     formData.append('userId', this.state.userId);
-    formData.append('difficulty', 'Easy');
     formData.append('picture', this.state.file);
     formData.append('rating', 0);
     formData.append('instructions', instructions);
