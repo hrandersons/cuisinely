@@ -119,7 +119,6 @@ exports.getCalendarRecipes = (req, res) => {
 };
 
 exports.newRecipe = (req, res) => {
-  let difficulty = recipeHelper.calcDifficulty(req.body);
   let pic = req.file;
   let image = '';
   cloudinary.v2.uploader.upload(pic.path, {publicId: req.body.name}, function(error, result) {
@@ -132,6 +131,8 @@ exports.newRecipe = (req, res) => {
     recipeObj.equipment = JSON.parse(recipeObj.equipment);
     recipeObj.instructions = recipeObj.instructions.split('\n');
     recipeObj.imageUrl = image;
+    let difficulty = recipeHelper.calcDifficulty(recipeObj);
+    recipeObj.difficulty = difficulty;
     index.addObject(recipeObj, function(err, content) {
       if (err) {
         console.log(err);
