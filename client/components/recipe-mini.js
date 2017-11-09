@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { Link, Route, Redirect } from 'react-router-dom';
-import { setEdit, completeRecipe, setPoints } from '../actions/actions.js';
+import { setEdit, completeRecipe, setPoints, setList } from '../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -86,6 +86,7 @@ class MiniRecipe extends React.Component {
     editedRecipe.id = this.props.recipe.algolia;
     editedRecipe.date = this.props.recipe.date;
     this.props.setEdit(editedRecipe);
+    //this.props.makeShoppingList(this.props.mealPlan);
   }
 
   handleComplete() {
@@ -176,7 +177,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setEdit, completeRecipe, setPoints }, dispatch);
+  return bindActionCreators({ setEdit, completeRecipe, setPoints, setList }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MiniRecipe);
