@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
+const pointsController = require('./Controllers/pointsControllers.js');
 const PORT = process.env.PORT || 3000;
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
@@ -49,8 +50,8 @@ app.get('/api/bookmarks/get', handler.getBookmarks);
 app.get('/api/bookmarks/check', handler.checkBookmarks);
 
 //Points handlers
-app.post('/api/points', handler.awardPoints);
-app.post('/api/bonus', handler.bonusPoints);
+app.post('/api/points', pointsController.awardPoints);
+app.post('/api/bonus', pointsController.bonusPoints);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));
