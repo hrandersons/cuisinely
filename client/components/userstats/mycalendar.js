@@ -25,9 +25,9 @@ export default class MyCalendar extends React.Component {
       };
     };
     this.events = this.props.meals.reduce((acc, el) => {
-     let startDate = moment(el.date + ' 13:00:00').format('LLL');
-     let endDate = moment(el.date + ' 13:00:00').add(1,'hour').format('LLL');
-      acc.push({ 'title': el.name,  'startDate': startDate, 'endDate': endDate});
+      let startDate = moment(el.date + ' 13:00:00').format('LLL');
+      let endDate = moment(el.date + ' 13:00:00').add(1, 'hour').format('LLL');
+      acc.push({ 'title': el.name, 'startDate': startDate, 'endDate': endDate});
       return acc;
     }, []);
   }
