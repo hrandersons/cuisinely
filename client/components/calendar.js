@@ -25,9 +25,9 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.mealPlan.length && !this.props.ingredients.length) {
+    if (this.props.mealPlan.length) {
       this.makeShoppingList(this.props.mealPlan);
-    } else {
+    } else if (!this.props.mealPlan.length) {
       this.getPlannedRecipes();
     }
   }
@@ -53,6 +53,7 @@ class Calendar extends React.Component {
       .then((response) => {
         let listOfFive = response.data.slice(0, 5);
         this.props.setMealPlan(listOfFive);
+        this.makeShoppingList(listOfFive);
       });
   }
 
@@ -171,7 +172,7 @@ class Calendar extends React.Component {
                   className='large hoverable'
                   header={<div className={recipe.date === moment().format('ddd L') ? 'calendar-today' : 'calendar-date'}>
                     {recipe.date ? recipe.date : moment().add(index, 'days').format('ddd L')}</div>} >
-                  <MiniRecipe recipe={recipe} key={recipe.algolia} save={this.saveMealPlan}/>
+                  <MiniRecipe recipe={recipe} key={recipe.algolia} save={this.saveMealPlan} makeShoppingList={this.makeShoppingList}/>
                 </Card>
               </Col>
             );
