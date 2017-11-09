@@ -1,7 +1,5 @@
 import React from 'react';
-
 import {Bar} from 'react-chartjs-2';
-
 
 export default class UserStat extends React.Component {
   constructor(props) {
@@ -24,12 +22,10 @@ export default class UserStat extends React.Component {
       showScale: true,
       pointDot: true,
       showLines: false,
-
       title: {
         display: true,
         text: 'Chart.js Bar Chart'
       },
-
       legend: {
         display: true,
         labels: {
@@ -39,23 +35,16 @@ export default class UserStat extends React.Component {
           padding: 5,
         }
       },
-
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true,
             min: 50,
-            max: 100    
+            max: 100
           }
         }]
       }
     };
-  }
-
-
-  componentDidMount() {
-
-
   }
 
   render() {
@@ -89,8 +78,6 @@ export default class UserStat extends React.Component {
             }}/>
         </div>
       </div>
-
     );
   }
-
 }

@@ -14,11 +14,13 @@ import levels from '../../db/levels';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       dataInfo: [],
       pointsLeft: levels.levels[this.props.level + 1].points - this.props.points,
       pointsNextLevel: levels.levels[this.props.level + 1].points
     };
+
     this.getDataInformation = this.getDataInformation.bind(this);
   }
 

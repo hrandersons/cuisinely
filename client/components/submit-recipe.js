@@ -109,10 +109,8 @@ class SubmitRecipe extends React.Component {
 
   handleImageUpload(e) {
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       this.setState({
         file: file
@@ -129,7 +127,6 @@ class SubmitRecipe extends React.Component {
         return;
       }
     });
-
     this.setState({
       ingredients: currIngredients
     });
@@ -159,7 +156,6 @@ class SubmitRecipe extends React.Component {
       equipName: '',
       equipQuantity: ''
     });
-
   }
 
   handleEquipName(e) {
@@ -182,7 +178,6 @@ class SubmitRecipe extends React.Component {
         return;
       }
     });
-
     this.setState({
       equipment: currEquipment
     });
@@ -196,7 +191,6 @@ class SubmitRecipe extends React.Component {
 
   render() {
     const { redirect } = this.state;
-
     if (redirect) {
       return <Redirect to="/recipes" />;
     }
@@ -317,7 +311,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmitRecipe);
-
-
-
-// <Input s={5} label="Number/Unit" type="text" onChange={this.handleIngQuantity} value={this.state.ingQuantity}/>

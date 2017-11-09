@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Modal from 'react-modal';
 import CalendarDetails from './calendar-details.js';
+
 class Stats extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       data: [],
       mealPlan: [],
@@ -17,14 +19,17 @@ class Stats extends React.Component {
       eventDetails: {},
       mealPlanCheck: false
     };
+
     this.getDataInformation = this.getDataInformation.bind(this);
     this.getMealPlans = this.getMealPlans.bind(this);
     this.handleView = this.handleView.bind(this);
   }
+
   componentWillMount() {
     this.getDataInformation();
     this.getMealPlans();
   }
+
   getDataInformation() {
     axios.get('/api/user-data/' + this.props.user.user_id)
       .then((res) => {
@@ -41,6 +46,7 @@ class Stats extends React.Component {
         console.log(err);
       });
   }
+
   getMealPlans() {
     let userId = this.props.user.user_id;
     axios.get('/api/mealPlan', {
@@ -49,12 +55,10 @@ class Stats extends React.Component {
       .then((response) => {
         // let listOfFive = response.data.slice(0, 5);
         // this.props.setMealPlan(listOfFive);
-        
         let data = (!response.data.recipes) ? [] : response.data.recipes.reduce((acc, el) => {
           acc.push({ name: el.name, date: el.date});
           return acc;
         }, []);
-        // console.log('Data --> ',data);
         this.setState({
           mealPlan: data,
           mealPlanCheck: true
@@ -86,7 +90,7 @@ class Stats extends React.Component {
       }
     };
     return (
-      <div className="container"> 
+      <div className="container">
         <Modal className="modalContainer"
           isOpen={this.state.openView}
           onRequestHide={this.handleView}
@@ -111,6 +115,7 @@ class Stats extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     user: state.user,

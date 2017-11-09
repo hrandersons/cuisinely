@@ -3,11 +3,13 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 require('react-big-calendar/lib/css/react-big-calendar.css');
 // or globalizeLocalizer
+
 export default class MyCalendar extends React.Component {
   constructor(props) {
     super(props);
+
     BigCalendar.momentLocalizer(moment);
-    BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));   
+    BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
     this.eventSelected = this.eventSelected.bind(this);
     this.eventStyleGetter = function(event, start, end, isSelected) {
       var style = {
@@ -27,6 +29,7 @@ export default class MyCalendar extends React.Component {
       return acc;
     }, []);
   }
+
   eventSelected(e) {
     this.props.handleView(e);
   }
@@ -47,8 +50,3 @@ export default class MyCalendar extends React.Component {
     );
   }
 }
-
-
-
-
-//export default MyCalendar;

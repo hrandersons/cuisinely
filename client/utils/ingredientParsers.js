@@ -95,5 +95,4 @@ export const parensRemover = (ingredientTitle) => {
   return ingredientTitle;
 };
 
-
 export default unitMerger;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 
-
 export default class FeedMeter extends React.Component {
   constructor(props) {
     super(props);
@@ -60,5 +59,4 @@ export default class FeedMeter extends React.Component {
       </div>
     );
   }
-
 }

@@ -34,7 +34,7 @@ const calcDifficulty = (recipe) => {
   } else {
     ingredientsDiff = 3;
   }
-
+  
   return timeDiff + instructionsDiff + ingredientsDiff;
 };
 

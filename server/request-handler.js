@@ -96,7 +96,8 @@ exports.getRecipeDetail = (req, res) => {
   Recipe.find({'algolia': recipeId}).exec()
     .then((recipe) => {
       res.status(200).send(recipe);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       res.status(500).send(err);
     });
 };
@@ -184,7 +185,6 @@ exports.newRecipe = (req, res) => {
       });
     });
   });
-
   //TODO: write image processing & imageUrl update function
 };
 
@@ -235,7 +235,6 @@ exports.removeBookmark = (req, res) => {
 
 exports.checkBookmarks = (req, res) => {
   const { recipeId, userId } = req.query;
-
   User.findOne({ userId: userId })
     .then((user) => {
       if (!user) {
@@ -336,7 +335,6 @@ exports.bonusPoints = (req, res) => {
         points = Math.abs(leftPoints);
         level += 1;
       }
-
       //res.status(200).send({points: points});
       updateUserPoints(req.body.userId, points, user.pointsGraph, level, user.weeklyPoints, (user) => {
         res.status(200).send({points: points});
@@ -411,7 +409,6 @@ exports.awardPoints = (req, res) => {
         weeklyPoints = { week1: {date: now, points: 1}, week2: {date: week2, points: 0}, week3: {date: week3, points: 0}, week4: {date: week4, points: 0}};
       }
 
-
       if (arr.length === 0 ) {
         arr.push({ date: now, points: 1, weekDay: weekDay});
       } else {
@@ -426,7 +423,6 @@ exports.awardPoints = (req, res) => {
         level += 1;
         points = 0;
       }
-
       updateUserPoints(req.body.userId, points, arr, level, weeklyPoints, (user) => {
         res.status(200).send(user);
       });
@@ -506,7 +502,6 @@ exports.recommendedRecipes = (req, res) => {
           obj[rand] = true;
         }
       }
-
       res.status(200).send(recipe);
     })
     .catch((err) => {

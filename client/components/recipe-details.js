@@ -162,7 +162,6 @@ class RecipeDetails extends React.Component {
   emailRecipe() {
     console.log('recipe sent');
     var url = 'http://localhost:8080/api/emailRecipe';
-
     request
       .post(url)
       .send({
@@ -186,7 +185,6 @@ class RecipeDetails extends React.Component {
 
   render() {
     let stepCount = 1;
-
     return (
       <div className="container">
         <div className="row">
@@ -215,7 +213,6 @@ class RecipeDetails extends React.Component {
                                 <th>Item Name</th>
                               </tr>
                             </thead>
-
                             <tbody>
                               {
                                 (this.state.ingredients.length)
@@ -230,7 +227,6 @@ class RecipeDetails extends React.Component {
                               }
                             </tbody>
                           </table>
-
                         </div>
                         <div className="card-action">
                           <table>
@@ -253,7 +249,6 @@ class RecipeDetails extends React.Component {
                             </tbody>
                           </table>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -298,7 +293,6 @@ class RecipeDetails extends React.Component {
                           ? <a onClick={this.handleRemoveBookmark} className="btn-floating cyan"><i className="material-icons">bookmark</i></a>
                           : <a onClick={this.handleAddBookmark} className="btn-floating cyan"><i className="material-icons">bookmark_border</i></a>
                       }
-
                     </li>
                     <li>
                       {
@@ -306,9 +300,6 @@ class RecipeDetails extends React.Component {
                           ? <Link to='/meals'> <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">add_circle</i></a></Link>
                           : null
                       }
-                    </li>
-                    <li>
-
                     </li>
                   </ul>
                 </div>

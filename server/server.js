@@ -6,6 +6,7 @@ const handler = require('./request-handler.js');
 const PORT = process.env.PORT || 3000;
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -14,7 +15,6 @@ app.use(express.static('client/public'));
 app.get('/api/hello', (req, res) => {
   res.send({message: 'Hello World!'});
 });
-
 
 app.listen(PORT, () => {
   console.log('Listening on Port', PORT);

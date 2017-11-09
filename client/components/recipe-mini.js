@@ -32,7 +32,6 @@ class MiniRecipe extends React.Component {
       recipeId: recipe.algolia,
       userId: userId
     };
-
     axios.get('/api/bookmarks/check', { params: params })
       .then((res) => {
         this.setState({
@@ -96,7 +95,6 @@ class MiniRecipe extends React.Component {
     completed.algolia = this.props.recipe.algolia;
     completed.date = this.props.recipe.date;
     this.props.completeRecipe(completed);
-
     axios.post('/api/points', {
       userId: userId
     })
@@ -130,8 +128,6 @@ class MiniRecipe extends React.Component {
     this.props.save();
   }
 
-
-
   render() {
     return (
       <div>
@@ -144,9 +140,7 @@ class MiniRecipe extends React.Component {
           <img className="recipe-mini-img" src={(this.props.recipe.imageUrl === 'none') ? '/assets/no_img.jpg' : (this.props.recipe.imageUrl)} />
         </div>
         <div className="card-action">
-
           <Link to={`recipes/${this.props.recipe.algolia}`}>Details</Link>
-
           {
             (this.props.recipe.complete)
               ? null
@@ -154,7 +148,6 @@ class MiniRecipe extends React.Component {
                 ? <Link to='/recipes' onClick={this.handleEdit}>Editing...</Link>
                 : <Link to='/recipes' onClick={this.handleEdit}>Edit</Link>
           }
-
           <div>
             {
               (this.state.bookmarked)
