@@ -1,5 +1,5 @@
-const User = require('../db/models/user.js');
-var levels = require('../db/levels');
+const User = require('../../db/models/user.js');
+var levels = require('../../db/levels');
 
 let updateUserPoints = (userId, points, pointsGraph, level, weeklyPoints, callback) => {
   User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level, weeklyPoints: weeklyPoints} }).exec((err, user) => {
