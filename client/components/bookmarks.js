@@ -35,7 +35,7 @@ export default class Bookmarks extends React.Component {
     return (
       <div className="card white">
         <div className="card-content black-text">
-          <span className="card-title">Bookmarks</span>
+          <span className="card-title">My Bookmarks</span>
           <div>
             <ul>
               {(this.state.bookmarks.length)

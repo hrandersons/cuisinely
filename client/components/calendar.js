@@ -160,7 +160,8 @@ class Calendar extends React.Component {
   render() {
     return (
       <div align="center">
-        <h5 className="component-title">My Calendar</h5>
+        <br />
+        <h5 className="calendar-component-title">My Calendar</h5>
         <Row>
           <Col s={0} m={0} l={1} />
           {this.props.mealPlan.length ? this.props.mealPlan.map(((recipe, index) => {
