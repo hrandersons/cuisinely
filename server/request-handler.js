@@ -206,7 +206,9 @@ exports.addBookmark = (req, res) => {
         }
       }
     })
-    .then(() => { res.status(200).send('bookmarked!'); })
+    .then(() => {
+      res.status(200).send('bookmarked!');
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -228,7 +230,9 @@ exports.removeBookmark = (req, res) => {
         }
       }
     })
-    .then(() => { res.status(200).send('removed!'); })
+    .then(() => {
+      res.status(200).send('removed!');
+    })
     .catch((err) => {
       console.log(err);
     });

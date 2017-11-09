@@ -20,7 +20,7 @@ export default class NavBar extends React.Component {
       <div className="nav-bar">
         <nav>
           <div className="nav-wrapper red lighten-1">
-            <span className="brand-logo center nav-bar-title">ifeedme</span>
+            <div className="brand-logo center nav-bar-title"><Link to="../dashboard">ifeedme</Link></div>
             <SideNav
               trigger={<a className="button-collapse">
                 <i className="material-icons">menu</i>
@@ -31,17 +31,17 @@ export default class NavBar extends React.Component {
                 <Button className="waves-effect waves-light btn red accent-2" onClick={this.handleLogOut}>Log Out</Button>
               </div>
               <ul>
-                <li><Link to="../dashboard">Dashboard</Link></li>
-                <li><Link to="../recipes">Recipes</Link></li>
-                <li><Link to="../meals">Meals</Link></li>
-                <li><Link to="../user-stats">User-Stats</Link></li>
+                <li><Link to="../dashboard">Home</Link></li>
+                <li><Link to="../recipes">Search</Link></li>
+                <li><Link to="../meals">Meal Plan</Link></li>
+                <li><Link to="../user-stats">My History</Link></li>
               </ul>
             </SideNav>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><Link to="../dashboard">Dashboard</Link></li>
-              <li><Link to="../recipes">Recipes</Link></li>
-              <li><Link to="../user-stats">User-Stats</Link></li>
-              <li><Link to="../meals">Meals</Link></li>
+              <li><Link to="../dashboard">Home</Link></li>
+              <li><Link to="../recipes">Search</Link></li>
+              <li><Link to="../meals">Meal Plan</Link></li>
+              <li><Link to="../user-stats">My History</Link></li>
               <li>
                 <SideNav
                   trigger={<a className="button-profile">
