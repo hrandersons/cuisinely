@@ -40,7 +40,7 @@ export default class Recommended extends React.Component {
   render() {
     return (
       <div>
-        <h5 className="component-title" >Recommended Recipes</h5>
+        <h5 className="recommended-component-title" >Recommended Recipes</h5>
         { (this.state.pictures.length > 0)
           ? <Carousel className="carousel" >
             { this.state.recipes.map( item => {
