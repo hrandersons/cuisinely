@@ -2,16 +2,19 @@ import React from 'react';
 import { Carousel, Preloader, Row, Col} from 'react-materialize';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-export default class Recommended extends React.Component {
 
+export default class Recommended extends React.Component {
   constructor(props) {
     super(props);
-    this.getPictures = this.getPictures.bind(this);
+
     this.state = {
       pictures: [],
       recipes: []
     };
+
+    this.getPictures = this.getPictures.bind(this);
   }
+
   componentDidMount() {
     this.getPictures();
   }
@@ -33,7 +36,6 @@ export default class Recommended extends React.Component {
         console.log(err);
       });
   }
-
 
   render() {
     return (

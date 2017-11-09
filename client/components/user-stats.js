@@ -1,8 +1,10 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-class UserStats extends React.Component {
+
+export default class UserStats extends React.Component {
   constructor(props) {
     super(props);
+
     this.data = {
       labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
       datasets: [
@@ -33,12 +35,10 @@ class UserStats extends React.Component {
       showScale: true,
       pointDot: true,
       showLines: true,
-
       title: {
         display: true,
         text: 'Chart.js Bar Chart'
       },
-
       legend: {
         display: true,
         labels: {
@@ -48,13 +48,12 @@ class UserStats extends React.Component {
           padding: 5,
         }
       },
-
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true,
             min: 0,
-            max: 70    
+            max: 70
           }
         }]
       }
@@ -72,5 +71,3 @@ class UserStats extends React.Component {
     );
   }
 }
-
-export default UserStats;

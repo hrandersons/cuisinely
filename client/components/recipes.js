@@ -1,22 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
 import SearchBar from './search-bar.js';
 import RecipeEntry from './recipe-entry.js';
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Highlight,
-  SortBy,
-  Pagination,
-  RefinementList,
-  Menu,
-  Stats,
-} from 'react-instantsearch/dom';
+import { InstantSearch, SearchBox, Hits, Highlight, SortBy, Pagination, RefinementList, Menu, Stats } from 'react-instantsearch/dom';
 
-class Recipes extends React.Component {
+export default class Recipes extends React.Component {
   constructor(props) {
     super(props);
 
@@ -65,13 +54,8 @@ class Recipes extends React.Component {
             />
             <Stats />
           </div>
-
         </InstantSearch>
       </div>
-
     );
   }
 }
-
-//sortby not showing up
-export default Recipes;

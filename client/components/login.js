@@ -3,6 +3,7 @@ import React from 'react';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.login = this.login.bind(this);
   }
 
@@ -25,7 +26,7 @@ class Login extends React.Component {
                   className="waves-effect red lighten-1 btn"
                   onClick={this.login}
                 >
-                  Log In/Sign Up
+                Log In/Sign Up
                 </a></strong>
               </div>
             </div>

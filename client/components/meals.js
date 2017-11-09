@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from './calendar.js';
 
-class Meals extends React.Component {
+export default class Meals extends React.Component {
   render() {
     return (
       <div>
@@ -10,5 +10,3 @@ class Meals extends React.Component {
     );
   }
 }
-
-export default Meals;

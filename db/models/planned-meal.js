@@ -11,13 +11,12 @@ const plannedMealSchema = new mongoose.Schema({
   recipe: {type: String, required: true },
   // status of meal (incomplete/complete)
   status: {type: String, required: true },
-
 });
 
 const PlannedMeal = mongoose.model('PlannedMeal', plannedMealSchema);
 module.exports = PlannedMeal;
 
-/* This schema may seem like we would be scattering data, 
+/* This schema may seem like we would be scattering data,
 but it will allow for a better control over adjusting individual meals in a weekly plan.
 Since each planned meal would be its own entity with a specific date,
 we can even allow for multiple meals for one day,

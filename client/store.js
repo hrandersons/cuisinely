@@ -1,4 +1,4 @@
-import {applyMiddleware, createStore} from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import promise from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';

@@ -2,16 +2,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Highlight,
-  RefinementList,
-  SortBy,
-  Pagination,
-  Stats
-} from 'react-instantsearch/dom';
+import { InstantSearch, SearchBox, Hits, Highlight, RefinementList, SortBy, Pagination, Stats } from 'react-instantsearch/dom';
 import algoliasearch from 'algoliasearch';
 import RecipeEntry from './recipe-entry.js';
 
@@ -34,7 +25,6 @@ class SearchBar extends React.Component {
           <strong>Time (minutes)</strong>
           <RefinementList attributeName="time" />
         </div>
-
         <div className="col s10">
           <SearchBox className="searchbar"/>
           <Hits hitComponent={RecipeEntry} />

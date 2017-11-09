@@ -1,17 +1,18 @@
 import React from 'react';
 import UserProfile from './user-profile.js';
 
-class SideDrawer extends React.Component {
+export default class SideDrawer extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLogOut() {
-
     this.props.auth.logout();
     this.props.logout();
   }
+
   render() {
     return (
       <div className="side-drawer" align="center">
@@ -21,5 +22,3 @@ class SideDrawer extends React.Component {
     );
   }
 }
-
-export default SideDrawer;

@@ -1,8 +1,6 @@
 import Auth0Lock from 'auth0-lock';
 import history from '../components/history';
 
-
-
 const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com', {
   oidcConformant: false,
   autoclose: true,
@@ -20,7 +18,6 @@ const lock = new Auth0Lock('AdeXprk5RqSWzmmlVu5suBp6O8da1JT1', 'ifee.auth0.com',
 });
 
 export default class Auth {
-
   constructor() {
     this.handleAuthentication();
     // binds functions to keep this context
@@ -28,7 +25,6 @@ export default class Auth {
     this.logout = this.logout.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.setSession = this.setSession.bind(this);
-
   }
 
   login() {
@@ -59,7 +55,6 @@ export default class Auth {
         // navigate to the home route
         history.replace('/dashboard');
       });
-
     }
   }
 

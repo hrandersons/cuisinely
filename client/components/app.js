@@ -23,12 +23,10 @@ import RecipeDetails from './recipe-details.js';
 import ShoppingList from './shopping-list.js';
 import Stats from './statiscs.js';
 
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
@@ -51,7 +49,6 @@ class App extends React.Component {
     const userId = user.user_id;
     axios.get('/api/user/' + userId)
       .then((res) => {
-        // console.log('Res.data --> ', res.data);
         this.props.setPoints(res.data.points);
         this.props.setLevel(res.data.level);
         this.setState({
@@ -99,17 +96,14 @@ class App extends React.Component {
     );
   }
 
-
   render() {
     const { isAuthenticated } = auth;
-
     return ( isAuthenticated() ) ? (
       this.renderApp()
     ) : (
       this.renderLogin()
     );
   }
-
 }
 
 const mapStateToProps = (state) => {

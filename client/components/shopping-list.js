@@ -19,7 +19,6 @@ class ShoppingList extends React.Component {
           <div className="card white">
             <div className="card-content black-text">
               <span className="card-title"> Groceries: <i className="material-icons right">shopping_cart</i></span>
-
               <table className="highlight">
                 <thead>
                   <tr>
@@ -45,7 +44,6 @@ class ShoppingList extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col s12">
             <div className="card white">
@@ -56,7 +54,6 @@ class ShoppingList extends React.Component {
             </div>
           </div>
         </div>
-
       </div>
     );
   }

@@ -133,7 +133,6 @@ class Calendar extends React.Component {
           }
           list[shortName] = quantityList.join(', ');
         } else {
-          console.log(shortName);
           if (!shortName.toLowerCase().includes('water')) {
             list[shortName] = splitIngredient.join(' ');
           }

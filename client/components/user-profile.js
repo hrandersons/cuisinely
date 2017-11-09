@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import levels from '../../db/levels';
+
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);

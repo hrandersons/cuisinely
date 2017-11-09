@@ -1,7 +1,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
-class DoughnutChart extends React.Component {
+export default class DoughnutChart extends React.Component {
   constructor(props) {
     super(props);
     this.data = {
@@ -41,7 +41,4 @@ class DoughnutChart extends React.Component {
       </div>
     );
   }
-
 }
-
-export default DoughnutChart;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Callback extends Component {
+export default class Callback extends Component {
   render() {
     const style = {
       position: 'absolute',
@@ -33,5 +33,3 @@ class Callback extends Component {
     );
   }
 }
-
-export default Callback;
