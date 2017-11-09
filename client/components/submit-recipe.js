@@ -22,7 +22,7 @@ class SubmitRecipe extends React.Component {
       equipment: [],
       equipName: '',
       equipQuantity: '',
-      instructions: [],
+      instructions: '',
       imageUrl: '',
       file: '',
       units: ['NoUnits'],
@@ -48,13 +48,14 @@ class SubmitRecipe extends React.Component {
   handleSubmitRecipe(e) {
     e.preventDefault();
     let instructions = this.state.instructions;
-
+    let ingredients = JSON.stringify(this.state.ingredients.slice());
+    let equipment = JSON.stringify(this.state.equipment.slice());
     let formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('time', this.state.time);
     formData.append('description', this.state.description);
-    formData.append('ingredients', this.state.ingredients);
-    formData.append('equipment', this.state.equipment);
+    formData.append('ingredients', ingredients);
+    formData.append('equipment', equipment);
     formData.append('userId', this.state.userId);
     formData.append('difficulty', 'Easy');
     formData.append('picture', this.state.file);
@@ -94,7 +95,7 @@ class SubmitRecipe extends React.Component {
 
   addIngredient(e) {
     e.preventDefault();
-    let currIngredients = this.state.ingredients;
+    let currIngredients = this.state.ingredients.slice();
     currIngredients.push({
       name: this.state.ingName || 'N/A',
       quantity: this.state.ingQuantity || 'N/A'
@@ -121,7 +122,7 @@ class SubmitRecipe extends React.Component {
   }
 
   removeIngredient(e) {
-    let currIngredients = this.state.ingredients;
+    let currIngredients = this.state.ingredients.slice();
     currIngredients.forEach((item, i) => {
       if (item.name === e.target.id) {
         currIngredients.splice(i, 1);
@@ -138,17 +139,6 @@ class SubmitRecipe extends React.Component {
     this.setState({
       ingName: e.target.value
     });
-    // let ingridient = {food: e.target.value};
-    // axios.post('/api/units', ingridient)
-    //   .then((res) => {
-    //     console.log('Req.data ---> ', res.data);
-    //     this.setState({
-    //       units: res.data
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log('error: ', err);
-    //   });
   }
 
   handleIngQuantity(e) {
@@ -159,7 +149,7 @@ class SubmitRecipe extends React.Component {
 
   addEquipment(e) {
     e.preventDefault();
-    let currEquipment = this.state.equipment;
+    let currEquipment = this.state.equipment.slice();
     currEquipment.push({
       name: this.state.equipName || 'N/A',
       quantity: this.state.equipQuantity || 'N/A'
