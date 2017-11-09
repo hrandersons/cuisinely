@@ -25,6 +25,10 @@ a {
   font-weight: bold;
 }
 
+.recommended-component-title {
+  text-align: center;
+}
+
 .dashboard {
   font-size: 40px;
 }
