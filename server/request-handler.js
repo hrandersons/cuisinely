@@ -7,11 +7,12 @@ const mongoose = require ('mongoose');
 const cloudinary = require('cloudinary');
 const cloudinaryKeys = (process.env.NODE_ENV === 'production') ? {cloud_name: process.env.CLOUD_NAME, api_key: process.env.API_KEY, api_secret: process.env.API_SECRET } : require('./cloudinary_keys');
 const nodemailer = require('nodemailer');
-const algoliaKeys = require('./algolia_keys');
+const algoliaKeys = (process.env.NODE_ENV === 'production') ? {application_ID: process.env.APPLICATION_ID, adminAPI_key: process.env.ADMINAPI_KEY } : require('./algolia_keys');
 const algoliasearch = require('algoliasearch');
 
 var client = algoliasearch(algoliaKeys.application_ID, algoliaKeys.adminAPI_key);
 var index = client.initIndex('allrecipes');
+var levels = require('../db/levels');
 
 //all requests go here
 //export contents to server.js
@@ -180,21 +181,20 @@ exports.newRecipe = (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
-          User.findOneAndUpdate({ userId: req.body.userId }, { $inc: {points: 1 }}).exec((err, newuser) => {
+          User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
             if (err) {
               console.log('Error --> ', err);
             } else {
-              let now = new Date();
-              let weekDay = now.getDay();
-              if (newuser.pointsGraph.length === 0 ) {
-                newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-              } else {
-                let lastelement = newuser.pointsGraph[newuser.pointsGraph.length - 1];
-                if (weekDay !== lastelement.weekDay) {
-                  newuser.pointsGraph.push({ date: now, points: 1, weekDay: weekDay});
-                } else {
-                  newuser.pointsGraph.push({ date: now, points: newuser.points + 1, weekDay: weekDay});
-                }
+              //res.status(201).send({point: newuser.points + 2});
+              let points = newuser.points + 2;
+              let level = newuser.level;
+              let pointsGraph = newuser.pointsGraph;
+              if (points === levels.levels[level + 1].points) {
+                points = 0;
+                level += 1;
+              } else if (points > levels.levels[level + 1].points) {
+                points = 1;
+                level += 1;
               }
               updateUserPoints(req.body.userId, points, pointsGraph, level, newuser.weeklyPoints, (user) => {
                 res.status(201).send({point: user.points});
