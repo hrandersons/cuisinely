@@ -2,7 +2,7 @@ body {
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
-  font-family: 'Ubuntu', serif;
+  font-family: 'Vollkorn', serif;
 }
 
 a {
@@ -11,7 +11,26 @@ a {
 
 .component-title {
   font-weight: bold;
+  text-align: left;
+}
+
+.calendar-component-title {
   text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.search-component-title {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.dashboard {
+  font-size: 40px;
+}
+
+.feedmeter{
+  font-size: 18px;
 }
 
 .nav-bar-title {

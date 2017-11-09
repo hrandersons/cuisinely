@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
       <div className="container">
         <div className="row" align="center">
           <br />
-          <h5><strong>Welcome {name}! Ready to cook?</strong></h5>
+          <h5 className="dashboard"><strong>Welcome {name}! Ready to cook?</strong></h5>
         </div>
         <div className="row">
           <PopularRecipes />
@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
         { (this.state.dataInfo.length > 0)
           ? <div>
             <div className="row" align="center">
-              <span><strong>Points Until Next Level: {this.state.pointsLeft} pts!</strong></span>
+              <span className="feedmeter"><strong>Points Until Next Level: {this.state.pointsLeft} pts!</strong></span>
               <FeedMeter points={this.props.points} pointsNextLevel={this.state.pointsNextLevel}/>
             </div>
             <div className="row">

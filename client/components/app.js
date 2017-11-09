@@ -21,12 +21,12 @@ import Login from './login.js';
 import Callback from './callback.js';
 import RecipeDetails from './recipe-details.js';
 import ShoppingList from './shopping-list.js';
-import Stats from './statiscs.js';
+import Stats from './statistics.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.renderApp = this.renderApp.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
