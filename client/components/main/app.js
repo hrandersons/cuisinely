@@ -2,26 +2,26 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUserInfo, setPoints, setLevel } from '../actions/actions.js';
+import { setUserInfo, setPoints, setLevel } from '../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 
-import Auth from '../Auth/Auth';
+import Auth from '../../Auth/Auth';
 import history from './history.js';
-import levels from '../../db/levels';
+import levels from '../../../db/levels';
 
 const auth = new Auth();
 
 import NavBar from './nav-bar.js';
 import SideDrawer from './side-drawer.js';
-import Dashboard from './dashboard.js';
-import Recipes from './recipes.js';
-import SubmitRecipe from './submit-recipe.js';
-import Meals from './meals.js';
+import Dashboard from '../dashboard/dashboard.js';
+import Recipes from '../search/recipes.js';
+import SubmitRecipe from '../search/submit-recipe.js';
+import Meals from '../mealplan/meals.js';
 import Login from './login.js';
 import Callback from './callback.js';
-import RecipeDetails from './recipe-details.js';
-import ShoppingList from './shopping-list.js';
-import Stats from './statistics.js';
+import RecipeDetails from '../search/recipe-details.js';
+import ShoppingList from '../mealplan/shopping-list.js';
+import Stats from '../userstats/statistics.js';
 
 class App extends React.Component {
   constructor(props) {

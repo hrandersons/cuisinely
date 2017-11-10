@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { Link, Route, Redirect } from 'react-router-dom';
-import { setEdit, completeRecipe, setPoints, setList } from '../actions/actions.js';
+import { setEdit, completeRecipe, setPoints, setList } from '../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from 'axios';

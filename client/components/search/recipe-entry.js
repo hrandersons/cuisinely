@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import { setUserInfo, editMealPlan } from '../actions/actions.js';
+import { setUserInfo, editMealPlan } from '../../actions/actions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';

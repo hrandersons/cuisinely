@@ -1,15 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import RecipeEntry from './recipe-entry.js';
+import RecipeEntry from '../search/recipe-entry.js';
 import MiniRecipe from './recipe-mini.js';
 import ShoppingList from './shopping-list.js';
 import { Card, CardTitle, Row, Col, Button, Icon } from 'react-materialize';
 import { Link, Route } from 'react-router-dom';
 import moment from 'moment';
-import { setList, setMealPlan } from '../actions/actions.js';
+import { setList, setMealPlan } from '../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import unitMerger, { commaRemover, parensRemover } from '../utils/ingredientParsers.js';
+import unitMerger, { commaRemover, parensRemover } from '../../utils/ingredientParsers.js';
 
 class Calendar extends React.Component {
   constructor(props) {

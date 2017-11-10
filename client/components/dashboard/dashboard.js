@@ -1,15 +1,15 @@
 import React from 'react';
-import RecipeEntry from './recipe-entry.js';
+import RecipeEntry from '../search/recipe-entry.js';
 import Bookmarks from './bookmarks.js';
 import UserStat from './user-stat.js';
 import FeedMeter from './feed-meter.js';
 import { connect } from 'react-redux';
-import { setPoints, setLevel } from '../actions/actions.js';
+import { setPoints, setLevel } from '../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 import Recommended from './recommend-recipe.js';
 import PopularRecipes from './popular-recipes.js';
 import axios from 'axios';
-import levels from '../../db/levels';
+import levels from '../../../db/levels';
 
 class Dashboard extends React.Component {
   constructor(props) {
