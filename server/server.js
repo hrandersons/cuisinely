@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
 const pointsController = require('./Controllers/pointsControllers.js');
 const bookmarksController = require('./Controllers/bookmarksControllers.js');
+const mealPlanController = require('./Controllers/mealPlanControllers.js');
+const recipeController = require('./Controllers/recipeControllers.js');
 const PORT = process.env.PORT || 3000;
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
@@ -28,21 +30,21 @@ app.get('/api/user-data/:userId', handler.getData);
 let foodUpload = upload.single('picture');
 
 // export recipe
-app.post('/api/emailRecipe', handler.emailRecipe);
+app.post('/api/emailRecipe', recipeController.emailRecipe);
 
 // Recipes handlers
-app.get('/api/recipes/detail/:recipeId', handler.getRecipeDetail);
-app.get('/api/recipes', handler.sendRecipes);
-app.post('/api/recipes', foodUpload, handler.newRecipe);
-app.get('/api/recommended', handler.recommendedRecipes);
-app.get('/api/popular', handler.popularRecipes);
-app.put('/api/recipes/detail/:recipeId', handler.handleRating);
+app.get('/api/recipes/detail/:recipeId', recipeController.getRecipeDetail);
+app.get('/api/recipes', recipeController.sendRecipes);
+app.post('/api/recipes', foodUpload, recipeController.newRecipe);
+app.get('/api/recommended', recipeController.recommendedRecipes);
+app.get('/api/popular', recipeController.popularRecipes);
+app.put('/api/recipes/detail/:recipeId', recipeController.handleRating);
 
 // meal plan handlers
 //app.post('/api/units', handler.getsourceUnits);
-app.get('/api/calendarRecipes', handler.getCalendarRecipes);
-app.get('/api/mealPlan', handler.sendMealPlan);
-app.post('/api/mealPlan', handler.saveMealPlan);
+app.get('/api/calendarRecipes', mealPlanController.getCalendarRecipes);
+app.get('/api/mealPlan', mealPlanController.sendMealPlan);
+app.post('/api/mealPlan', mealPlanController.saveMealPlan);
 
 // Bookmarks handlers
 app.put('/api/bookmarks', bookmarksController.addBookmark);
