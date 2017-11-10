@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const handler = require('./request-handler.js');
 const userController = require('./Controllers/userControllers.js');
 const pointsController = require('./Controllers/pointsControllers.js');
 const bookmarksController = require('./Controllers/bookmarksControllers.js');
