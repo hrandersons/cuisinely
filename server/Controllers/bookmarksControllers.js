@@ -1,4 +1,5 @@
 const User = require('../../db/models/user.js');
+const Recipe = require('../../db/models/recipe.js');
 
 exports.addBookmark = (req, res) => {
   //id of recipe to bookmark
