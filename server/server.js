@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
+const pointsController = require('./Controllers/pointsControllers.js');
+const bookmarksController = require('./Controllers/bookmarksControllers.js');
 const PORT = process.env.PORT || 3000;
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
@@ -43,14 +45,14 @@ app.get('/api/mealPlan', handler.sendMealPlan);
 app.post('/api/mealPlan', handler.saveMealPlan);
 
 // Bookmarks handlers
-app.put('/api/bookmarks', handler.addBookmark);
-app.delete('/api/bookmarks', handler.removeBookmark);
-app.get('/api/bookmarks/get', handler.getBookmarks);
-app.get('/api/bookmarks/check', handler.checkBookmarks);
+app.put('/api/bookmarks', bookmarksController.addBookmark);
+app.delete('/api/bookmarks', bookmarksController.removeBookmark);
+app.get('/api/bookmarks/get', bookmarksController.getBookmarks);
+app.get('/api/bookmarks/check', bookmarksController.checkBookmarks);
 
 //Points handlers
-app.post('/api/points', handler.awardPoints);
-app.post('/api/bonus', handler.bonusPoints);
+app.post('/api/points', pointsController.awardPoints);
+app.post('/api/bonus', pointsController.bonusPoints);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/public/index.html'));
