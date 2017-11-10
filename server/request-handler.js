@@ -61,7 +61,7 @@ exports.getUserInfo = (req, res) => {
         Tuesday.setDate(Tuesday.getDate() - 2);
         let Wednesday = new Date(now);
         Wednesday.setDate(Wednesday.getDate() - 1);
-        let pointsGraph = [{weekDay:0,points:4,date: Sunday},{weekDay:1,points:5,date:Monday},{weekDay:2,points:3,date:Tuesday},{weekDay:3,points:6,date: Wednesday},{weekDay:4,points:1,date:now}];
+        let pointsGraph = [{weekDay: 0, points: 4, date: Sunday}, {weekDay: 1, points: 5, date: Monday}, {weekDay: 2, points: 3, date: Tuesday}, {weekDay: 3, points: 6, date: Wednesday}, {weekDay: 4, points: 1, date: now}];
         User.create({
           userId: userId,
           bookmarks: [],
