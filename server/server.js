@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
 const pointsController = require('./Controllers/pointsControllers.js');
 const bookmarksController = require('./Controllers/bookmarksControllers.js');
+const mealPlanController = require('./Controllers/mealPlanControllers.js');
 const PORT = process.env.PORT || 3000;
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
@@ -40,9 +41,9 @@ app.put('/api/recipes/detail/:recipeId', handler.handleRating);
 
 // meal plan handlers
 //app.post('/api/units', handler.getsourceUnits);
-app.get('/api/calendarRecipes', handler.getCalendarRecipes);
-app.get('/api/mealPlan', handler.sendMealPlan);
-app.post('/api/mealPlan', handler.saveMealPlan);
+app.get('/api/calendarRecipes', mealPlanController.getCalendarRecipes);
+app.get('/api/mealPlan', mealPlanController.sendMealPlan);
+app.post('/api/mealPlan', mealPlanController.saveMealPlan);
 
 // Bookmarks handlers
 app.put('/api/bookmarks', bookmarksController.addBookmark);

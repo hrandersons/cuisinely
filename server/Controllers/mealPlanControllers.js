@@ -1,17 +1,17 @@
 const Recipe = require('../../db/models/recipe.js');
+const MealPlan = require('../../db/models/mealplan.js');
 
 exports.getCalendarRecipes = (req, res) => {
   Recipe.count({}, (err, count) => {
     let skipRecords = randomizer(1, count - 5);
     Recipe.find({})
       .skip(skipRecords)
-      .exec((err, result) => {
-        if (err) {
-          console.log(err);
-          res.status(404).send('Failed to find recipes');
-        } else {
-          res.status(200).send(result);
-        }
+      .then((result) => {
+        res.status(200).send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(404).send('Failed to find recipes');
       });
   });
 };
@@ -19,13 +19,12 @@ exports.getCalendarRecipes = (req, res) => {
 exports.sendMealPlan = (req, res) => {
   const id = req.query.userId;
   MealPlan.findOne({ userId: id})
-    .exec((err, plan) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Something went wrong!');
-      } else {
-        res.status(200).send(plan);
-      }
+    .then((plan) => {
+      res.status(200).send(plan);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Something went wrong!');
     });
 };
 
