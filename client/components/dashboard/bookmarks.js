@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import RecipeEntry from './recipe-entry';
+import RecipeEntry from '../search/recipe-entry.js';
 
 export default class Bookmarks extends React.Component {
   constructor(props) {

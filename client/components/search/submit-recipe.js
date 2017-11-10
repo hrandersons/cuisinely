@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Input, Row, Button, Icon, Card, Dropdown, NavItem } from 'react-materialize';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setPoints } from '../actions/actions.js';
+import { setPoints } from '../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 
 class SubmitRecipe extends React.Component {
