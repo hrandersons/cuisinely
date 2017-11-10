@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const handler = require('./request-handler.js');
+const userController = require('./Controllers/userControllers.js');
 const pointsController = require('./Controllers/pointsControllers.js');
 const bookmarksController = require('./Controllers/bookmarksControllers.js');
 const mealPlanController = require('./Controllers/mealPlanControllers.js');
@@ -24,8 +25,8 @@ app.listen(PORT, () => {
   console.log('Listening on Port', PORT);
 });
 
-app.get('/api/user/:userId', handler.getUserInfo);
-app.get('/api/user-data/:userId', handler.getData);
+app.get('/api/user/:userId', userController.getUserInfo);
+app.get('/api/user-data/:userId', userController.getData);
 
 let foodUpload = upload.single('picture');
 
