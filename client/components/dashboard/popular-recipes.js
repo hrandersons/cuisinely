@@ -40,6 +40,7 @@ export default class PopularRecipes extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         {(this.state.recipes.length > 0)
