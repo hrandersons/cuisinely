@@ -23,7 +23,6 @@ exports.getUserInfo = (req, res) => {
           weeklyPoints: weekly
         })
           .then((newUser) => {
-            console.log('user created!');
             res.status(200).json(newUser);
           });
       }

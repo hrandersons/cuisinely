@@ -2,14 +2,14 @@ const User = require('../../db/models/user.js');
 const levels = require('../../db/levels');
 
 let updateUserPoints = (userId, points, pointsGraph, level, weeklyPoints, callback) => {
-  User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level, weeklyPoints: weeklyPoints} }).exec((err, user) => {
-    if (err) {
-      console.log('Err ---> ', err);
-    } else {
-      callback(user);
-    }
-  });
-};
+  User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level, weeklyPoints: weeklyPoints} })
+      .then((user) => {
+        callback(user);        
+      })
+      .catch((err) => {
+        console.log('Error  -> ',err);
+      })
+  };
 
 let compareDays = (day1, day2) => {
   var one = new Date(day1.getFullYear(), day1.getMonth(), day1.getDate());
@@ -22,10 +22,8 @@ let compareDays = (day1, day2) => {
 
 exports.bonusPoints = (req, res) => {
   let points = req.body.points;
-  User.findOne({ userId: req.body.userId }, (err, user) => {
-    if (err) {
-      console.log(err);
-    } else {
+  User.findOne({ userId: req.body.userId })
+    .then((user) => {
       let level = user.level;
       let leftPoints = levels.levels[level + 1].points - points;
       if (leftPoints === 0) {
@@ -38,16 +36,15 @@ exports.bonusPoints = (req, res) => {
       updateUserPoints(req.body.userId, points, user.pointsGraph, level, user.weeklyPoints, (user) => {
         res.status(200).send({points: points});
       });
-    }
-  });
+    })
+    .catch((err) => {
+      console.log('Error ---> ',error);
+    })
 };
 
 exports.awardPoints = (req, res) => {
-  User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
-    if (err) {
-      console.log('Error --> ', err);
-      res.status(500).send('Failed to update points');
-    } else {
+  User.findOne({ userId: req.body.userId })
+      .then((newuser) => {
       let now = new Date();
       let today = new Date(now);
       today.setDate(today.getDate());
@@ -116,6 +113,8 @@ exports.awardPoints = (req, res) => {
       updateUserPoints(req.body.userId, points, arr, level, weeklyPoints, (user) => {
         res.status(200).send(user);
       });
-    }
-  });
+    })
+    .catch((err) => {
+      res.status(500).send('Failed to update points');
+    });
 };
