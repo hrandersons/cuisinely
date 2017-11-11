@@ -13,13 +13,13 @@ const index = client.initIndex('allrecipes');
 cloudinary.config(cloudinaryKeys);
 
 let updateUserPoints = (userId, points, pointsGraph, level, weeklyPoints, callback) => {
-  User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level, weeklyPoints: weeklyPoints} }).exec((err, user) => {
-    if (err) {
-      console.log('Err ---> ', err);
-    } else {
-      callback(user);
-    }
-  });
+  User.findOneAndUpdate({ userId: userId }, { '$set': { 'points': points, pointsGraph: pointsGraph, level: level, weeklyPoints: weeklyPoints} }) 
+      .then((user) => {
+        callback(user);
+      })
+      .catch((err) => {
+          console.log('Error --> ',err)
+      });
 };
 
 exports.getRecipeDetail = (req, res) => {
@@ -89,10 +89,9 @@ exports.newRecipe = (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
-          User.findOne({ userId: req.body.userId }).exec((err, newuser) => {
-            if (err) {
-              console.log('Error --> ', err);
-            } else {
+          User.findOne({ userId: req.body.userId })
+             .then((newuser) => {
+
               let points = newuser.points + 2;
               let level = newuser.level;
               let pointsGraph = newuser.pointsGraph;
@@ -106,12 +105,14 @@ exports.newRecipe = (req, res) => {
               updateUserPoints(req.body.userId, points, pointsGraph, level, newuser.weeklyPoints, (user) => {
                 res.status(201).send({point: user.points});
               });
+             })
+             .catch((err) => {
+              console.log('Error --> ', err);
+             })
             }
           });
-        }
       });
     });
-  });
 };
 
 exports.recommendedRecipes = (req, res) => {
