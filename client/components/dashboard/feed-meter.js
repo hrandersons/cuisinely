@@ -4,19 +4,18 @@ import { HorizontalBar } from 'react-chartjs-2';
 export default class FeedMeter extends React.Component {
   constructor(props) {
     super(props);
+
     this.data = {
       labels: [],
-      datasets: [
-        {
-          label: 'Feed Meter',
-          backgroundColor: '#ffe082',
-          borderColor: '#ffab00',
-          borderWidth: 1,
-          hoverBackgroundColor: '#ffa726',
-          hoverBorderColor: '#ff9100',
-          data: [this.props.points]
-        }
-      ]
+      datasets: [{
+        label: 'Feed Meter',
+        backgroundColor: '#ffe082',
+        borderColor: '#ffab00',
+        borderWidth: 1,
+        hoverBackgroundColor: '#ffa726',
+        hoverBorderColor: '#ff9100',
+        data: [this.props.points]
+      }]
     };
   }
 

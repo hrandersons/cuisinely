@@ -137,7 +137,6 @@ class RecipeDetails extends React.Component {
       });
   }
 
-
   handleRecipeComplete() {
     const userId = this.props.user.user_id;
     axios.post('/api/points', {
@@ -236,15 +235,14 @@ class RecipeDetails extends React.Component {
                               </tr>
                             </thead>
                             <tbody>
-                              {
-                                (this.state.equipment.length)
-                                  ? (this.state.equipment.map(equip => (
-                                    <tr className="equipment"
-                                      key={equip.name}>
-                                      <td>{equip.quantity} {equip.name}</td>
-                                    </tr>
-                                  )))
-                                  : (<tr><td>N/A</td></tr>)
+                              {(this.state.equipment.length)
+                                ? (this.state.equipment.map(equip => (
+                                  <tr className="equipment"
+                                    key={equip.name}>
+                                    <td>{equip.quantity} {equip.name}</td>
+                                  </tr>
+                                )))
+                                : (<tr><td>N/A</td></tr>)
                               }
                             </tbody>
                           </table>
@@ -255,15 +253,14 @@ class RecipeDetails extends React.Component {
                 </div>
                 <h5>Instructions:</h5>
                 <div>
-                  {
-                    (this.state.instructions.length)
-                      ? (this.state.instructions.map(step => (
-                        <ul className="instruction-step"
-                          key={step}>
-                          <li>{stepCount++}. {step}</li>
-                        </ul>
-                      )))
-                      : (<span>N/A</span>)
+                  {(this.state.instructions.length)
+                    ? (this.state.instructions.map(step => (
+                      <ul className="instruction-step"
+                        key={step}>
+                        <li>{stepCount++}. {step}</li>
+                      </ul>
+                    )))
+                    : (<span>N/A</span>)
                   }
                   <div align="center">
                     <a onClick={this.handleRecipeComplete} className="waves-effect waves-light btn yellow darken-3"><i className="material-icons left">star</i>Recipe Complete!</a>
@@ -295,10 +292,9 @@ class RecipeDetails extends React.Component {
                       }
                     </li>
                     <li>
-                      {
-                        (this.props.editId)
-                          ? <Link to='/meals'> <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">add_circle</i></a></Link>
-                          : null
+                      {(this.props.editId)
+                        ? <Link to='/meals'> <a onClick={this.handleEditPlan} className="btn-floating yellow"><i className="material-icons">add_circle</i></a></Link>
+                        : null
                       }
                     </li>
                   </ul>

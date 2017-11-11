@@ -5,9 +5,6 @@ import App from './components/main/app.js';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppContainer } from 'react-hot-loader';
-// import Auth from './Auth/Auth';
-// import AuthKeys from './Auth/Auth_keys';
-// require('react-big-calendar/lib/css/react-big-calendar.css');
 
 const render = Component => {
   ReactDOM.render((

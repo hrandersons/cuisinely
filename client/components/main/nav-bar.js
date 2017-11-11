@@ -44,9 +44,9 @@ export default class NavBar extends React.Component {
               <li><Link to="../user-stats">My History</Link></li>
               <li>
                 <SideNav
-                  trigger={<a className="button-profile">
+                  trigger={ <a className="button-profile">
                     <i className="material-icons">person</i>
-                  </a>}
+                  </a> }
                   options={{ closeOnClick: true, edge: 'right' }}
                 >
                   <div>

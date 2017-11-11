@@ -65,7 +65,9 @@ class SubmitRecipe extends React.Component {
       .then((res) => {
         console.log('User Points --> ', res.data);
         this.props.setPoints(res.data.point);
-        this.setState({ redirect: true });
+        this.setState({
+          redirect: true
+        });
         Materialize.toast('Recipe Submitted!', 4000);
       })
       .catch((err) => {
@@ -220,16 +222,15 @@ class SubmitRecipe extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      (this.state.ingredients.length !== 0)
-                        ? (this.state.ingredients.map(item => (
-                          <tr className="ingredients"
-                            key={item.name}>
-                            <td>{item.name}</td>
-                            <td>{item.quantity}</td>
-                            <td><a id={item.name} onClick={this.removeIngredient}>Remove</a></td>
-                          </tr> )))
-                        : (null)
+                    {(this.state.ingredients.length !== 0)
+                      ? (this.state.ingredients.map(item => (
+                        <tr className="ingredients"
+                          key={item.name}>
+                          <td>{item.name}</td>
+                          <td>{item.quantity}</td>
+                          <td><a id={item.name} onClick={this.removeIngredient}>Remove</a></td>
+                        </tr> )))
+                      : (null)
                     }
                   </tbody>
                 </table>
@@ -252,16 +253,15 @@ class SubmitRecipe extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      (this.state.equipment.length !== 0)
-                        ? (this.state.equipment.map(equip => (
-                          <tr className="equipment"
-                            key={equip.name}>
-                            <td>{equip.name}</td>
-                            <td>{equip.quantity}</td>
-                            <td><a id={equip.name} onClick={this.removeEquipment}>Remove</a></td>
-                          </tr> )))
-                        : (null)
+                    {(this.state.equipment.length !== 0)
+                      ? (this.state.equipment.map(equip => (
+                        <tr className="equipment"
+                          key={equip.name}>
+                          <td>{equip.name}</td>
+                          <td>{equip.quantity}</td>
+                          <td><a id={equip.name} onClick={this.removeEquipment}>Remove</a></td>
+                        </tr> )))
+                      : (null)
                     }
                   </tbody>
                 </table>

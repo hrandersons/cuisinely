@@ -99,7 +99,7 @@ class Stats extends React.Component {
         >
           <CalendarDetails event={this.state.eventDetails} onClose={this.handleView}/>
         </Modal>
-        { (this.state.data.length > 0 && this.state.mealPlanCheck)
+        {(this.state.data.length > 0 && this.state.mealPlanCheck)
           ? <div>
             <div className="text-center">
               <UserStats data={this.state.data}/>
