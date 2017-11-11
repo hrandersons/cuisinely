@@ -4,19 +4,18 @@ import {Bar} from 'react-chartjs-2';
 export default class UserStat extends React.Component {
   constructor(props) {
     super(props);
+
     this.data = {
       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      datasets: [
-        {
-          label: 'Recipes Completed',
-          backgroundColor: '#ef9a9a',
-          borderColor: '#ef9a9a',
-          borderWidth: 1,
-          hoverBackgroundColor: '#e57373',
-          hoverBorderColor: '#e57373',
-          data: this.props.data
-        }
-      ]
+      datasets: [{
+        label: 'Recipes Completed',
+        backgroundColor: '#ef9a9a',
+        borderColor: '#ef9a9a',
+        borderWidth: 1,
+        hoverBackgroundColor: '#e57373',
+        hoverBorderColor: '#e57373',
+        data: this.props.data
+      }]
     };
     this.chartOptions = {
       showScale: true,
@@ -53,7 +52,7 @@ export default class UserStat extends React.Component {
         <div className="card-content black-text">
           <span className="card-title">Recipes Completed</span>
           <Bar
-            data={ this.data}
+            data={ this.data }
             options={{
               legend: {
                 display: false

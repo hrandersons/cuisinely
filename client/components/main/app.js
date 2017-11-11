@@ -61,7 +61,9 @@ class App extends React.Component {
   }
 
   toggleDrawer() {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
+    this.setState({
+      drawerOpen: !this.state.drawerOpen
+    });
   }
 
   handleLogOut() {

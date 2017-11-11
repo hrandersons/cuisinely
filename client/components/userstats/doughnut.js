@@ -4,6 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 export default class DoughnutChart extends React.Component {
   constructor(props) {
     super(props);
+    
     this.data = {
       labels: [
         'Week 1',

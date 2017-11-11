@@ -30,16 +30,15 @@ class ShoppingList extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      (this.props.ingredients.length)
-                        ? (this.props.ingredients.map(item => (
-                          <tr className="ingredient"
-                            key={item.name}>
-                            <td>{item.name}</td>
-                            <td>{item.quantity}</td>
-                          </tr>
-                        )))
-                        : (null)
+                    {(this.props.ingredients.length)
+                      ? (this.props.ingredients.map(item => (
+                        <tr className="ingredient"
+                          key={item.name}>
+                          <td>{item.name}</td>
+                          <td>{item.quantity}</td>
+                        </tr>
+                      )))
+                      : (null)
                     }
                   </tbody>
                 </table>

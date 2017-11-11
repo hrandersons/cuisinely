@@ -108,15 +108,13 @@ class RecipeEntry extends React.Component {
               </div>
               <div className="card-action">
                 <Link to={`recipes/${hit.objectID}`}>Explore</Link>
-                {
-                  (this.state.bookmarked)
-                    ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
-                    : <a onClick={this.handleAddBookmark}>Bookmark</a>
+                {(this.state.bookmarked)
+                  ? <a onClick={this.handleRemoveBookmark}>Remove Bookmark</a>
+                  : <a onClick={this.handleAddBookmark}>Bookmark</a>
                 }
-                {
-                  (this.props.editId)
-                    ? <Link to='/meals' onClick={this.handleEditPlan}>Add to plan</Link>
-                    : null
+                {(this.props.editId)
+                  ? <Link to='/meals' onClick={this.handleEditPlan}>Add to plan</Link>
+                  : null
                 }
               </div>
             </div>

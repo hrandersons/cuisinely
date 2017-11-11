@@ -20,7 +20,6 @@ const recipeSchema = new mongoose.Schema({
   description: { type: String },
   //instructions, collected in order
   instructions: { type: [], required: true },
-
   servings: { type: String },
   //difficulty rating, will have to calculate on recipe save
   difficulty: { type: Number, required: true },
@@ -28,7 +27,6 @@ const recipeSchema = new mongoose.Schema({
   rating: { type: Number, required: true },
   //image source
   likes: { type: Number},
-
   imageUrl: { type: String, required: true },
   //original recipe source: need to track whether recipe is user-submitted or from an external site
   source: {type: String, required: true}
